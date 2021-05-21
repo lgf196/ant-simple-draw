@@ -6,7 +6,7 @@ import ConfigPanel from '@/pages/components/ConfigPanel';
 import { Drawer, notification } from 'antd';
 import './assets/css/reset.css';
 import './assets/css/global.css';
-import styles from './app.module.scss';
+import styles from './appComponent.module.scss';
 
 const closeStyle: React.CSSProperties = {
   right: '0px',
