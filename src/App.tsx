@@ -38,7 +38,7 @@ export default function App() {
             <a href="https://github.com/lgf196/simple-diagrh">
               《simple-diagrh》
             </a>
-            作者，一个菜鸟码农
+            一个菜鸟码农
           </p>
         </>
       ),
