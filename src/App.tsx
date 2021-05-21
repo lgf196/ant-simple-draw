@@ -43,7 +43,7 @@ export default function App() {
         </>
       ),
       onClick: () => {
-        console.log('Notification Clicked!');
+        console.log('Notification Ceeeelicked!');
       },
     });
     const graph = FlowGraph.init();
