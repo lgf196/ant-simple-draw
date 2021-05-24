@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Tabs, Row, Col, Input, Slider, Select } from 'antd';
+import { Tabs, Row, Col, Input, Slider, Select, Button } from 'antd';
 import FlowGraph from '@/pages/Graph';
 import { Cell, Edge } from '@antv/x6';
+import { useSetState } from '@/hooks';
 
 const { TabPane } = Tabs;
-
 interface IProps {
   id: string;
 }
@@ -14,8 +14,35 @@ interface EdgeAttrs {
   connector: string;
 }
 
+export interface labelAttrsType {
+  fontSize: number;
+  fill: string;
+  text: string;
+}
+export const labelsDefaults = {
+  fontSize: 12,
+  fill: '#666',
+  text: '',
+};
+
+export const filterGetLabels = (labelArr: NonNullable<Edge.Label[]>) => {
+  if (!labelArr.length) return labelsDefaults;
+  return labelArr[0].attrs!.label;
+};
+
+export const handleGetLabels = (
+  labelattrs: Partial<labelAttrsType>,
+  labelsDefaults: labelAttrsType,
+) => {
+  return {
+    attrs: { label: Object.assign({}, labelsDefaults, labelattrs) },
+  };
+};
+
 export default function (props: IProps) {
   const { id } = props;
+  const [labelattrs, setLabelattrs] =
+    useSetState<labelAttrsType>(labelsDefaults);
   const [attrs, setAttrs] = useState<EdgeAttrs>({
     stroke: '#5F95FF',
     strokeWidth: 1,
@@ -30,14 +57,15 @@ export default function (props: IProps) {
       if (!cell || !cell.isEdge()) {
         return;
       }
-      cellRef.current = cell;
-
+      cellRef.current = cell as Edge;
       const connector = cell.getConnector() || {
         name: 'normal',
       };
+      const getLabels = filterGetLabels(cell.getLabels());
       setAttr('stroke', cell.attr('line/stroke'));
       setAttr('strokeWidth', cell.attr('line/strokeWidth'));
       setAttr('connector', connector.name);
+      setLabelattrs(getLabels);
     }
   }, [id]);
 
@@ -63,6 +91,22 @@ export default function (props: IProps) {
     setAttr('connector', val);
     const cell = cellRef.current as Edge;
     cell.setConnector(val);
+  };
+
+  const textChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    textKey: string,
+    sliderVal?: number,
+  ) => {
+    const val = sliderVal ? sliderVal : e.target.value;
+    const cell = cellRef.current as Edge;
+    setLabelattrs({ [textKey]: val });
+    cell.setLabels([handleGetLabels({ [textKey]: val }, labelattrs)]);
+  };
+
+  const removeConnector = () => {
+    const cell = cellRef.current as Edge;
+    cell.disconnect();
   };
 
   return (
@@ -107,6 +151,57 @@ export default function (props: IProps) {
               <Select.Option value="rounded">Rounded</Select.Option>
               <Select.Option value="jumpover">Jumpover</Select.Option>
             </Select>
+          </Col>
+        </Row>
+        <Row align="middle">
+          <Col span={8}>文本</Col>
+          <Col span={14}>
+            <Input
+              style={{ width: '100%' }}
+              value={labelattrs.text}
+              onChange={(val) => textChange(val, 'text')}
+            />
+          </Col>
+        </Row>
+        <Row align="middle">
+          <Col span={8}>字体颜色</Col>
+          <Col span={14}>
+            <Input
+              style={{ width: '100%' }}
+              type="color"
+              value={labelattrs.fill}
+              onChange={(val) => textChange(val, 'fill')}
+            />
+          </Col>
+        </Row>
+        <Row align="middle">
+          <Col span={8}>字体大小</Col>
+          <Col span={12}>
+            <Slider
+              min={8}
+              max={16}
+              step={1}
+              value={labelattrs.fontSize}
+              onChange={(val: number) =>
+                textChange(val as any, 'fontSize', val)
+              }
+            />
+          </Col>
+          <Col span={2}>
+            <div className="result">{labelattrs.fontSize}</div>
+          </Col>
+        </Row>
+        <Row align="middle">
+          <Col span={10}>删除该线条</Col>
+          <Col span={14}>
+            <Button
+              type="primary"
+              size="small"
+              danger
+              onClick={removeConnector}
+            >
+              删除
+            </Button>
           </Col>
         </Row>
       </TabPane>
