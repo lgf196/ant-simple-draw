@@ -1,10 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Tabs, Row, Col, Input, Slider } from 'antd';
+import { Tabs, Row, Col, Input, Slider, Button } from 'antd';
 import FlowGraph from '@/pages/Graph';
 import { Cell } from '@antv/x6';
-
 const { TabPane } = Tabs;
-
 export interface IProps {
   id: string;
 }
@@ -64,14 +62,9 @@ export default function (props: IProps) {
     }));
   };
 
-  const onStrokeWidthChange = (val: number) => {
-    setAttr('strokeWidth', val);
-    cellRef.current!.attr(attrsType.strokeWidth, val);
-  };
-
-  const onFontSizeChange = (val: number) => {
-    setAttr('fontSize', val);
-    cellRef.current!.attr(attrsType.fontSize, val);
+  const sliderChange = (val: number, attrType: attrsType, attrKey: string) => {
+    setAttr(attrKey, val);
+    cellRef.current!.attr(attrType, val);
   };
 
   const inputChange = (
@@ -84,9 +77,13 @@ export default function (props: IProps) {
     cellRef.current!.attr(attrType, val);
   };
 
+  const deleteNode = () => {
+    cellRef.current!.remove();
+  };
+
   return (
     <Tabs defaultActiveKey="1">
-      <TabPane tab="节点" key="1">
+      <TabPane tab="属性" key="1">
         <Row align="middle">
           <Col span={8}>边框颜色</Col>
           <Col span={14}>
@@ -106,7 +103,9 @@ export default function (props: IProps) {
               max={5}
               step={1}
               value={attrs.strokeWidth}
-              onChange={onStrokeWidthChange}
+              onChange={(val: number) =>
+                sliderChange(val, attrsType.strokeWidth, 'strokeWidth')
+              }
             />
           </Col>
           <Col span={2}>
@@ -124,8 +123,14 @@ export default function (props: IProps) {
             />
           </Col>
         </Row>
-      </TabPane>
-      <TabPane tab="文本" key="2">
+        <Row align="middle">
+          <Col span={10}>删除该节点</Col>
+          <Col span={14}>
+            <Button type="primary" size="small" danger onClick={deleteNode}>
+              删除
+            </Button>
+          </Col>
+        </Row>
         <Row align="middle">
           <Col span={8}>文本大小</Col>
           <Col span={12}>
@@ -134,7 +139,9 @@ export default function (props: IProps) {
               max={16}
               step={1}
               value={attrs.fontSize}
-              onChange={onFontSizeChange}
+              onChange={(val: number) =>
+                sliderChange(val, attrsType.fontSize, 'fontSize')
+              }
             />
           </Col>
           <Col span={2}>

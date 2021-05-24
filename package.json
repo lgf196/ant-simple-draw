@@ -5,6 +5,7 @@
   "dependencies": {
     "@antv/x6": "^1.21.7",
     "@antv/x6-react-components": "^1.1.7",
+    "@antv/x6-react-shape": "^1.4.1",
     "@babel/core": "7.12.3",
     "@pmmmwh/react-refresh-webpack-plugin": "0.4.3",
     "@svgr/webpack": "5.5.0",
