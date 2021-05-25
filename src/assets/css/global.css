@@ -48,3 +48,10 @@ body {
   text-shadow: 0 0 2px #ff6e06;
   animation-delay: -3s;
 }
+.x6-widget-stencil {
+  background: #fff;
+  border-right: 1px solid rgba(0, 0, 0, 0.08);
+}
+.x6-widget-stencil-group > .x6-widget-stencil-group-title {
+  background-color: #f8fafc;
+}

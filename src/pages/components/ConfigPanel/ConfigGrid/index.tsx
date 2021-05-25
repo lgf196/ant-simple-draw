@@ -156,6 +156,17 @@ export default function (props: IProps) {
               <div className="result">{attrs.thickness.toFixed(1)}</div>
             </Col>
           </Row>
+          <Row align="middle">
+            <Col span={6}>背景色</Col>
+            <Col span={14}>
+              <Input
+                type="color"
+                value={attrs.bgColor}
+                style={{ width: '100%' }}
+                onChange={(e) => setAttr('bgColor', e.target.value)}
+              />
+            </Col>
+          </Row>
         </React.Fragment>
       </TabPane>
     </Tabs>

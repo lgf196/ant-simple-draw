@@ -1,6 +1,7 @@
 import { Graph, Dom } from '@antv/x6';
+import { shapeName } from './config';
 
-export const FlowChartRect = Graph.registerNode('flow-chart-rect', {
+export const FlowChartRect = Graph.registerNode(shapeName.flowChartRect, {
   inherit: 'rect',
   width: 80,
   height: 42,
@@ -150,285 +151,293 @@ export const FlowChartRect = Graph.registerNode('flow-chart-rect', {
   },
 });
 
-export const FlowChartImageRect = Graph.registerNode('flow-chart-image-rect', {
-  inherit: 'rect',
-  width: 200,
-  height: 60,
-  attrs: {
-    body: {
-      stroke: '#5F95FF',
-      strokeWidth: 1,
-      fill: 'rgba(95,149,255,0.05)',
-    },
-    image: {
-      'xlink:href': 'http://blog.lgf196.top/ant-simple-pro-document/logon.png',
-      width: 16,
-      height: 16,
-      x: 12,
-      y: 12,
-    },
-    'edit-text': {
-      contenteditable: 'false',
-      class: 'x6-edit-text',
-      style: {
-        width: '100%',
-        textAlign: 'center',
+export const FlowChartImageRect = Graph.registerNode(
+  shapeName.flowChartImageRect,
+  {
+    inherit: 'rect',
+    width: 200,
+    height: 60,
+    attrs: {
+      body: {
+        stroke: '#5F95FF',
+        strokeWidth: 1,
+        fill: 'rgba(95,149,255,0.05)',
+      },
+      image: {
+        'xlink:href':
+          'http://blog.lgf196.top/ant-simple-pro-document/logon.png',
+        width: 16,
+        height: 16,
+        x: 12,
+        y: 12,
+      },
+      'edit-text': {
+        contenteditable: 'false',
+        class: 'x6-edit-text',
+        style: {
+          width: '100%',
+          textAlign: 'center',
+          fontSize: 12,
+          color: 'rgba(0,0,0,0.85)',
+        },
+      },
+      title: {
+        text: 'ant-simple-pro',
+        refX: 40,
+        refY: 14,
+        fill: 'rgba(0,0,0,0.85)',
         fontSize: 12,
-        color: 'rgba(0,0,0,0.85)',
+        'text-anchor': 'start',
+      },
+      text: {
+        text: '支持3大框架',
+        refX: 40,
+        refY: 38,
+        fontSize: 12,
+        fill: 'rgba(0,0,0,0.6)',
+        'text-anchor': 'start',
       },
     },
-    title: {
-      text: 'ant-simple-pro',
-      refX: 40,
-      refY: 14,
-      fill: 'rgba(0,0,0,0.85)',
-      fontSize: 12,
-      'text-anchor': 'start',
-    },
-    text: {
-      text: '支持3大框架',
-      refX: 40,
-      refY: 38,
-      fontSize: 12,
-      fill: 'rgba(0,0,0,0.6)',
-      'text-anchor': 'start',
-    },
-  },
-  markup: [
-    {
-      tagName: 'rect',
-      selector: 'body',
-    },
-    {
-      tagName: 'image',
-      selector: 'image',
-    },
-    {
-      tagName: 'text',
-      selector: 'title',
-    },
-    {
-      tagName: 'text',
-      selector: 'text',
-    },
-  ],
-  ports: {
-    groups: {
-      top: {
-        position: 'top',
-        attrs: {
-          circle: {
-            r: 3,
-            magnet: true,
-            stroke: '#5F95FF',
-            strokeWidth: 1,
-            fill: '#fff',
-            style: {
-              visibility: 'hidden',
-            },
-          },
-        },
-      },
-      right: {
-        position: 'right',
-        attrs: {
-          circle: {
-            r: 3,
-            magnet: true,
-            stroke: '#5F95FF',
-            strokeWidth: 1,
-            fill: '#fff',
-            style: {
-              visibility: 'hidden',
-            },
-          },
-        },
-      },
-      bottom: {
-        position: 'bottom',
-        attrs: {
-          circle: {
-            r: 3,
-            magnet: true,
-            stroke: '#5F95FF',
-            strokeWidth: 1,
-            fill: '#fff',
-            style: {
-              visibility: 'hidden',
-            },
-          },
-        },
-      },
-      left: {
-        position: 'left',
-        attrs: {
-          circle: {
-            r: 3,
-            magnet: true,
-            stroke: '#5F95FF',
-            strokeWidth: 1,
-            fill: '#fff',
-            style: {
-              visibility: 'hidden',
-            },
-          },
-        },
-      },
-    },
-    items: [
+    markup: [
       {
-        group: 'top',
+        tagName: 'rect',
+        selector: 'body',
       },
       {
-        group: 'right',
+        tagName: 'image',
+        selector: 'image',
       },
       {
-        group: 'bottom',
+        tagName: 'text',
+        selector: 'title',
       },
       {
-        group: 'left',
+        tagName: 'text',
+        selector: 'text',
       },
     ],
+    ports: {
+      groups: {
+        top: {
+          position: 'top',
+          attrs: {
+            circle: {
+              r: 3,
+              magnet: true,
+              stroke: '#5F95FF',
+              strokeWidth: 1,
+              fill: '#fff',
+              style: {
+                visibility: 'hidden',
+              },
+            },
+          },
+        },
+        right: {
+          position: 'right',
+          attrs: {
+            circle: {
+              r: 3,
+              magnet: true,
+              stroke: '#5F95FF',
+              strokeWidth: 1,
+              fill: '#fff',
+              style: {
+                visibility: 'hidden',
+              },
+            },
+          },
+        },
+        bottom: {
+          position: 'bottom',
+          attrs: {
+            circle: {
+              r: 3,
+              magnet: true,
+              stroke: '#5F95FF',
+              strokeWidth: 1,
+              fill: '#fff',
+              style: {
+                visibility: 'hidden',
+              },
+            },
+          },
+        },
+        left: {
+          position: 'left',
+          attrs: {
+            circle: {
+              r: 3,
+              magnet: true,
+              stroke: '#5F95FF',
+              strokeWidth: 1,
+              fill: '#fff',
+              style: {
+                visibility: 'hidden',
+              },
+            },
+          },
+        },
+      },
+      items: [
+        {
+          group: 'top',
+        },
+        {
+          group: 'right',
+        },
+        {
+          group: 'bottom',
+        },
+        {
+          group: 'left',
+        },
+      ],
+    },
   },
-});
+);
 
-export const FlowChartTitleRect = Graph.registerNode('flow-chart-title-rect', {
-  inherit: 'rect',
-  width: 200,
-  height: 68,
-  attrs: {
-    body: {
-      stroke: '#5F95FF',
-      strokeWidth: 1,
-      fill: 'rgba(95,149,255,0.05)',
-    },
-    head: {
-      refWidth: '100%',
-      stroke: 'transparent',
-      height: 28,
-      fill: 'rgba(95,149,255,0.7)',
-    },
-    image: {
-      'xlink:href': 'http://blog.lgf196.top/ant-simple-pro-document/logon.png',
-      height: 16,
-      x: 6,
-      y: 6,
-    },
-    title: {
-      text: 'ant-simple-pro',
-      refX: 30,
-      refY: 9,
-      fill: '#ffffff',
-      fontSize: 12,
-      'text-anchor': 'start',
-    },
-    text: {
-      text: '支持3大框架',
-      refX: 8,
-      refY: 45,
-      fontSize: 12,
-      fill: 'rgba(0,0,0,0.6)',
-      'text-anchor': 'start',
-    },
-  },
-  markup: [
-    {
-      tagName: 'rect',
-      selector: 'body',
-    },
-    {
-      tagName: 'rect',
-      selector: 'head',
-    },
-    {
-      tagName: 'image',
-      selector: 'image',
-    },
-    {
-      tagName: 'text',
-      selector: 'title',
-    },
-    {
-      tagName: 'text',
-      selector: 'text',
-    },
-  ],
-  ports: {
-    groups: {
-      top: {
-        position: 'top',
-        attrs: {
-          circle: {
-            r: 3,
-            magnet: true,
-            stroke: '#5F95FF',
-            strokeWidth: 1,
-            fill: '#fff',
-            style: {
-              visibility: 'hidden',
-            },
-          },
-        },
+export const FlowChartTitleRect = Graph.registerNode(
+  shapeName.flowChartTitleRect,
+  {
+    inherit: 'rect',
+    width: 200,
+    height: 68,
+    attrs: {
+      body: {
+        stroke: '#5F95FF',
+        strokeWidth: 1,
+        fill: 'rgba(95,149,255,0.05)',
       },
-      right: {
-        position: 'right',
-        attrs: {
-          circle: {
-            r: 3,
-            magnet: true,
-            stroke: '#5F95FF',
-            strokeWidth: 1,
-            fill: '#fff',
-            style: {
-              visibility: 'hidden',
-            },
-          },
-        },
+      head: {
+        refWidth: '100%',
+        stroke: 'transparent',
+        height: 28,
+        fill: 'rgba(95,149,255,0.7)',
       },
-      bottom: {
-        position: 'bottom',
-        attrs: {
-          circle: {
-            r: 3,
-            magnet: true,
-            stroke: '#5F95FF',
-            strokeWidth: 1,
-            fill: '#fff',
-            style: {
-              visibility: 'hidden',
-            },
-          },
-        },
+      image: {
+        'xlink:href':
+          'http://blog.lgf196.top/ant-simple-pro-document/logon.png',
+        height: 16,
+        x: 6,
+        y: 6,
       },
-      left: {
-        position: 'left',
-        attrs: {
-          circle: {
-            r: 3,
-            magnet: true,
-            stroke: '#5F95FF',
-            strokeWidth: 1,
-            fill: '#fff',
-            style: {
-              visibility: 'hidden',
-            },
-          },
-        },
+      title: {
+        text: 'ant-simple-pro',
+        refX: 30,
+        refY: 9,
+        fill: '#ffffff',
+        fontSize: 12,
+        'text-anchor': 'start',
+      },
+      text: {
+        text: '支持3大框架',
+        refX: 8,
+        refY: 45,
+        fontSize: 12,
+        fill: 'rgba(0,0,0,0.6)',
+        'text-anchor': 'start',
       },
     },
-    items: [
+    markup: [
       {
-        group: 'top',
+        tagName: 'rect',
+        selector: 'body',
       },
       {
-        group: 'right',
+        tagName: 'rect',
+        selector: 'head',
       },
       {
-        group: 'bottom',
+        tagName: 'image',
+        selector: 'image',
       },
       {
-        group: 'left',
+        tagName: 'text',
+        selector: 'title',
+      },
+      {
+        tagName: 'text',
+        selector: 'text',
       },
     ],
+    ports: {
+      groups: {
+        top: {
+          position: 'top',
+          attrs: {
+            circle: {
+              r: 3,
+              magnet: true,
+              stroke: '#5F95FF',
+              strokeWidth: 1,
+              fill: '#fff',
+              style: {
+                visibility: 'hidden',
+              },
+            },
+          },
+        },
+        right: {
+          position: 'right',
+          attrs: {
+            circle: {
+              r: 3,
+              magnet: true,
+              stroke: '#5F95FF',
+              strokeWidth: 1,
+              fill: '#fff',
+              style: {
+                visibility: 'hidden',
+              },
+            },
+          },
+        },
+        bottom: {
+          position: 'bottom',
+          attrs: {
+            circle: {
+              r: 3,
+              magnet: true,
+              stroke: '#5F95FF',
+              strokeWidth: 1,
+              fill: '#fff',
+              style: {
+                visibility: 'hidden',
+              },
+            },
+          },
+        },
+        left: {
+          position: 'left',
+          attrs: {
+            circle: {
+              r: 3,
+              magnet: true,
+              stroke: '#5F95FF',
+              strokeWidth: 1,
+              fill: '#fff',
+              style: {
+                visibility: 'hidden',
+              },
+            },
+          },
+        },
+      },
+      items: [
+        {
+          group: 'top',
+        },
+        {
+          group: 'right',
+        },
+        {
+          group: 'bottom',
+        },
+        {
+          group: 'left',
+        },
+      ],
+    },
   },
-});
+);

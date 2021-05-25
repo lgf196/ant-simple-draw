@@ -1,6 +1,7 @@
 import { Dom, Graph } from '@antv/x6';
 import '@antv/x6-react-shape';
 import React from 'react';
+import { shapeName } from './config';
 import './registeredNode';
 
 export class BasicGraphics {
@@ -11,7 +12,7 @@ export class BasicGraphics {
   }
   public init() {
     const r1 = this.graph.addNode({
-      shape: 'flow-chart-rect',
+      shape: shapeName.flowChartRect,
       attrs: {
         body: {
           rx: 24,
@@ -19,7 +20,7 @@ export class BasicGraphics {
         },
         text: {
           textWrap: {
-            text: '起始节点',
+            text: '',
           },
         },
       },
@@ -120,17 +121,17 @@ export class BasicGraphics {
     });
 
     const r2 = this.graph.createNode({
-      shape: 'flow-chart-rect',
+      shape: shapeName.flowChartRect,
       attrs: {
         text: {
           textWrap: {
-            text: '方形',
+            text: '',
           },
         },
       },
     });
     const r3 = this.graph.createNode({
-      shape: 'flow-chart-rect',
+      shape: shapeName.flowChartRect,
       width: 52,
       height: 52,
       angle: 45,
@@ -142,7 +143,7 @@ export class BasicGraphics {
         },
         text: {
           textWrap: {
-            text: '菱形',
+            text: '',
           },
           transform: 'rotate(-45deg)',
         },
@@ -185,7 +186,7 @@ export class BasicGraphics {
       },
     });
     const r4 = this.graph.createNode({
-      shape: 'flow-chart-rect',
+      shape: shapeName.flowChartRect,
       width: 70,
       height: 70,
       attrs: {
@@ -195,7 +196,7 @@ export class BasicGraphics {
         },
         text: {
           textWrap: {
-            text: '圆形',
+            text: '',
           },
         },
       },

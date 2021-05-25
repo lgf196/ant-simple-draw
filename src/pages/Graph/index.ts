@@ -132,12 +132,14 @@ export default class FlowGraph {
       groups: [
         {
           name: 'basic',
-          title: '基础图形',
+          title: '基础',
+          collapsable: false,
           graphHeight: 180,
         },
         {
+          collapsable: false,
           name: 'combination',
-          title: '组合图形',
+          title: '组合',
           layoutOptions: {
             columns: 1,
             marginX: 60,

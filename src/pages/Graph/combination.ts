@@ -1,4 +1,5 @@
 import { Graph } from '@antv/x6';
+import { shapeName } from './config';
 import './registeredNode';
 
 export class CombinationGraphics {
@@ -8,9 +9,11 @@ export class CombinationGraphics {
     this.init();
   }
   public init() {
-    const c1 = this.graph.createNode({ shape: 'flow-chart-image-rect' });
+    const c1 = this.graph.createNode({
+      shape: shapeName.flowChartImageRect,
+    });
     const c2 = this.graph.createNode({
-      shape: 'flow-chart-title-rect',
+      shape: shapeName.flowChartTitleRect,
     });
     return { c1, c2 };
   }

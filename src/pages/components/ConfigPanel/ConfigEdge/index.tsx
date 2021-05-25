@@ -5,6 +5,12 @@ import { Cell, Edge } from '@antv/x6';
 import { useSetState } from '@/hooks';
 
 const { TabPane } = Tabs;
+
+export enum lineAttributes {
+  stroke = 'line/stroke',
+  strokeWidth = 'line/strokeWidth',
+  strokeDasharray = 'line/strokeDasharray',
+}
 interface IProps {
   id: string;
 }
@@ -12,6 +18,7 @@ interface EdgeAttrs {
   stroke: string;
   strokeWidth: number;
   connector: string;
+  strokeDasharray: number;
 }
 
 export interface labelAttrsType {
@@ -47,6 +54,7 @@ export default function (props: IProps) {
     stroke: '#5F95FF',
     strokeWidth: 1,
     connector: 'normal',
+    strokeDasharray: 0,
   });
   const cellRef = useRef<Cell>();
 
@@ -62,8 +70,12 @@ export default function (props: IProps) {
         name: 'normal',
       };
       const getLabels = filterGetLabels(cell.getLabels());
-      setAttr('stroke', cell.attr('line/stroke'));
-      setAttr('strokeWidth', cell.attr('line/strokeWidth'));
+      setAttr('stroke', cell.attr(lineAttributes.stroke));
+      setAttr('strokeWidth', cell.attr(lineAttributes.strokeWidth));
+      setAttr(
+        'strokeDasharray',
+        cell.attr(lineAttributes.strokeDasharray) || 0,
+      );
       setAttr('connector', connector.name);
       setLabelattrs(getLabels);
     }
@@ -79,12 +91,16 @@ export default function (props: IProps) {
   const onStrokeChange = (e: React.FocusEvent<HTMLInputElement>) => {
     const val = e.target.value;
     setAttr('stroke', val);
-    cellRef.current!.attr('line/stroke', val);
+    cellRef.current!.attr(lineAttributes.stroke, val);
   };
 
-  const onStrokeWidthChange = (val: number) => {
-    setAttr('strokeWidth', val);
-    cellRef.current!.attr('line/strokeWidth', val);
+  const onStrokeWidthChange = (
+    val: number,
+    path: lineAttributes,
+    typeKey: string,
+  ) => {
+    setAttr(typeKey, val);
+    cellRef.current!.attr(path, val);
   };
 
   const onConnectorChange = (val: string) => {
@@ -113,18 +129,45 @@ export default function (props: IProps) {
     <Tabs defaultActiveKey="1">
       <TabPane tab="线条" key="1">
         <Row align="middle">
-          <Col span={8}>宽</Col>
+          <Col span={8}>线宽</Col>
           <Col span={12}>
             <Slider
               min={1}
               max={5}
               step={1}
               value={attrs.strokeWidth}
-              onChange={onStrokeWidthChange}
+              onChange={(val: number) =>
+                onStrokeWidthChange(
+                  val,
+                  lineAttributes.strokeWidth,
+                  'strokeWidth',
+                )
+              }
             />
           </Col>
           <Col span={2}>
             <div className="result">{attrs.strokeWidth}</div>
+          </Col>
+        </Row>
+        <Row align="middle">
+          <Col span={8}>间距</Col>
+          <Col span={12}>
+            <Slider
+              min={0}
+              max={10}
+              step={1}
+              value={attrs.strokeDasharray}
+              onChange={(val: number) =>
+                onStrokeWidthChange(
+                  val,
+                  lineAttributes.strokeDasharray,
+                  'strokeDasharray',
+                )
+              }
+            />
+          </Col>
+          <Col span={2}>
+            <div className="result">{attrs.strokeDasharray}</div>
           </Col>
         </Row>
         <Row align="middle">

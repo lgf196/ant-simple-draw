@@ -1,7 +1,18 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { Tabs, Row, Col, Input, Slider, Button } from 'antd';
 import FlowGraph from '@/pages/Graph';
 import { Cell } from '@antv/x6';
+import { useSetState } from '@/hooks';
+import {
+  combinationAttrs,
+  combinationAttrsPath,
+  defaultCombinationGraphicsAttrs,
+} from './combinationAttrs';
+import { shapeName } from '@/pages/Graph/config';
+import CombinationNode from './combinationNode';
+import BasisNode from './basisNode';
+import { EventChange } from '@/interface';
+
 const { TabPane } = Tabs;
 export interface IProps {
   id: string;
@@ -34,6 +45,10 @@ export default function (props: IProps) {
     color: 'rgba(0,0,0,0.85)',
     text: '',
   });
+
+  const [combinationGraphicsAttrs, setCombinationGraphicsAttrs] =
+    useSetState<combinationAttrs>(defaultCombinationGraphicsAttrs);
+
   const cellRef = useRef<Cell>();
 
   useEffect(() => {
@@ -44,6 +59,8 @@ export default function (props: IProps) {
         return;
       }
       cellRef.current = cell;
+      console.log(`cell`, cell);
+      console.log(`cell`, cell.shape);
       setAttrs({
         stroke: cell.attr(attrsType.stroke),
         strokeWidth: cell.attr(attrsType.strokeWidth),
@@ -52,6 +69,16 @@ export default function (props: IProps) {
         color: cell.attr(attrsType.color),
         text: cell.attr(attrsType.text),
       });
+      if (cell.shape !== shapeName.flowChartRect) {
+        setCombinationGraphicsAttrs({
+          titleText: cell.attr(combinationAttrsPath.titleText),
+          titlefontSize: cell.attr(combinationAttrsPath.titlefontSize),
+          titleFill: cell.attr(combinationAttrsPath.titleFill),
+          textText: cell.attr(combinationAttrsPath.textText),
+          textfontSize: cell.attr(combinationAttrsPath.textfontSize),
+          textFill: cell.attr(combinationAttrsPath.textFill),
+        });
+      }
     }
   }, [id]);
 
@@ -62,24 +89,55 @@ export default function (props: IProps) {
     }));
   };
 
-  const sliderChange = (val: number, attrType: attrsType, attrKey: string) => {
-    setAttr(attrKey, val);
-    cellRef.current!.attr(attrType, val);
-  };
+  const sliderChange: EventChange<number, attrsType, NodeAttrs> = useCallback(
+    (val, attrType, attrKey) => {
+      setAttr(attrKey, val);
+      cellRef.current!.attr(attrType, val);
+    },
+    [attrs],
+  );
 
-  const inputChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    attrType: attrsType,
-    attrKey: string,
-  ) => {
-    const val = e.target.value;
-    setAttr(attrKey, val);
-    cellRef.current!.attr(attrType, val);
-  };
+  const inputChange: EventChange<
+    React.ChangeEvent<HTMLInputElement>,
+    attrsType,
+    NodeAttrs
+  > = useCallback(
+    (e, attrType, attrKey) => {
+      const val = e.target.value;
+      setAttr(attrKey, val);
+      cellRef.current!.attr(attrType, val);
+    },
+    [attrs],
+  );
 
   const deleteNode = () => {
     cellRef.current!.remove();
   };
+
+  const combinationSliderChange: EventChange<
+    number,
+    combinationAttrsPath,
+    combinationAttrs
+  > = useCallback(
+    (val, attrType, attrKey) => {
+      setCombinationGraphicsAttrs({ [attrKey]: val });
+      cellRef.current!.attr(attrType, val);
+    },
+    [combinationGraphicsAttrs],
+  );
+
+  const combinationInputChange: EventChange<
+    React.ChangeEvent<HTMLInputElement>,
+    combinationAttrsPath,
+    combinationAttrs
+  > = useCallback(
+    (e, attrType, attrKey) => {
+      const val = e.target.value;
+      setCombinationGraphicsAttrs({ [attrKey]: val });
+      cellRef.current!.attr(attrType, val);
+    },
+    [combinationGraphicsAttrs],
+  );
 
   return (
     <Tabs defaultActiveKey="1">
@@ -131,44 +189,19 @@ export default function (props: IProps) {
             </Button>
           </Col>
         </Row>
-        <Row align="middle">
-          <Col span={8}>文本大小</Col>
-          <Col span={12}>
-            <Slider
-              min={8}
-              max={16}
-              step={1}
-              value={attrs.fontSize}
-              onChange={(val: number) =>
-                sliderChange(val, attrsType.fontSize, 'fontSize')
-              }
-            />
-          </Col>
-          <Col span={2}>
-            <div className="result">{attrs.fontSize}</div>
-          </Col>
-        </Row>
-        <Row align="middle">
-          <Col span={8}>文本值</Col>
-          <Col span={14}>
-            <Input
-              value={attrs.text}
-              style={{ width: '100%' }}
-              onChange={(val) => inputChange(val, attrsType.text, 'text')}
-            />
-          </Col>
-        </Row>
-        <Row align="middle">
-          <Col span={8}>文本颜色</Col>
-          <Col span={14}>
-            <Input
-              type="color"
-              value={attrs.color}
-              style={{ width: '100%' }}
-              onChange={(val) => inputChange(val, attrsType.color, 'color')}
-            />
-          </Col>
-        </Row>
+        {cellRef.current?.shape === shapeName.flowChartRect ? (
+          <BasisNode
+            attrs={attrs}
+            sliderChange={sliderChange}
+            inputChange={inputChange}
+          />
+        ) : (
+          <CombinationNode
+            combinationGraphicsAttrs={combinationGraphicsAttrs}
+            combinationInputChange={combinationInputChange}
+            combinationSliderChange={combinationSliderChange}
+          />
+        )}
       </TabPane>
     </Tabs>
   );
