@@ -3,7 +3,7 @@ import { UnorderedListOutlined } from '@ant-design/icons';
 import FlowGraph from '@/pages/Graph';
 import ToolBar from '@/pages/components/ToolBar';
 import ConfigPanel from '@/pages/components/ConfigPanel';
-import { Drawer, notification } from 'antd';
+import { Drawer } from 'antd';
 import './assets/css/reset.css';
 import './assets/css/global.css';
 import styles from './appComponent.module.scss';
@@ -24,28 +24,6 @@ export default function App() {
   };
 
   useEffect(() => {
-    notification.open({
-      message: 'simple-diagrh',
-      duration: null,
-      description: (
-        <>
-          <p>
-            作者， antd社区成员之一，开源项目
-            <a href="https://github.com/lgf196/ant-simple-pro">
-              《ant-simple-pro》
-            </a>
-            ，
-            <a href="https://github.com/lgf196/simple-diagrh">
-              《simple-diagrh》
-            </a>
-            一个菜鸟码农
-          </p>
-        </>
-      ),
-      onClick: () => {
-        console.log('Notification Ceeeelicked!');
-      },
-    });
     const graph = FlowGraph.init();
     setIsReady(true);
 
@@ -76,6 +54,7 @@ export default function App() {
           mask={false}
           onClose={onClose}
           visible={visible}
+          width={300}
         >
           <div className={styles.config}>{isReady && <ConfigPanel />}</div>
         </Drawer>

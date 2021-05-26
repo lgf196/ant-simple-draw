@@ -188,6 +188,7 @@ export const FlowChartImageRect = Graph.registerNode(
         fill: 'rgba(0,0,0,0.85)',
         fontSize: 12,
         'text-anchor': 'start',
+        ellipsis: true,
       },
       text: {
         text: '支持3大框架',
@@ -195,6 +196,7 @@ export const FlowChartImageRect = Graph.registerNode(
         refY: 38,
         fontSize: 12,
         fill: 'rgba(0,0,0,0.6)',
+        ellipsis: true,
         'text-anchor': 'start',
       },
     },

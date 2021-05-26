@@ -8,3 +8,19 @@ export enum requestCode {
   noRouterCode = 404, // 路劲找不到
   serverErrorCode = 500, // 服务错误
 }
+
+export const uploadImageFormat = (
+  url: string = 'http://blog.lgf196.top/ant-simple-pro-document/logon.png',
+) => {
+  return [
+    {
+      uid: Math.random() * 1000,
+      status: 'success',
+      response: {
+        code: requestCode.successCode,
+        data: { url },
+      },
+      url,
+    },
+  ];
+};

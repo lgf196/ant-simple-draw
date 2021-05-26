@@ -22,7 +22,7 @@ export type UploadChangeParams = UploadChangeParam; // 导出文件类型
 
 class ImgUpload extends React.Component<ImgUploadProps, ImgUploadState> {
   static defaultProps = {
-    action: 'https://lgf196.top/api/fileUpload',
+    action: '/api/fileUpload',
     fileList: [],
     limit: 10,
     typeModule: 1, // 1默认表单组件，2非表单
@@ -37,8 +37,21 @@ class ImgUpload extends React.Component<ImgUploadProps, ImgUploadState> {
     };
   }
 
+  static getDerivedStateFromProps(
+    props: ImgUploadProps,
+    state: ImgUploadState,
+  ) {
+    if (props.fileList!.length && state.fileLists.length) {
+      if (props.fileList![0].url !== state.fileLists[0].url) {
+        return {
+          fileLists: props.fileList,
+        };
+      }
+    }
+    return null;
+  }
+
   handlePreview = (file: UploadFile) => {
-    console.log('file', file);
     this.setState({
       previewImage: file.url! || file.thumbUrl!,
       previewVisible: true,
@@ -104,7 +117,6 @@ class ImgUpload extends React.Component<ImgUploadProps, ImgUploadState> {
     const { fileList, action, limit, typeModule } = this.props;
 
     const { previewVisible, previewImage, fileLists } = this.state;
-
     return (
       <>
         <Upload
@@ -116,7 +128,13 @@ class ImgUpload extends React.Component<ImgUploadProps, ImgUploadState> {
           onPreview={this.handlePreview}
           listType="picture-card"
         >
-          {fileList!.length >= limit ? null : <PlusOutlined />}
+          {typeModule === 1 ? (
+            fileList!.length >= limit ? null : (
+              <PlusOutlined />
+            )
+          ) : fileLists!.length >= limit ? null : (
+            <PlusOutlined />
+          )}
         </Upload>
         <Modal
           visible={previewVisible}

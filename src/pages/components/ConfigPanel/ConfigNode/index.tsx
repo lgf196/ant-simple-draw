@@ -1,4 +1,10 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import React, {
+  useEffect,
+  useState,
+  useRef,
+  useCallback,
+  useMemo,
+} from 'react';
 import { Tabs, Row, Col, Input, Slider, Button } from 'antd';
 import FlowGraph from '@/pages/Graph';
 import { Cell } from '@antv/x6';
@@ -12,7 +18,9 @@ import { shapeName } from '@/pages/Graph/config';
 import CombinationNode from './combinationNode';
 import BasisNode from './basisNode';
 import { EventChange } from '@/interface';
-
+import { uploadImageFormat } from '@/utils/varbile';
+import { ImgUploadFile } from '../../upload/imgUpload';
+import { UploadChangeParam } from 'antd/lib/upload';
 const { TabPane } = Tabs;
 export interface IProps {
   id: string;
@@ -60,7 +68,6 @@ export default function (props: IProps) {
       }
       cellRef.current = cell;
       console.log(`cell`, cell);
-      console.log(`cell`, cell.shape);
       setAttrs({
         stroke: cell.attr(attrsType.stroke),
         strokeWidth: cell.attr(attrsType.strokeWidth),
@@ -77,6 +84,13 @@ export default function (props: IProps) {
           textText: cell.attr(combinationAttrsPath.textText),
           textfontSize: cell.attr(combinationAttrsPath.textfontSize),
           textFill: cell.attr(combinationAttrsPath.textFill),
+          imageHref: cell.attr(combinationAttrsPath.imageHref)
+            ? uploadImageFormat(cell.attr(combinationAttrsPath.imageHref))
+            : uploadImageFormat(),
+          imageW: cell.attr(combinationAttrsPath.imageW),
+          imageH: cell.attr(combinationAttrsPath.imageH),
+          imageX: cell.attr(combinationAttrsPath.imageX),
+          imageY: cell.attr(combinationAttrsPath.imageY),
         });
       }
     }
@@ -139,6 +153,31 @@ export default function (props: IProps) {
     [combinationGraphicsAttrs],
   );
 
+  const imageUpload = (val: UploadChangeParam) => {
+    const fileList = val as unknown as ImgUploadFile[];
+    if (!fileList.length) return;
+    const url = fileList[0].url;
+    setCombinationGraphicsAttrs({ imageHref: fileList });
+    cellRef.current!.attr(combinationAttrsPath.imageHref, url);
+  };
+
+  const render = useMemo(() => {
+    return cellRef.current?.shape === shapeName.flowChartRect ? (
+      <BasisNode
+        attrs={attrs}
+        sliderChange={sliderChange}
+        inputChange={inputChange}
+      />
+    ) : (
+      <CombinationNode
+        combinationGraphicsAttrs={combinationGraphicsAttrs}
+        combinationInputChange={combinationInputChange}
+        combinationSliderChange={combinationSliderChange}
+        imageUpload={imageUpload}
+      />
+    );
+  }, [cellRef.current, attrs, combinationGraphicsAttrs]);
+
   return (
     <Tabs defaultActiveKey="1">
       <TabPane tab="属性" key="1">
@@ -189,19 +228,7 @@ export default function (props: IProps) {
             </Button>
           </Col>
         </Row>
-        {cellRef.current?.shape === shapeName.flowChartRect ? (
-          <BasisNode
-            attrs={attrs}
-            sliderChange={sliderChange}
-            inputChange={inputChange}
-          />
-        ) : (
-          <CombinationNode
-            combinationGraphicsAttrs={combinationGraphicsAttrs}
-            combinationInputChange={combinationInputChange}
-            combinationSliderChange={combinationSliderChange}
-          />
-        )}
+        {render}
       </TabPane>
     </Tabs>
   );

@@ -1,6 +1,21 @@
+![https://antd-simple-pro.oss-cn-beijing.aliyuncs.com/image/1622024246740.gif](https://antd-simple-pro.oss-cn-beijing.aliyuncs.com/image/1622024246740.gif)
 
+一款在线图解编辑器，常用用于表示业务流程等
 
-### `npm install`
+## 已完成功能
+
+- [x] 流程图模块的编写
+- [x] 公共组件的提取
+
+## 未完成部分
+
+- [ ] 在线预览
+- [ ] 自定图形
+- [ ] DAG 图
+- [ ] ERD图
+- [ ] 拓展图
+
+`npm install`
 
 下载依赖
 
