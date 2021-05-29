@@ -25,100 +25,6 @@ export class BasicGraphics {
         },
       },
     });
-    const r5 = this.graph.createNode({
-      x: 320,
-      y: 260,
-      width: 120,
-      height: 50,
-      shape: 'react-shape',
-      component(node: Node) {
-        return (
-          <div
-            style={{ width: '60px', height: '60px', border: '1px solid red' }}
-          >
-            222
-          </div>
-        );
-      },
-      ports: {
-        groups: {
-          top: {
-            position: 'top',
-            attrs: {
-              circle: {
-                r: 3,
-                magnet: true,
-                stroke: '#5F95FF',
-                strokeWidth: 1,
-                fill: '#fff',
-                style: {
-                  visibility: 'hidden',
-                },
-              },
-            },
-          },
-          right: {
-            position: 'right',
-            attrs: {
-              circle: {
-                r: 3,
-                magnet: true,
-                stroke: '#5F95FF',
-                strokeWidth: 1,
-                fill: '#fff',
-                style: {
-                  visibility: 'hidden',
-                },
-              },
-            },
-          },
-          bottom: {
-            position: 'bottom',
-            attrs: {
-              circle: {
-                r: 3,
-                magnet: true,
-                stroke: '#5F95FF',
-                strokeWidth: 1,
-                fill: '#fff',
-                style: {
-                  visibility: 'hidden',
-                },
-              },
-            },
-          },
-          left: {
-            position: 'left',
-            attrs: {
-              circle: {
-                r: 3,
-                magnet: true,
-                stroke: '#5F95FF',
-                strokeWidth: 1,
-                fill: '#fff',
-                style: {
-                  visibility: 'hidden',
-                },
-              },
-            },
-          },
-        },
-        items: [
-          {
-            group: 'top',
-          },
-          {
-            group: 'right',
-          },
-          {
-            group: 'bottom',
-          },
-          {
-            group: 'left',
-          },
-        ],
-      },
-    });
 
     const r2 = this.graph.createNode({
       shape: shapeName.flowChartRect,
@@ -201,6 +107,6 @@ export class BasicGraphics {
         },
       },
     });
-    return { r1, r2, r3, r4, r5 };
+    return { r1, r2, r3, r4 };
   }
 }

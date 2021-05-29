@@ -1,5 +1,8 @@
 import { Graph, Dom } from '@antv/x6';
+import '@antv/x6-react-shape';
+import React from 'react';
 import { shapeName } from './config';
+import ReactNodeCompent from '@/pages/reactNode';
 
 export const FlowChartRect = Graph.registerNode(shapeName.flowChartRect, {
   inherit: 'rect',
@@ -442,4 +445,12 @@ export const FlowChartTitleRect = Graph.registerNode(
       ],
     },
   },
+);
+
+/**
+ *自定义react节点
+ */
+export const ReactNode = Graph.registerReactComponent(
+  'ReactNodeCompent',
+  <ReactNodeCompent text="ant-simple-pro" />,
 );

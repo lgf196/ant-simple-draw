@@ -172,5 +172,6 @@
   },
   "devDependencies": {
     "sass": "^1.32.13"
-  }
+  },
+  "homepage": "/draw/"
 }

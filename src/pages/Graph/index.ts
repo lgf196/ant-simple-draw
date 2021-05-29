@@ -155,9 +155,9 @@ export default class FlowGraph {
   private static initShape() {
     const { graph } = this;
     const { r1, r2, r3, r4 } = new BasicGraphics(graph).init();
-    const { c1, c2 } = new CombinationGraphics(graph).init();
+    const { c1, c3 } = new CombinationGraphics(graph).init();
     this.stencil.load([r1, r2, r3, r4], 'basic');
-    this.stencil.load([c1, c2], 'combination');
+    this.stencil.load([c1, c3], 'combination');
   }
 
   private static initGraphShape() {
