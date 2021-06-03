@@ -7,14 +7,13 @@ import {
   CopyOutlined,
   ScissorOutlined,
   SnippetsOutlined,
-  CameraOutlined,
+  InsertRowBelowOutlined,
   PrinterOutlined,
   DownloadOutlined,
 } from '@ant-design/icons';
-import { Tooltip, Button } from 'antd';
+import { Tooltip, Button, Popover } from 'antd';
 import { DataUri } from '@antv/x6';
 import FlowGraph from '@/graph';
-
 const Head = memo(function Head(props) {
   const handleClick = (name: string) => {
     const { graph } = FlowGraph;
@@ -49,10 +48,71 @@ const Head = memo(function Head(props) {
         break;
     }
   };
+  const content = () => (
+    <>
+      <p className="marB-10">
+        <span style={{ display: 'inline-block', width: '150px' }}>
+          <code>meta+z</code>
+          <code>ctrl+z</code>
+        </span>
+        <span className="pd">撤销</span>
+      </p>
+      <p className="marB-10">
+        <span style={{ display: 'inline-block', width: '150px' }}>
+          <code>meta+shift+z</code>
+          <code>ctrl+y</code>
+        </span>
+        <span className="pd">重做</span>
+      </p>
+      <p className="marB-10">
+        <span style={{ display: 'inline-block', width: '150px' }}>
+          <code>meta+d</code>
+          <code>ctrl+d</code>
+        </span>
+        <span className="pd">删除</span>
+      </p>
+      <p className="marB-10">
+        <span style={{ display: 'inline-block', width: '150px' }}>
+          <code>meta+s</code>
+          <code>ctrl+s</code>
+        </span>
+        <span className="pd">导出保存</span>
+      </p>
+      <p className="marB-10">
+        <span style={{ display: 'inline-block', width: '150px' }}>
+          <code>meta+p</code>
+          <code>ctrl+p</code>
+        </span>
+        <span className="pd">打印</span>
+      </p>
+      <p className="marB-10">
+        <span style={{ display: 'inline-block', width: '150px' }}>
+          <code>meta+c</code>
+          <code>ctrl+c</code>
+        </span>
+        <span className="pd">复制</span>
+      </p>
+      <p className="marB-10">
+        <span style={{ display: 'inline-block', width: '150px' }}>
+          <code>meta+v</code>
+          <code>ctrl+v</code>
+        </span>
+        <span className="pd">粘贴</span>
+      </p>
+      <p className="marB-10">
+        <span style={{ display: 'inline-block', width: '150px' }}>
+          <code>meta+x</code>
+          <code>ctrl+x</code>
+        </span>
+        <span className="pd">剪切</span>
+      </p>
+    </>
+  );
+
   return (
     <div className={style.header}>
       <h1 className={style.title}>
-        <a href="lgf196.top/draw/">
+        <a href="/">
           <img
             src="http://blog.lgf196.top/ant-simple-pro-document/logon.png"
             alt=""
@@ -69,6 +129,13 @@ const Head = memo(function Head(props) {
         >
           导出画布
         </Button>
+        <Popover
+          content={content}
+          title={<p style={{ textAlign: 'center' }}>快捷键</p>}
+          trigger="hover"
+        >
+          <InsertRowBelowOutlined className={style.icon} />
+        </Popover>
         <Tooltip title="清屏">
           <DeleteOutlined
             className={style.icon}

@@ -5,7 +5,12 @@ import DragTarget from '@/core/dragTarget';
 import basicTemplateList from '@/graphTemplateType/baseTempalte';
 import combinationTemplateList from '@/graphTemplateType/combination';
 import componentizationTemplateList from '@/graphTemplateType/componentization';
-import { AndroidOutlined, HighlightOutlined } from '@ant-design/icons';
+import {
+  AppstoreOutlined,
+  HighlightOutlined,
+  BlockOutlined,
+} from '@ant-design/icons';
+import TabTitle from './tabTitle';
 const { TabPane } = Tabs;
 
 const Slider = memo(function Slider(props) {
@@ -14,12 +19,7 @@ const Slider = memo(function Slider(props) {
       <Tabs tabPosition="left" className={style.tabs}>
         <TabPane
           key="1"
-          tab={
-            <div style={{ textAlign: 'center', width: '100%' }}>
-              <HighlightOutlined />
-              <p>基础</p>
-            </div>
-          }
+          tab={<TabTitle title="基础" icon={<HighlightOutlined />} />}
         >
           <div className={style.tabsContent}>
             {basicTemplateList.map((item, index) => (
@@ -28,12 +28,7 @@ const Slider = memo(function Slider(props) {
           </div>
         </TabPane>
         <TabPane
-          tab={
-            <div style={{ textAlign: 'center', width: '100%' }}>
-              <AndroidOutlined />
-              <p>组合</p>
-            </div>
-          }
+          tab={<TabTitle title="组合" icon={<BlockOutlined />} />}
           key="2"
         >
           <div className={style.tabsContent}>
@@ -43,12 +38,7 @@ const Slider = memo(function Slider(props) {
           </div>
         </TabPane>
         <TabPane
-          tab={
-            <div style={{ textAlign: 'center', width: '100%' }}>
-              <AndroidOutlined />
-              <p>组件化</p>
-            </div>
-          }
+          tab={<TabTitle title="组件化" icon={<AppstoreOutlined />} />}
           key="3"
         >
           <div className={style.tabsContent}>

@@ -1,9 +1,8 @@
-import React, { memo, useState, useCallback, useRef, useEffect } from 'react';
+import React, { memo, useState, useRef, useEffect } from 'react';
 import { useDrop } from 'react-dnd';
 import style from './index.module.scss';
 import { Drawer } from 'antd';
-import { useOnResize } from '@/hooks';
-import { shapeName } from '@/config';
+import { useOnResize, useKeydown } from '@/hooks';
 import FlowGraph from '@/graph';
 import { formatGroupInfoToNodeMeta } from '@/utils/formatGroupInfoToNodeMeta';
 import { tempalteType } from '@/graphTemplateType';
@@ -20,9 +19,9 @@ const DropTarget = memo(function DropTarget(props) {
   const [visible, setVisible] = useState<boolean>(true);
   const [isRender, setIsRender] = useState<boolean>(false);
   const { width, height } = useOnResize();
-  console.log(`width`, width);
   const onClose = () => setVisible(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const keyDown = useKeydown([isRender]);
   const [collectProps, droper] = useDrop({
     accept: 'Box',
     collect: (minoter) => ({
@@ -44,7 +43,6 @@ const DropTarget = memo(function DropTarget(props) {
       const point = FlowGraph.graph.clientToLocal(x, y);
       const createNodeData = formatGroupInfoToNodeMeta(item, point);
       FlowGraph.graph.addNode(createNodeData);
-      console.log(`item`, item);
     },
   });
 
