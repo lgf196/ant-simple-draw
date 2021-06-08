@@ -18,7 +18,7 @@ export const formatGroupInfoToNodeMeta = <T = tempalteType>(
 ) => {
   const { category, type } = dropItem as unknown as tempalteType;
   const { x, y } = point;
-  let createNode = { x, y };
+  let createNode = { x, y, data: dropItem };
   switch (category) {
     case 'base':
       createNode = Object.assign(

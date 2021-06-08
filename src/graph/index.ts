@@ -1,4 +1,5 @@
 import { Graph, FunctionExt, Shape } from '@antv/x6';
+import graphData from '@/assets/staticData/data';
 export default class FlowGraph {
   public static graph: Graph;
   public static init() {
@@ -112,7 +113,12 @@ export default class FlowGraph {
       },
     });
     this.initEvent();
+    this.initGraphShape();
     return this.graph;
+  }
+
+  private static initGraphShape() {
+    this.graph.fromJSON(graphData as any);
   }
 
   public static isGraphReady() {

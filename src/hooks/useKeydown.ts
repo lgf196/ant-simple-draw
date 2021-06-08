@@ -33,9 +33,9 @@ const useKeydown = (dependencies: any[]) => {
         graph.printPreview();
         return false;
       });
-      graph.bindKey(['meta+c', 'ctrl+c'], FlowGraph.copy);
-      graph.bindKey(['meta+v', 'ctrl+v'], FlowGraph.paste);
-      graph.bindKey(['meta+x', 'ctrl+x'], FlowGraph.cut);
+      graph.bindKey(['meta+c', 'ctrl+c'], () => FlowGraph.copy());
+      graph.bindKey(['meta+v', 'ctrl+v'], () => FlowGraph.paste());
+      graph.bindKey(['meta+x', 'ctrl+x'], () => FlowGraph.cut());
     }
   }, dependencies);
 };

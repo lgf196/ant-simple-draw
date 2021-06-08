@@ -173,7 +173,9 @@
     ]
   },
   "devDependencies": {
-    "sass": "^1.32.13"
+    "@types/webpack-env": "^1.16.0",
+    "sass": "^1.32.13",
+    "svg-sprite-loader": "^6.0.7"
   },
   "homepage": "/draw/"
 }

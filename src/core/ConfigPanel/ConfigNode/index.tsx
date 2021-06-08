@@ -5,7 +5,7 @@ import React, {
   useCallback,
   useMemo,
 } from 'react';
-import { Tabs, Row, Col, Input, Slider, Button } from 'antd';
+import { Tabs, Row, Col, Input, Slider, Button, Empty } from 'antd';
 import FlowGraph from '@/graph';
 import { Cell } from '@antv/x6';
 import { useSetState } from '@/hooks';
@@ -14,7 +14,7 @@ import {
   combinationAttrsPath,
   defaultCombinationGraphicsAttrs,
 } from './combinationAttrs';
-import { shapeName } from '@/config';
+import { shapeName, shapeCategory } from '@/config';
 import CombinationNode from './combinationNode';
 import BasisNode from './basisNode';
 import { EventChange } from '@/interface';
@@ -77,7 +77,7 @@ export default function (props: IProps) {
         color: cell.attr(attrsType.color),
         text: cell.attr(attrsType.text),
       });
-      if (cell.shape !== shapeName.flowChartRect) {
+      if (cell.data && cell.data.category === shapeCategory.combination) {
         setCombinationGraphicsAttrs({
           titleText: cell.attr(combinationAttrsPath.titleText),
           titlefontSize: cell.attr(combinationAttrsPath.titlefontSize),
@@ -162,26 +162,9 @@ export default function (props: IProps) {
     cellRef.current!.attr(combinationAttrsPath.imageHref, url);
   };
 
-  const render = useMemo(() => {
-    return cellRef.current?.shape === shapeName.flowChartRect ? (
-      <BasisNode
-        attrs={attrs}
-        sliderChange={sliderChange}
-        inputChange={inputChange}
-      />
-    ) : (
-      <CombinationNode
-        combinationGraphicsAttrs={combinationGraphicsAttrs}
-        combinationInputChange={combinationInputChange}
-        combinationSliderChange={combinationSliderChange}
-        imageUpload={imageUpload}
-      />
-    );
-  }, [cellRef.current, attrs, combinationGraphicsAttrs]);
-
-  return (
-    <Tabs defaultActiveKey="1">
-      <TabPane tab="属性" key="1">
+  const CommonRender = () => {
+    return (
+      <>
         <Row align="middle">
           <Col span={8}>边框颜色</Col>
           <Col span={14}>
@@ -221,6 +204,60 @@ export default function (props: IProps) {
             />
           </Col>
         </Row>
+      </>
+    );
+  };
+
+  const render = useMemo(() => {
+    let compent = null;
+    const category = cellRef.current?.data.category;
+    switch (category) {
+      case shapeCategory.base:
+        compent = (
+          <>
+            <CommonRender />
+            <BasisNode
+              attrs={attrs}
+              sliderChange={sliderChange}
+              inputChange={inputChange}
+            />
+          </>
+        );
+        break;
+      case shapeCategory.combination:
+        compent = (
+          <>
+            <CommonRender />
+            <CombinationNode
+              combinationGraphicsAttrs={combinationGraphicsAttrs}
+              combinationInputChange={combinationInputChange}
+              combinationSliderChange={combinationSliderChange}
+              imageUpload={imageUpload}
+            />
+          </>
+        );
+        break;
+      default:
+        compent = (
+          <>
+            <Empty
+              image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+              imageStyle={{
+                height: 60,
+              }}
+              description={<span>自定义组件，尽请期待！</span>}
+            ></Empty>
+            ,
+          </>
+        );
+        break;
+    }
+    return compent;
+  }, [cellRef.current, attrs, combinationGraphicsAttrs]);
+
+  return (
+    <Tabs defaultActiveKey="1">
+      <TabPane tab="属性" key="1">
         <Row align="middle">
           <Col span={10}>删除该节点</Col>
           <Col span={14}>
