@@ -1,6 +1,6 @@
 import { Graph, Dom } from '@antv/x6';
 import { shapeName } from '@/config';
-
+import { portsConfig } from '@/config/portsConfig';
 export const FlowChartRect = Graph.registerNode(shapeName.flowChartRect, {
   inherit: 'rect',
   width: 80,
@@ -71,84 +71,7 @@ export const FlowChartRect = Graph.registerNode(shapeName.flowChartRect, {
       ],
     },
   ],
-  ports: {
-    groups: {
-      top: {
-        position: 'top',
-        attrs: {
-          circle: {
-            r: 3,
-            magnet: true,
-            stroke: '#5F95FF',
-            strokeWidth: 1,
-            fill: '#fff',
-            style: {
-              visibility: 'hidden',
-            },
-          },
-        },
-      },
-      right: {
-        position: 'right',
-        attrs: {
-          circle: {
-            r: 3,
-            magnet: true,
-            stroke: '#5F95FF',
-            strokeWidth: 1,
-            fill: '#fff',
-            style: {
-              visibility: 'hidden',
-            },
-          },
-        },
-      },
-      bottom: {
-        position: 'bottom',
-        attrs: {
-          circle: {
-            r: 3,
-            magnet: true,
-            stroke: '#5F95FF',
-            strokeWidth: 1,
-            fill: '#fff',
-            style: {
-              visibility: 'hidden',
-            },
-          },
-        },
-      },
-      left: {
-        position: 'left',
-        attrs: {
-          circle: {
-            r: 3,
-            magnet: true,
-            stroke: '#5F95FF',
-            strokeWidth: 1,
-            fill: '#fff',
-            style: {
-              visibility: 'hidden',
-            },
-          },
-        },
-      },
-    },
-    items: [
-      {
-        group: 'top',
-      },
-      {
-        group: 'right',
-      },
-      {
-        group: 'bottom',
-      },
-      {
-        group: 'left',
-      },
-    ],
-  },
+  ports: portsConfig,
 });
 
 export const FlowChartImageRect = Graph.registerNode(
@@ -218,84 +141,7 @@ export const FlowChartImageRect = Graph.registerNode(
         selector: 'text',
       },
     ],
-    ports: {
-      groups: {
-        top: {
-          position: 'top',
-          attrs: {
-            circle: {
-              r: 3,
-              magnet: true,
-              stroke: '#5F95FF',
-              strokeWidth: 1,
-              fill: '#fff',
-              style: {
-                visibility: 'hidden',
-              },
-            },
-          },
-        },
-        right: {
-          position: 'right',
-          attrs: {
-            circle: {
-              r: 3,
-              magnet: true,
-              stroke: '#5F95FF',
-              strokeWidth: 1,
-              fill: '#fff',
-              style: {
-                visibility: 'hidden',
-              },
-            },
-          },
-        },
-        bottom: {
-          position: 'bottom',
-          attrs: {
-            circle: {
-              r: 3,
-              magnet: true,
-              stroke: '#5F95FF',
-              strokeWidth: 1,
-              fill: '#fff',
-              style: {
-                visibility: 'hidden',
-              },
-            },
-          },
-        },
-        left: {
-          position: 'left',
-          attrs: {
-            circle: {
-              r: 3,
-              magnet: true,
-              stroke: '#5F95FF',
-              strokeWidth: 1,
-              fill: '#fff',
-              style: {
-                visibility: 'hidden',
-              },
-            },
-          },
-        },
-      },
-      items: [
-        {
-          group: 'top',
-        },
-        {
-          group: 'right',
-        },
-        {
-          group: 'bottom',
-        },
-        {
-          group: 'left',
-        },
-      ],
-    },
+    ports: portsConfig,
   },
 );
 
@@ -363,83 +209,6 @@ export const FlowChartTitleRect = Graph.registerNode(
         selector: 'text',
       },
     ],
-    ports: {
-      groups: {
-        top: {
-          position: 'top',
-          attrs: {
-            circle: {
-              r: 3,
-              magnet: true,
-              stroke: '#5F95FF',
-              strokeWidth: 1,
-              fill: '#fff',
-              style: {
-                visibility: 'hidden',
-              },
-            },
-          },
-        },
-        right: {
-          position: 'right',
-          attrs: {
-            circle: {
-              r: 3,
-              magnet: true,
-              stroke: '#5F95FF',
-              strokeWidth: 1,
-              fill: '#fff',
-              style: {
-                visibility: 'hidden',
-              },
-            },
-          },
-        },
-        bottom: {
-          position: 'bottom',
-          attrs: {
-            circle: {
-              r: 3,
-              magnet: true,
-              stroke: '#5F95FF',
-              strokeWidth: 1,
-              fill: '#fff',
-              style: {
-                visibility: 'hidden',
-              },
-            },
-          },
-        },
-        left: {
-          position: 'left',
-          attrs: {
-            circle: {
-              r: 3,
-              magnet: true,
-              stroke: '#5F95FF',
-              strokeWidth: 1,
-              fill: '#fff',
-              style: {
-                visibility: 'hidden',
-              },
-            },
-          },
-        },
-      },
-      items: [
-        {
-          group: 'top',
-        },
-        {
-          group: 'right',
-        },
-        {
-          group: 'bottom',
-        },
-        {
-          group: 'left',
-        },
-      ],
-    },
+    ports: portsConfig,
   },
 );
