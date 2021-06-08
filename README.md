@@ -1,4 +1,4 @@
-![https://antd-simple-pro.oss-cn-beijing.aliyuncs.com/image/1622024246740.gif](https://antd-simple-pro.oss-cn-beijing.aliyuncs.com/image/1622024246740.gif)
+![20210608_112119.gif](https://i.loli.net/2021/06/08/1CWUJOThkq5GznK.gif)
 
 一款在线图解编辑器，常用用于表示业务流程等
 
