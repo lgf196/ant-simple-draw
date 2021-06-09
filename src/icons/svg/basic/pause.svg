@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #00a0e9;
+        stroke-width: 2px;
+      }
+    </style>
+  </defs>
+  <rect id="矩形_3" data-name="矩形 3" class="cls-1" x="16" y="37" width="60" height="126"/>
+  <rect id="矩形_3_拷贝" data-name="矩形 3 拷贝" class="cls-1" x="95" y="37" width="60" height="126"/>
+</svg>

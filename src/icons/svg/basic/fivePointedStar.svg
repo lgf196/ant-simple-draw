@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #00a0e9;
+        stroke-width: 2px;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <path id="多边形_1" data-name="多边形 1" class="cls-1" d="M97.419,148.262q-75.395,53.385-50.289-35.519Q-26.94,57.535,65.372,53.94q29.617-87.505,61.562-.823,92.374,1.127,19.806,58.294Q174.214,199.612,97.419,148.262Z"/>
+</svg>

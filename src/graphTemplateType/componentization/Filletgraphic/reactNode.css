@@ -1,0 +1,28 @@
+.reactNode {
+  border: 1px solid #d9d9d9;
+  height: 50px;
+  min-width: 200px;
+  border-radius: 5px;
+  display: flex;
+  padding: 5px;
+  align-items: center;
+  position: relative;
+}
+.reactNode::before {
+  position: absolute;
+  content: '';
+  display: block;
+  width: 5px;
+  height: 100%;
+  left: -1px;
+  background: #faad14;
+  border-radius: 5px 0 0px 5px;
+}
+.reactNode img {
+  width: 40px;
+}
+.reactNode p {
+  flex: 1;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.85);
+}

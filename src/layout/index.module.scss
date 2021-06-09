@@ -11,6 +11,10 @@
   }
   .tabsContent {
     @include flexContainer(space-between);
+    align-items: flex-start;
+    overflow-y: scroll;
+    @include scroll(5px, 5px);
+    height: 100%;
   }
 }
 .container {

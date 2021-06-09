@@ -10,6 +10,22 @@ const BasicTemplate: tempalteType[] = [
   },
   { type: 'diamond', title: 'diamond', category: shapeCategory.base },
   { type: 'ellipse', title: 'ellipse', category: shapeCategory.base },
+  { type: 'noRulepath', title: 'noRulepath', category: shapeCategory.base },
+  { type: 'heart', title: 'heart', category: shapeCategory.base },
+  {
+    type: 'fivePointedStar',
+    title: 'fivePointedStar',
+    category: shapeCategory.base,
+  },
+  { type: 'lightning', title: 'lightning', category: shapeCategory.base },
+  { type: 'forward', title: 'forward', category: shapeCategory.base },
+  {
+    type: 'forwardDouble',
+    title: 'forwardDouble',
+    category: shapeCategory.base,
+  },
+  { type: 'panorama', title: 'panorama', category: shapeCategory.base },
+  { type: 'pause', title: 'pause', category: shapeCategory.base },
 ];
 
 export default BasicTemplate;

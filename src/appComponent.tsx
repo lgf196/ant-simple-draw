@@ -5,7 +5,7 @@ import Layout from '@/layout';
 import '@/assets/css/reset.css';
 import '@/assets/css/update.antd.css';
 import '@/assets/css/common.css';
-import '@/icons'; // 初始化svg加载
+import '@/icons';
 
 const AppComponent = memo(function AppComponent(props) {
   return (

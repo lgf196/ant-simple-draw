@@ -28,9 +28,19 @@ const Head = memo(function Head(props) {
         graph.clearCells();
         break;
       case 'save':
-        graph.toPNG((datauri: string) => {
-          DataUri.downloadDataUri(datauri, 'ant-simple-draw.png');
-        });
+        graph.toPNG(
+          (datauri: string) => {
+            DataUri.downloadDataUri(datauri, 'ant.png');
+          },
+          {
+            padding: {
+              top: 20,
+              right: 20,
+              bottom: 20,
+              left: 20,
+            },
+          },
+        );
         break;
       case 'print':
         graph.printPreview();
