@@ -1,10 +1,11 @@
 import React, { memo, useMemo } from 'react';
-import Icon from '@ant-design/icons';
 export type svgProps = {
   iconClass: string;
   fill?: string;
   fontSize?: string;
   className?: string;
+  style?: React.CSSProperties;
+  onClick?: React.MouseEventHandler<SVGSVGElement>;
 };
 
 const SvgIcon: React.FC<svgProps> = memo(function SvgIcon({
@@ -12,23 +13,20 @@ const SvgIcon: React.FC<svgProps> = memo(function SvgIcon({
   fill,
   fontSize = '18px',
   className,
-  ...props
+  onClick,
+  style,
 }) {
   const iconName = useMemo(() => '#icon-' + iconClass, [iconClass]);
   return (
-    <Icon
-      {...props}
-      component={() => (
-        <svg
-          fontSize={fontSize!}
-          style={{ ...svgStyle, fontSize }}
-          aria-hidden="true"
-          className={className!}
-        >
-          <use xlinkHref={iconName} fill={fill!} />
-        </svg>
-      )}
-    ></Icon>
+    <svg
+      fontSize={fontSize!}
+      style={{ ...svgStyle, fontSize, ...style }}
+      aria-hidden="true"
+      className={className!}
+      onClick={onClick}
+    >
+      <use xlinkHref={iconName} fill={fill!} />
+    </svg>
   );
 });
 

@@ -1,0 +1,19 @@
+$bg: #f0f0f0;
+$borderColor: #f0f0f0;
+@mixin flexContainer($jc) {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: $jc;
+}
+
+@mixin style($size, $color, $bold: normal) {
+  font-size: $size;
+  color: $color;
+  font-weight: $bold;
+}
+
+@mixin wh($w, $h) {
+  width: $w;
+  height: $h;
+}
