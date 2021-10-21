@@ -6,6 +6,9 @@ declare global {
      * @description 类别
      */
     category: T;
+    /**
+     * @description 类别模块中的类型
+     */
     type: T;
     component: T;
     label: T;
