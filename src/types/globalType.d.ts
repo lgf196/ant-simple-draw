@@ -1,5 +1,6 @@
 import React from 'react';
 declare global {
+  /* eslint-disable */
   interface templateDataType<T = string, K = unknown> {
     /**
      * @description 类别
