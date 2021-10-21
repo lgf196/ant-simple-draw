@@ -1,0 +1,40 @@
+.header {
+  padding: 0 20px;
+  @include wh(100%, 64px);
+  background: #fff;
+  box-shadow: 0 2px 8px #f0f1f2;
+  position: fixed;
+  top: 0;
+  z-index: 200;
+  display: flex;
+  h1 {
+    @include flexContainer(center);
+  }
+  .title {
+    a {
+      display: inline-block;
+      @include style(23px, #1890ff, 600);
+      img {
+        width: 40px;
+        vertical-align: middle;
+        margin-right: 10px;
+      }
+    }
+  }
+  .option {
+    flex: 1;
+    @include flexContainer(center);
+    text-align: center;
+    .icon {
+      @include style(17px, #2f54eb);
+      padding: 0 15px;
+      cursor: pointer;
+    }
+  }
+  .config {
+    box-sizing: border-box;
+    height: 100%;
+    padding: 0 24px;
+    border-left: 1px solid rgba(0, 0, 0, 0.08);
+  }
+}

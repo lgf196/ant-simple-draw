@@ -17,7 +17,7 @@ export default function createVitePlugins() {
      */
     reactRefresh(),
     configSvgIcons(),
-    // configStyleImport(),
+    configStyleImport(),
   ];
   VITE_APP_ESLINT && vitePlugins.push(...configEslint());
   VITE_APP_VISUALIZER && vitePlugins.push(configVisualizerConfig());
