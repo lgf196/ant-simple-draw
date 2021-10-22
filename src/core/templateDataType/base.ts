@@ -1,13 +1,15 @@
 import { commonStyle, commonAttr } from '@/core/config/common';
 
+/* eslint-disable */
 const list: templateDataType[] = [
   {
+    id: 'baseText01',
     category: 'base',
     type: 'Text',
     component: 'Text',
-    label: '文字',
+    label: '文本组件',
     propValue: '双击编辑文字',
-    icon: 'wenben',
+    icon: 'https://cdn.gudsen.com/2021/09/30/af90bac80a9447f18156e251ecbc1dff.png',
     style: {
       width: 200,
       height: 22,
@@ -19,12 +21,13 @@ const list: templateDataType[] = [
     },
   },
   {
+    id: 'baseButton02',
     category: 'base',
     type: 'Button',
     component: 'Button',
-    label: '按钮',
+    label: '按钮组件',
     propValue: '按钮',
-    icon: 'button',
+    icon: 'https://cdn.gudsen.com/2021/09/30/af90bac80a9447f18156e251ecbc1dff.png',
   },
 ];
 

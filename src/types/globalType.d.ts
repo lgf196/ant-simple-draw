@@ -10,6 +10,7 @@ declare global {
      * @description 类别模块中的类型
      */
     type: T;
+    id: T;
     component: T;
     label: T;
     propValue?: K;

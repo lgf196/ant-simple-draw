@@ -1,0 +1,4 @@
+.ant-tabs > .ant-tabs-nav .ant-tabs-nav-wrap,
+.ant-tabs > div > .ant-tabs-nav .ant-tabs-nav-wrap {
+  height: calc(100vh - 120px);
+}

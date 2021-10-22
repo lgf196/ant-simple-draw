@@ -1,0 +1,24 @@
+.tabContent {
+  @include wh(210px, 100%);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  .list {
+    position: relative;
+    z-index: 100;
+    margin-bottom: 10px;
+    text-align: center;
+    cursor: move;
+    padding: 5px 0;
+    border: 2px solid hsla(0, 0%, 62%, 0.24);
+
+    img {
+      width: 95px;
+    }
+  }
+}
+.editor {
+  position: relative;
+  background: #fff;
+  margin: auto;
+}

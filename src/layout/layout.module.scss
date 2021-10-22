@@ -3,9 +3,6 @@
   @include wh(100%, 64px);
   background: #fff;
   box-shadow: 0 2px 8px #f0f1f2;
-  position: fixed;
-  top: 0;
-  z-index: 200;
   display: flex;
   h1 {
     @include flexContainer(center);
