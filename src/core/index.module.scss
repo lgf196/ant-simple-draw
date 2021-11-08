@@ -1,8 +1,12 @@
+@import 'src/assets/scss/animate.scss';
 .tabContent {
   @include wh(210px, 100%);
+  background-color: #fff;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  -webkit-animation: fade-in-left 0.6s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+  animation: fade-in-left 0.6s cubic-bezier(0.39, 0.575, 0.565, 1) both;
   .list {
     position: relative;
     z-index: 100;
@@ -11,7 +15,6 @@
     cursor: move;
     padding: 5px 0;
     border: 2px solid hsla(0, 0%, 62%, 0.24);
-
     img {
       width: 95px;
     }

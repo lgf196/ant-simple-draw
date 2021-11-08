@@ -24,3 +24,27 @@ export const environmentVariable = () => {
   }
   return parps;
 };
+
+/**
+ * @description 深拷贝
+ */
+export const deepCopy = (obj: dynamicTyping) => {
+  if (typeof obj !== 'object') return;
+  const newObj: dynamicTyping = obj instanceof Array ? [] : {};
+  for (var key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      newObj[key] = typeof obj[key] === 'object' ? deepCopy(obj[key]) : obj[key];
+    }
+  }
+  return newObj;
+};
+
+/**
+ * @description 取出某个数组对象的某个值
+ * @param data 要处理的数组对象
+ * @param quiteKey 判断属性值key
+ * @param quiteVal 要做对比的值
+ */
+export const getSingleArrayVal = <T = unknown>(data: T[], quiteKey: keyof T, quiteVal: unknown) => {
+  return data.length ? data.filter((item) => item[quiteKey] === quiteVal)[0] : [];
+};

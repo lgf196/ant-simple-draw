@@ -23,6 +23,24 @@ const Slider = memo(function Slider() {
         >
           {!collapse ? <Drag list={baseTypeData} /> : null}
         </TabPane>
+        <TabPane
+          key="2"
+          tab={<TabTitle title="基础" icon={<HighlightOutlined style={{ margin: 0 }} />} />}
+        >
+          {!collapse ? <Drag list={baseTypeData} /> : null}
+        </TabPane>
+        <TabPane
+          key="3"
+          tab={<TabTitle title="基础" icon={<HighlightOutlined style={{ margin: 0 }} />} />}
+        >
+          {!collapse ? <Drag list={baseTypeData} /> : null}
+        </TabPane>
+        <TabPane
+          key="4"
+          tab={<TabTitle title="基础" icon={<HighlightOutlined style={{ margin: 0 }} />} />}
+        >
+          {!collapse ? <Drag list={baseTypeData} /> : null}
+        </TabPane>
       </Tabs>
     </div>
   );

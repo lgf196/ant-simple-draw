@@ -1,7 +1,7 @@
 import React from 'react';
 declare global {
   /* eslint-disable */
-  interface templateDataType<T = string, K = unknown> {
+  interface templateDateInterface<T = string, K = unknown> {
     /**
      * @description 类别
      */
@@ -16,6 +16,8 @@ declare global {
     propValue?: K;
     icon?: T;
     style?: React.CSSProperties;
+  }
+  interface templateDataType extends templateDateInterface {
     [par: string]: any;
   }
 }

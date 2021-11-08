@@ -3,11 +3,22 @@ import Toolbar from '@/layout/head';
 import SliderNav from '@/layout/slider';
 import style from './app.module.scss';
 import Edit from '@/core/edit';
+import baseList from '@/core/templateDataType/base';
+import { deepCopy, getSingleArrayVal } from '@/utils';
 const App: FC = () => {
   const handleDrop: React.DragEventHandler<HTMLDivElement> = (e) => {
     e.preventDefault();
     const id = e.dataTransfer.getData('id');
-    console.log(`onDrop`, e, id);
+    const rectInfo = document.querySelector('#editor')!.getBoundingClientRect();
+    if (id) {
+      const component = deepCopy(
+        getSingleArrayVal<templateDateInterface>(baseList, 'id', id),
+      ) as templateDataType;
+      component.style!.top = e.clientY - rectInfo.y;
+      component.style!.left = e.clientX - rectInfo.x;
+      console.log(`component`, component);
+    }
+    console.log(`onDrop`, e, id, rectInfo);
   };
   const handleDragOver: React.DragEventHandler<HTMLDivElement> = (e) => {
     e.preventDefault();
