@@ -3,16 +3,17 @@ import Toolbar from '@/layout/head';
 import SliderNav from '@/layout/slider';
 import style from './app.module.scss';
 import Edit from '@/core/edit';
-import baseList from '@/core/templateDataType/base';
 import { deepCopy, getSingleArrayVal } from '@/utils';
+import { useGetCopentConfigList } from './core/config/common';
 const App: FC = () => {
-  const handleDrop: React.DragEventHandler<HTMLDivElement> = (e) => {
+  const { baseConfigList } = useGetCopentConfigList();
+  const handleDrop: React.DragEventHandler<HTMLDivElement> = async (e) => {
     e.preventDefault();
     const id = e.dataTransfer.getData('id');
     const rectInfo = document.querySelector('#editor')!.getBoundingClientRect();
     if (id) {
       const component = deepCopy(
-        getSingleArrayVal<templateDateInterface>(baseList, 'id', id),
+        getSingleArrayVal<templateDateInterface>(baseConfigList, 'id', id),
       ) as templateDataType;
       component.style!.top = e.clientY - rectInfo.y;
       component.style!.left = e.clientX - rectInfo.x;
