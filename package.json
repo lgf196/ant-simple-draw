@@ -14,9 +14,12 @@
     "test:watch": "jest --watchAll"
   },
   "dependencies": {
+    "@types/react-redux": "^7.1.20",
     "antd": "^4.16.13",
     "react": "^17.0.0",
-    "react-dom": "^17.0.0"
+    "react-dom": "^17.0.0",
+    "react-redux": "^7.2.6",
+    "redux": "^4.1.2"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.14.1",
