@@ -7,7 +7,8 @@ const initialState = {
 export default (state = initialState, action: componentActionMerage) => {
   switch (action.type) {
     case types.addComponent:
-      return { ...state, componentDataList: action.data };
+      const componentDataList = [...state.componentDataList, action.data];
+      return { ...state, componentDataList };
     default:
       return state;
   }

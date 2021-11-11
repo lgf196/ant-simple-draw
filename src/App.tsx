@@ -5,8 +5,12 @@ import style from './app.module.scss';
 import Edit from '@/core/edit';
 import { deepCopy, getSingleArrayVal } from '@/utils';
 import { useGetCopentConfigList } from './core/config/common';
+import { useDispatch } from 'react-redux';
+import { Dispatch } from 'redux';
+import { addComponentAction, componentActionMerage } from '@/redux/action/component';
 const App: FC = () => {
   const { baseConfigList } = useGetCopentConfigList();
+  const dispatch = useDispatch<Dispatch<componentActionMerage>>();
   const handleDrop: React.DragEventHandler<HTMLDivElement> = async (e) => {
     e.preventDefault();
     const id = e.dataTransfer.getData('id');
@@ -17,8 +21,9 @@ const App: FC = () => {
       ) as templateDataType;
       component.style!.top = e.clientY - rectInfo.y;
       component.style!.left = e.clientX - rectInfo.x;
-      console.log(`component`, component);
+      dispatch(addComponentAction(component)); // fr
     }
+    console.log(`1133333333331`, 111);
     console.log(`onDrop`, e, id, rectInfo);
   };
   const handleDragOver: React.DragEventHandler<HTMLDivElement> = (e) => {
