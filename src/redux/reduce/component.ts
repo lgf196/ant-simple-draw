@@ -1,6 +1,9 @@
 import * as types from '@/redux/constants/actionType';
 import { componentActionMerage } from '../action/component';
-const initialState = {
+export interface componentInitialStateType {
+  componentDataList: templateDataType[];
+}
+const initialState: componentInitialStateType = {
   componentDataList: [],
 };
 

@@ -21,9 +21,8 @@ const App: FC = () => {
       ) as templateDataType;
       component.style!.top = e.clientY - rectInfo.y;
       component.style!.left = e.clientX - rectInfo.x;
-      dispatch(addComponentAction(component)); // fr
+      dispatch(addComponentAction(component));
     }
-    console.log(`1133333333331`, 111);
     console.log(`onDrop`, e, id, rectInfo);
   };
   const handleDragOver: React.DragEventHandler<HTMLDivElement> = (e) => {

@@ -1,4 +1,5 @@
 import React from 'react';
+import { componentInitialStateType } from '@/redux/reduce/component';
 declare global {
   /* eslint-disable */
   interface templateDateInterface<T = string, K = unknown> {
@@ -19,5 +20,8 @@ declare global {
   }
   interface templateDataType extends templateDateInterface {
     [par: string]: any;
+  }
+  interface storeType {
+    component: componentInitialStateType;
   }
 }

@@ -1,28 +1,27 @@
-import React, { memo, useMemo, FC } from 'react';
-
+import React, { memo, useMemo, FC, Suspense } from 'react';
+import { lazyComponent } from '@/utils/function';
 export type RenderTemplateType = {
   type: string;
   category: string;
 };
+
+const DynamicFunc = (category: string, type: string) => {
+  let Component: FC;
+  Component = lazyComponent(category, type);
+  return () => (
+    <Suspense fallback={<div>loading</div>}>
+      <Component />
+    </Suspense>
+  );
+};
+
 const RenderTemplate: FC<RenderTemplateType> = memo(function RenderTemplate(props) {
   const { type, category } = props;
 
-  const DynamicFunc = async (category: string, type: string) => {
-    let Component: FC;
-
-    if (category === 'base') {
-      const { default: BaseCompent } = await import(`@/core/componentTemplate/${category}/${type}`);
-      Component = BaseCompent;
-    }
-
-    return () => <Component />;
-  };
-
-  const Render = useMemo(() => {
+  const Dynamic = useMemo(() => {
     return DynamicFunc(category, type) as unknown as FC<RenderTemplateType>;
   }, [type, category]);
 
-  return <Render {...props} />;
+  return <Dynamic {...props} />;
 });
-
 export default RenderTemplate;

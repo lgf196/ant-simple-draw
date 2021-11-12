@@ -16,10 +16,10 @@ export const commonAttr = {
  * @param modules 文件目录
  * @note 此功能是vite自带的，可以通过import.meta.glob来实现，非vite项目想实现此功能，请参考：https://github.com/mrmlnc/fast-glob
  */
-export const getModuleData = async (
+export const getModuleData = async <T = any>(
   modules: Record<string, () => Promise<{ [key: string]: any }>>,
 ) => {
-  const arr: templateDataType[] = [];
+  const arr: T[] = [];
   for (const path in modules) {
     const module = await modules[path]();
     arr.push(module.default);
@@ -29,7 +29,7 @@ export const getModuleData = async (
 export const componentConfigList = async (
   modules: Record<string, () => Promise<{ [key: string]: any }>>,
 ) => {
-  const baseConfig = (await getModuleData(modules)) || [];
+  const baseConfig = (await getModuleData<templateDateInterface>(modules)) || [];
   for (let i = 0, len = baseConfig.length; i < len; i++) {
     const item = baseConfig[i];
     item.style = { ...commonStyle, ...item.style };

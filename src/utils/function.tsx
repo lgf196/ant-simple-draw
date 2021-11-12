@@ -5,5 +5,7 @@ import React, { lazy } from 'react';
  * @param path 路径
  */
 export const lazyComponent = (category: string, type: string) => {
-  return lazy(() => import(`@/core/componentTemplate/${category}/${type}`));
+  return lazy(
+    () => import(/* @vite-ignore */ `../core/componentTemplate/${category}/${type}/index.tsx`),
+  );
 };
