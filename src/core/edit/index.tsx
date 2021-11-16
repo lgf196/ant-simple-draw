@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import Grid from './grid';
+import Shape from './shape';
 import style from '../index.module.scss';
 import RenderTemplate from '@/core/renderTemplate';
 import { createSelector } from 'reselect';
@@ -8,7 +9,7 @@ const Edit = memo(function Edit(props) {
   const [componentListData] = useSelector(
     createSelector(
       [(state: storeType) => state.component],
-      (user) => [user.componentDataList] as const,
+      (component) => [component.componentDataList] as const,
     ),
   );
   return (
@@ -16,7 +17,9 @@ const Edit = memo(function Edit(props) {
       <Grid />
       {componentListData.length &&
         componentListData.map((item, index) => (
-          <RenderTemplate type={item.type} category={item.category} key={index} />
+          <Shape key={index} style={item.style} element={item}>
+            <RenderTemplate type={item.type} category={item.category} />
+          </Shape>
         ))}
     </div>
   );

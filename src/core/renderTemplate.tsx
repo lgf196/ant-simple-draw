@@ -1,5 +1,6 @@
 import React, { memo, useMemo, FC, Suspense } from 'react';
 import { lazyComponent } from '@/utils/function';
+import { Spin } from 'antd';
 export type RenderTemplateType = {
   type: string;
   category: string;
@@ -9,7 +10,7 @@ const DynamicFunc = (category: string, type: string) => {
   let Component: FC;
   Component = lazyComponent(category, type);
   return () => (
-    <Suspense fallback={<div>loading</div>}>
+    <Suspense fallback={<Spin />}>
       <Component />
     </Suspense>
   );

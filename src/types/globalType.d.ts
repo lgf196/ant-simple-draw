@@ -19,6 +19,10 @@ declare global {
     style?: React.CSSProperties;
   }
   interface templateDataType extends templateDateInterface {
+    /**
+     * @description 动态生成的组件id
+     */
+    componentId?: string;
     [par: string]: any;
   }
   interface storeType {

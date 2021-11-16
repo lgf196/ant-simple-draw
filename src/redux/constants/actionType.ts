@@ -4,7 +4,7 @@
 export const addComponent = 'addComponent';
 export type addComponent = typeof addComponent;
 /**
- * @description 删除组件
+ * @description 当前选中的组件
  */
-export const deleteComponent = 'deleteComponent';
-export type deleteComponent = typeof deleteComponent;
+export const curComponent = 'curComponent';
+export type curComponent = typeof curComponent;

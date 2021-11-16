@@ -48,3 +48,11 @@ export const deepCopy = (obj: dynamicTyping) => {
 export const getSingleArrayVal = <T = unknown>(data: T[], quiteKey: keyof T, quiteVal: unknown) => {
   return data.length ? data.filter((item) => item[quiteKey] === quiteVal)[0] : [];
 };
+
+/**
+ * @description 生成随机26位字符串id唯一值
+ * @return {String} 字符串
+ */
+export const getRandomStr = (): string => {
+  return new Date().getTime() + Math.random().toString(16).slice(2);
+};

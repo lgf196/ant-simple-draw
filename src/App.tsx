@@ -8,6 +8,7 @@ import { useGetCopentConfigList } from './core/config/common';
 import { useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
 import { addComponentAction, componentActionMerage } from '@/redux/action/component';
+import { getRandomStr } from '@/utils';
 const App: FC = () => {
   const { baseConfigList } = useGetCopentConfigList();
   const dispatch = useDispatch<Dispatch<componentActionMerage>>();
@@ -21,9 +22,9 @@ const App: FC = () => {
       ) as templateDataType;
       component.style!.top = e.clientY - rectInfo.y;
       component.style!.left = e.clientX - rectInfo.x;
+      component.componentId = getRandomStr();
       dispatch(addComponentAction(component));
     }
-    console.log(`onDrop`, e, id, rectInfo);
   };
   const handleDragOver: React.DragEventHandler<HTMLDivElement> = (e) => {
     e.preventDefault();
