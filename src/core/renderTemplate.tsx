@@ -4,14 +4,15 @@ import { Spin } from 'antd';
 export type RenderTemplateType = {
   type: string;
   category: string;
+  style: React.CSSProperties;
 };
 
 const DynamicFunc = (category: string, type: string) => {
-  let Component: FC;
+  let Component: FC<RenderTemplateType>;
   Component = lazyComponent(category, type);
-  return () => (
+  return (props: RenderTemplateType) => (
     <Suspense fallback={<Spin />}>
-      <Component />
+      <Component {...props} />
     </Suspense>
   );
 };

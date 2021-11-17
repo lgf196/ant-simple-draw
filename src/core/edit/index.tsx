@@ -12,13 +12,30 @@ const Edit = memo(function Edit(props) {
       (component) => [component.componentDataList] as const,
     ),
   );
+  const getShapeStyle = (style: React.CSSProperties) => {
+    const result: React.CSSProperties = {};
+    ['width', 'height', 'top', 'left', 'rotate'].forEach((attr) => {
+      if (attr !== 'rotate') {
+        (result as any)[attr] = (style as any)[attr] + 'px';
+      } else {
+        result.transform = 'rotate(' + style[attr] + 'deg)';
+      }
+    });
+    return result;
+  };
+
   return (
     <div id="editor" style={{ width: '1200px', height: '750px' }} className={style.editor}>
       <Grid />
       {componentListData.length &&
         componentListData.map((item, index) => (
-          <Shape key={index} style={item.style} element={item}>
-            <RenderTemplate type={item.type} category={item.category} />
+          <Shape
+            key={index}
+            style={getShapeStyle(item.style!)}
+            element={item}
+            defaultStyle={item.style}
+          >
+            <RenderTemplate type={item.type} category={item.category} style={item.style!} />
           </Shape>
         ))}
     </div>
