@@ -2,7 +2,11 @@ import React, { FC, memo, useState } from 'react';
 import styles from '../index.module.scss';
 import { useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
-import { componentActionMerage, curComponentAction } from '@/redux/action/component';
+import {
+  componentActionMerage,
+  curComponentAction,
+  setShapeStyleAction,
+} from '@/redux/action/component';
 import { createSelector } from 'reselect';
 import { useSelector } from 'react-redux';
 import { angleToCursor, initialAngle, pointList, pointType } from '@/core/config/shape';
@@ -27,7 +31,33 @@ const Shape: FC<ShapeType> = memo(function Shape({ children, style, element, def
     e.stopPropagation();
     dispatch(curComponentAction(element));
     setCursors(getCursor(element));
-    console.log(`object`, element);
+    const pos = { ...defaultStyle };
+    const startY = e.clientY;
+    const startX = e.clientX;
+    // 如果直接修改属性，值的类型会变为字符串，所以要转为数值型
+    const startTop = Number(pos.top);
+    const startLeft = Number(pos.left);
+
+    // 如果元素没有移动，则不保存快照
+    let hasMove = false;
+    const move = (moveEvent: MouseEvent) => {
+      hasMove = true;
+
+      const curX = moveEvent.clientX;
+      const curY = moveEvent.clientY;
+      console.log(`object`, curY, startY, startTop);
+      pos.top = curY - startY + startTop;
+      pos.left = curX - startX + startLeft;
+      dispatch(setShapeStyleAction(pos));
+    };
+
+    const up = () => {
+      document.removeEventListener('mousemove', move);
+      document.removeEventListener('mouseup', up);
+    };
+
+    document.addEventListener('mousemove', move);
+    document.addEventListener('mouseup', up);
   };
 
   /**
@@ -89,7 +119,6 @@ const Shape: FC<ShapeType> = memo(function Shape({ children, style, element, def
         }
       }
     });
-    console.log(`result`, result);
     return result;
   };
 

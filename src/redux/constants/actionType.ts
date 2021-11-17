@@ -8,3 +8,8 @@ export type addComponent = typeof addComponent;
  */
 export const curComponent = 'curComponent';
 export type curComponent = typeof curComponent;
+/**
+ * @description 修改选中的组件样式
+ */
+export const setShapeStyle = 'setShapeStyle';
+export type setShapeStyle = typeof setShapeStyle;

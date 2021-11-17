@@ -16,6 +16,15 @@ export default (state = initialState, action: componentActionMerage) => {
       return { ...state, componentDataList };
     case types.curComponent:
       return { ...state, curComponent: action.data };
+    case types.setShapeStyle:
+      const { curComponent } = state;
+      const { width, height, top, left, rotate } = action.data;
+      if (top) curComponent!.style!.top = top;
+      if (left) curComponent!.style!.left = left;
+      if (width) curComponent!.style!.width = width;
+      if (height) curComponent!.style!.height = height;
+      if (rotate) curComponent!.style!.rotate = rotate;
+      return { ...state, curComponent };
     default:
       return state;
   }
