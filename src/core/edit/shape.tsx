@@ -42,10 +42,8 @@ const Shape: FC<ShapeType> = memo(function Shape({ children, style, element, def
     let hasMove = false;
     const move = (moveEvent: MouseEvent) => {
       hasMove = true;
-
       const curX = moveEvent.clientX;
       const curY = moveEvent.clientY;
-      console.log(`object`, curY, startY, startTop);
       pos.top = curY - startY + startTop;
       pos.left = curX - startX + startLeft;
       dispatch(setShapeStyleAction(pos));
@@ -121,7 +119,9 @@ const Shape: FC<ShapeType> = memo(function Shape({ children, style, element, def
     });
     return result;
   };
-
+  const handleMouseDownOnPoint = (item: pointType, e: React.MouseEvent) => {
+    console.log(`111`, 111);
+  };
   return (
     <div
       className={`${styles.shape} ${active ? styles.shapeActive : null}`}
@@ -130,7 +130,12 @@ const Shape: FC<ShapeType> = memo(function Shape({ children, style, element, def
     >
       {active &&
         pointList.map((item, index) => (
-          <div key={index} className={styles.shapePoint} style={getPointStyle(item)}></div>
+          <div
+            key={index}
+            className={styles.shapePoint}
+            style={getPointStyle(item)}
+            onMouseDown={(e) => handleMouseDownOnPoint(item, e)}
+          ></div>
         ))}
 
       {children}
