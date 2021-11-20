@@ -28,7 +28,7 @@ const App: FC = () => {
   };
   const handleDragOver: React.DragEventHandler<HTMLDivElement> = (e) => {
     e.preventDefault();
-    console.log(`onDragOver------`, e);
+    // console.log(`onDragOver------`, e);
   };
   return (
     <>
