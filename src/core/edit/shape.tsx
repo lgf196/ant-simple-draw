@@ -27,6 +27,9 @@ const Shape: FC<ShapeType> = memo(function Shape({ children, style, element, def
   );
   const dispatch = useDispatch<Dispatch<componentActionMerage>>();
 
+  /**
+  @description 拖拽图形
+   */
   const handleMouseDownOnShape: React.MouseEventHandler<HTMLDivElement> = async (e) => {
     e.stopPropagation();
     dispatch(curComponentAction(element));
@@ -119,6 +122,9 @@ const Shape: FC<ShapeType> = memo(function Shape({ children, style, element, def
     });
     return result;
   };
+  /**
+   * @description 八个点,每个点按下的事件
+   */
   const handleMouseDownOnPoint = (item: pointType, e: React.MouseEvent) => {
     console.log(`111`, 111);
   };
