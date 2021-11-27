@@ -33,7 +33,7 @@ const Edit = memo(function Edit(props) {
             key={index}
             style={getShapeStyle(item.style!)}
             element={item}
-            defaultStyle={item.style}
+            defaultStyle={item.style!}
           >
             <RenderTemplate type={item.type} category={item.category} style={item.style!} />
           </Shape>

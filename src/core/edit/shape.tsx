@@ -14,7 +14,7 @@ import { mod360 } from '@/utils/translate';
 import { useMandatoryUpdate } from '@/hooks';
 export interface ShapeType {
   style?: React.CSSProperties;
-  defaultStyle?: React.CSSProperties;
+  defaultStyle: React.CSSProperties;
   element: templateDataType;
 }
 const Shape: FC<ShapeType> = memo(function Shape({ children, style, element, defaultStyle }) {
@@ -126,6 +126,19 @@ const Shape: FC<ShapeType> = memo(function Shape({ children, style, element, def
    * @description 八个点,每个点按下的事件
    */
   const handleMouseDownOnPoint = (item: pointType, e: React.MouseEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+
+    const style = { ...defaultStyle };
+
+    // 组件宽高比
+    const proportion = Number(style.width) / Number(style.height);
+
+    // 组件中心点
+    const center = {
+      x: Number(style.left) + Number(style.width) / 2,
+      y: Number(style.top) + Number(style.height) / 2,
+    };
     console.log(`111`, 111);
   };
   return (
