@@ -8,14 +8,14 @@ import { useGetCopentConfigList } from './core/config/common';
 import { useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
 import { addComponentAction, componentActionMerage } from '@/redux/action/component';
-import { getRandomStr } from '@/utils';
+import { getRandomStr, $ } from '@/utils';
 const App: FC = () => {
   const { baseConfigList } = useGetCopentConfigList();
   const dispatch = useDispatch<Dispatch<componentActionMerage>>();
   const handleDrop: React.DragEventHandler<HTMLDivElement> = async (e) => {
     e.preventDefault();
     const id = e.dataTransfer.getData('id');
-    const rectInfo = document.querySelector('#editor')!.getBoundingClientRect();
+    const rectInfo = $('#editor').getBoundingClientRect();
     if (id) {
       const component = deepCopy(
         getSingleArrayVal<templateDateInterface>(baseConfigList, 'id', id),

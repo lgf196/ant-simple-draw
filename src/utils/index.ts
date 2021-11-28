@@ -56,3 +56,9 @@ export const getSingleArrayVal = <T = unknown>(data: T[], quiteKey: keyof T, qui
 export const getRandomStr = (): string => {
   return new Date().getTime() + Math.random().toString(16).slice(2);
 };
+/**
+ * @description 获取dom元素
+ */
+export const $ = (selector: any) => {
+  return document.querySelector(selector);
+};

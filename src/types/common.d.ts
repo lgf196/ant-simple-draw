@@ -8,3 +8,6 @@ interface dispatchType<T, K> {
   type: T;
   data: K;
 }
+interface MergeEvent extends React.MouseEvent {
+  target: HTMLElement;
+}

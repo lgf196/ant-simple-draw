@@ -11,7 +11,8 @@ import { createSelector } from 'reselect';
 import { useSelector } from 'react-redux';
 import { angleToCursor, initialAngle, pointList, pointType } from '@/core/config/shape';
 import { mod360 } from '@/utils/translate';
-import { useMandatoryUpdate } from '@/hooks';
+import { $ } from '@/utils';
+import calculateComponentPositonAndSize from '@/utils/calculateComponentPositonAndSize';
 export interface ShapeType {
   style?: React.CSSProperties;
   defaultStyle: React.CSSProperties;
@@ -125,7 +126,8 @@ const Shape: FC<ShapeType> = memo(function Shape({ children, style, element, def
   /**
    * @description 八个点,每个点按下的事件
    */
-  const handleMouseDownOnPoint = (item: pointType, e: React.MouseEvent) => {
+
+  const handleMouseDownOnPoint = (point: pointType, e: MergeEvent) => {
     e.stopPropagation();
     e.preventDefault();
 
@@ -139,6 +141,57 @@ const Shape: FC<ShapeType> = memo(function Shape({ children, style, element, def
       x: Number(style.left) + Number(style.width) / 2,
       y: Number(style.top) + Number(style.height) / 2,
     };
+
+    // 获取画布位移信息
+    const editorRectInfo = $('#editor').getBoundingClientRect();
+
+    // 获取 point 与实际拖动基准点的差值
+    const pointRect = e.target.getBoundingClientRect();
+    // 当前点击圆点相对于画布的中心坐标
+    const curPoint = {
+      x: Math.round(pointRect.left - editorRectInfo.left + e.target.offsetWidth / 2),
+      y: Math.round(pointRect.top - editorRectInfo.top + e.target.offsetHeight / 2),
+    };
+
+    // 获取对称点的坐标
+    const symmetricPoint = {
+      x: center.x - (curPoint.x - center.x),
+      y: center.y - (curPoint.y - center.y),
+    };
+
+    // 是否需要保存快照
+    let needSave = false;
+    let isFirst = true;
+
+    const move = (moveEvent: MouseEvent) => {
+      // 第一次点击时也会触发 move，所以会有“刚点击组件但未移动，组件的大小却改变了”的情况发生
+      // 因此第一次点击时不触发 move 事件
+      if (isFirst) {
+        isFirst = false;
+        return;
+      }
+
+      needSave = true;
+      const curPositon = {
+        x: moveEvent.clientX - editorRectInfo.left,
+        y: moveEvent.clientY - editorRectInfo.top,
+      };
+
+      calculateComponentPositonAndSize(point, style, curPositon, proportion, false, {
+        center,
+        curPoint,
+        symmetricPoint,
+      });
+      dispatch(setShapeStyleAction(style));
+    };
+
+    const up = () => {
+      document.removeEventListener('mousemove', move);
+      document.removeEventListener('mouseup', up);
+    };
+
+    document.addEventListener('mousemove', move);
+    document.addEventListener('mouseup', up);
     console.log(`111`, 111);
   };
   return (
@@ -153,7 +206,7 @@ const Shape: FC<ShapeType> = memo(function Shape({ children, style, element, def
             key={index}
             className={styles.shapePoint}
             style={getPointStyle(item)}
-            onMouseDown={(e) => handleMouseDownOnPoint(item, e)}
+            onMouseDown={(e: any) => handleMouseDownOnPoint(item, e)}
           ></div>
         ))}
 
