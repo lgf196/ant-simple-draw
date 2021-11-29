@@ -7,7 +7,11 @@ import { deepCopy, getSingleArrayVal } from '@/utils';
 import { useGetCopentConfigList } from './core/config/common';
 import { useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
-import { addComponentAction, componentActionMerage } from '@/redux/action/component';
+import {
+  addComponentAction,
+  componentActionMerage,
+  curComponentAction,
+} from '@/redux/action/component';
 import { getRandomStr, $ } from '@/utils';
 const App: FC = () => {
   const { baseConfigList } = useGetCopentConfigList();
@@ -38,7 +42,15 @@ const App: FC = () => {
           <SliderNav />
         </section>
         <section className={style.center}>
-          <div className={style.content} onDrop={handleDrop} onDragOver={handleDragOver}>
+          <div
+            className={style.content}
+            onDrop={handleDrop}
+            onDragOver={handleDragOver}
+            onMouseDown={() => {
+              // 这里点击空白区域的时候，不选中组件
+              dispatch(curComponentAction(null));
+            }}
+          >
             <Edit />
           </div>
         </section>

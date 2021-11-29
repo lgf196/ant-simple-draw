@@ -193,7 +193,6 @@ const Shape: FC<ShapeType> = memo(function Shape({ children, style, element, def
 
     document.addEventListener('mousemove', move);
     document.addEventListener('mouseup', up);
-    console.log(`111`, 111);
   };
   /**
    * @description 图形旋转

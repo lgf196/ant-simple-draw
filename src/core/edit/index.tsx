@@ -27,17 +27,18 @@ const Edit = memo(function Edit(props) {
   return (
     <div id="editor" style={{ width: '1200px', height: '750px' }} className={style.editor}>
       <Grid />
-      {componentListData.length &&
-        componentListData.map((item, index) => (
-          <Shape
-            key={index}
-            style={getShapeStyle(item.style!)}
-            element={item}
-            defaultStyle={item.style!}
-          >
-            <RenderTemplate type={item.type} category={item.category} style={item.style!} />
-          </Shape>
-        ))}
+      {componentListData.length
+        ? componentListData.map((item, index) => (
+            <Shape
+              key={index}
+              style={getShapeStyle(item.style!)}
+              element={item}
+              defaultStyle={item.style!}
+            >
+              <RenderTemplate type={item.type} category={item.category} style={item.style!} />
+            </Shape>
+          ))
+        : null}
     </div>
   );
 });

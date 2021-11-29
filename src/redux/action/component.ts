@@ -5,7 +5,7 @@ import * as types from '@/redux/constants/actionType';
  */
 export type componentActionMerage =
   | dispatchType<types.addComponent, templateDataType>
-  | dispatchType<types.curComponent, templateDataType>
+  | dispatchType<types.curComponent, templateDataType | null>
   | dispatchType<types.setShapeStyle, React.CSSProperties>;
 
 export const addComponentAction = (data: templateDataType): componentActionMerage => ({
@@ -13,7 +13,7 @@ export const addComponentAction = (data: templateDataType): componentActionMerag
   data,
 });
 
-export const curComponentAction = (data: templateDataType): componentActionMerage => ({
+export const curComponentAction = (data: templateDataType | null): componentActionMerage => ({
   type: types.curComponent,
   data,
 });
