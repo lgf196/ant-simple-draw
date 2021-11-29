@@ -33,15 +33,31 @@
   }
 }
 .shapeActive {
-  outline: 1px solid #70c0ff;
+  outline: 1px solid #2f54eb;
   user-select: none;
 }
 .shapePoint {
   position: absolute;
   background: #fff;
-  border: 1px solid #59c7f9;
+  border: 1px solid #2f54eb;
   width: 8px;
   height: 8px;
   border-radius: 50%;
   z-index: 1;
+}
+.shapeRotate {
+  position: absolute;
+  top: -34px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: grab;
+  color: #2f54eb;
+  font-size: 20px;
+  font-weight: 600;
+
+  &:active {
+    cursor: grabbing;
+  }
 }

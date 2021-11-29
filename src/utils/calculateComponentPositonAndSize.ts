@@ -9,7 +9,7 @@ export interface pointInfoType {
   [par: string]: any;
 }
 export type handleSizeType = (
-  style: Required<React.CSSProperties>,
+  style: Required<MergeCSSProperties>,
   curPositon: xyTYpe,
   proportion: number,
   needLockProportion: boolean,
@@ -440,9 +440,18 @@ const funcs: cursorHandleType = {
   l: calculateLeft,
 };
 
+/**
+ *
+ * @param name 八个cursor属性连接桩
+ * @param style 样式
+ * @param curPositon 当前组件的位移信息
+ * @param proportion 组件宽高比
+ * @param needLockProportion 是否需要锁屏
+ * @param pointInfo 当前连接桩点的信息
+ */
 export default function calculateComponentPositonAndSize(
   name: pointType,
-  style: Required<React.CSSProperties>,
+  style: Required<MergeCSSProperties>,
   curPositon: xyTYpe,
   proportion: number,
   needLockProportion: boolean,

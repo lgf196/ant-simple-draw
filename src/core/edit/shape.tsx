@@ -1,4 +1,4 @@
-import React, { FC, memo, useState } from 'react';
+import React, { FC, memo, useState, useRef } from 'react';
 import styles from '../index.module.scss';
 import { useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
@@ -13,12 +13,14 @@ import { angleToCursor, initialAngle, pointList, pointType } from '@/core/config
 import { mod360 } from '@/utils/translate';
 import { $ } from '@/utils';
 import calculateComponentPositonAndSize from '@/utils/calculateComponentPositonAndSize';
+import { ReloadOutlined } from '@ant-design/icons';
 export interface ShapeType {
-  style?: React.CSSProperties;
-  defaultStyle: React.CSSProperties;
+  style?: MergeCSSProperties;
+  defaultStyle: MergeCSSProperties;
   element: templateDataType;
 }
 const Shape: FC<ShapeType> = memo(function Shape({ children, style, element, defaultStyle }) {
+  const currentElement = useRef<HTMLDivElement | null>(null);
   const [cursors, setCursors] = useState<Record<pointType, string>>();
   const [curComponent, active] = useSelector(
     createSelector([(state: storeType) => state.component], (component) => {
@@ -126,12 +128,11 @@ const Shape: FC<ShapeType> = memo(function Shape({ children, style, element, def
   /**
    * @description 八个点,每个点按下的事件
    */
-
   const handleMouseDownOnPoint = (point: pointType, e: MergeEvent) => {
     e.stopPropagation();
     e.preventDefault();
 
-    const style = { ...defaultStyle } as Required<React.CSSProperties>;
+    const style = { ...defaultStyle } as Required<MergeCSSProperties>;
 
     // 组件宽高比
     const proportion = Number(style.width) / Number(style.height);
@@ -194,22 +195,68 @@ const Shape: FC<ShapeType> = memo(function Shape({ children, style, element, def
     document.addEventListener('mouseup', up);
     console.log(`111`, 111);
   };
+  /**
+   * @description 图形旋转
+   */
+  const handleRotate: React.MouseEventHandler<HTMLDivElement> = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const pos = { ...defaultStyle };
+    const startY = e.clientY;
+    const startX = e.clientX;
+    const startRotate = Number(pos.rotate);
+    // 获取元素中心点位置
+    const rect = currentElement.current!.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+
+    // 旋转前的角度
+    const rotateDegreeBefore = Math.atan2(startY - centerY, startX - centerX) / (Math.PI / 180);
+
+    // 如果元素没有移动，则不保存快照
+    let hasMove = false;
+    const move = (moveEvent: MouseEvent) => {
+      hasMove = true;
+      const curX = moveEvent.clientX;
+      const curY = moveEvent.clientY;
+      // 旋转后的角度
+      const rotateDegreeAfter = Math.atan2(curY - centerY, curX - centerX) / (Math.PI / 180);
+      // 获取旋转的角度值
+      pos.rotate = startRotate + rotateDegreeAfter - rotateDegreeBefore;
+      // 修改当前组件样式
+      dispatch(setShapeStyleAction(pos));
+    };
+
+    const up = () => {
+      document.removeEventListener('mousemove', move);
+      document.removeEventListener('mouseup', up);
+      // 根据旋转角度重新获取光标位置，cursor
+      setCursors(getCursor(element));
+    };
+
+    document.addEventListener('mousemove', move);
+    document.addEventListener('mouseup', up);
+  };
   return (
     <div
       className={`${styles.shape} ${active ? styles.shapeActive : null}`}
       style={style}
       onMouseDown={handleMouseDownOnShape}
+      ref={currentElement}
     >
-      {active &&
-        pointList.map((item, index) => (
-          <div
-            key={index}
-            className={styles.shapePoint}
-            style={getPointStyle(item)}
-            onMouseDown={(e: any) => handleMouseDownOnPoint(item, e)}
-          ></div>
-        ))}
-
+      {active && (
+        <>
+          <ReloadOutlined className={styles.shapeRotate} onMouseDown={handleRotate} />
+          {pointList.map((item, index) => (
+            <div
+              key={index}
+              className={styles.shapePoint}
+              style={getPointStyle(item)}
+              onMouseDown={(e: any) => handleMouseDownOnPoint(item, e)}
+            ></div>
+          ))}
+        </>
+      )}
       {children}
     </div>
   );
