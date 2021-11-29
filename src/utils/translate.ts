@@ -17,10 +17,10 @@ export const angleToRadian = (angle: number) => {
  * https://www.zhihu.com/question/67425734/answer/252724399 旋转矩阵公式
  */
 export const calculateRotatedPointCoordinate = (
-  point: any,
-  center: any,
-  rotate: number,
-): object => {
+  point: xyTYpe,
+  center: xyTYpe,
+  rotate: any,
+): xyTYpe => {
   /**
    * 旋转公式：
    *  点a(x, y)
@@ -45,7 +45,7 @@ export const calculateRotatedPointCoordinate = (
 /**
  * @description 求两点之间的中点坐标
  */
-export const getCenterPoint = (p1: any, p2: any) => {
+export const getCenterPoint = (p1: xyTYpe, p2: xyTYpe) => {
   return {
     x: p1.x + (p2.x - p1.x) / 2,
     y: p1.y + (p2.y - p1.y) / 2,

@@ -11,3 +11,7 @@ interface dispatchType<T, K> {
 interface MergeEvent extends React.MouseEvent {
   target: HTMLElement;
 }
+interface xyTYpe<T = number> {
+  x: T;
+  y: T;
+}

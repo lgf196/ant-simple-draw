@@ -131,7 +131,7 @@ const Shape: FC<ShapeType> = memo(function Shape({ children, style, element, def
     e.stopPropagation();
     e.preventDefault();
 
-    const style = { ...defaultStyle };
+    const style = { ...defaultStyle } as Required<React.CSSProperties>;
 
     // 组件宽高比
     const proportion = Number(style.width) / Number(style.height);
