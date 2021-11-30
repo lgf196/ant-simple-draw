@@ -1,16 +1,18 @@
-import React, { memo } from 'react';
+import React, { Dispatch, memo } from 'react';
 import Grid from './grid';
 import Shape from './shape';
 import style from '../index.module.scss';
 import RenderTemplate from '@/core/renderTemplate';
 import { createSelector } from 'reselect';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ContextMenu from './contextMenu';
+import { contextMenuActionMerage, showContextMenuAction } from '@/redux/action/contextMenu';
 const Edit = memo(function Edit(props) {
-  const [componentListData] = useSelector(
+  const dispatch = useDispatch<Dispatch<contextMenuActionMerage>>();
+  const [componentListData, curComponent] = useSelector(
     createSelector(
       [(state: storeType) => state.component],
-      (component) => [component.componentDataList] as const,
+      (component) => [component.componentDataList, component.curComponent] as const,
     ),
   );
   const getShapeStyle = (style: React.CSSProperties) => {
@@ -27,7 +29,20 @@ const Edit = memo(function Edit(props) {
   const handleContextMenu: React.MouseEventHandler<HTMLDivElement> = (e) => {
     e.stopPropagation();
     e.preventDefault();
-    console.log(`dianji`);
+    // 计算菜单相对于编辑器的位移
+    let target = e.target! as any;
+    // 注意react中没有offsetY属性，react将event事件重写了，要想获取到元素的offsetY属性，用nativeEvent
+    let top = e.nativeEvent.offsetY;
+    let left = e.nativeEvent.offsetX;
+    while (target instanceof SVGElement) {
+      target = target.parentNode;
+    }
+    while (!target.className.includes('editor')) {
+      left += target.offsetLeft;
+      top += target.offsetTop;
+      target = target.parentNode;
+    }
+    dispatch(showContextMenuAction({ top, left }));
   };
 
   return (

@@ -1,5 +1,6 @@
 import React from 'react';
 import { componentInitialStateType } from '@/redux/reduce/component';
+import { contextMenuInitialStateType } from '@/redux/reduce/contextMenu';
 declare global {
   /* eslint-disable */
   interface templateDateInterface<T = string, K = unknown> {
@@ -27,5 +28,6 @@ declare global {
   }
   interface storeType {
     component: componentInitialStateType;
+    contextMenu: contextMenuInitialStateType;
   }
 }

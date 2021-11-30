@@ -14,6 +14,7 @@ import { mod360 } from '@/utils/translate';
 import { $ } from '@/utils';
 import calculateComponentPositonAndSize from '@/utils/calculateComponentPositonAndSize';
 import { ReloadOutlined } from '@ant-design/icons';
+import { contextMenuActionMerage, hideContextMenuAction } from '@/redux/action/contextMenu';
 export interface ShapeType {
   style?: MergeCSSProperties;
   defaultStyle: MergeCSSProperties;
@@ -28,7 +29,7 @@ const Shape: FC<ShapeType> = memo(function Shape({ children, style, element, def
       return [component.curComponent, active] as const;
     }),
   );
-  const dispatch = useDispatch<Dispatch<componentActionMerage>>();
+  const dispatch = useDispatch<Dispatch<componentActionMerage | contextMenuActionMerage>>();
 
   /**
   @description 拖拽图形
@@ -236,11 +237,18 @@ const Shape: FC<ShapeType> = memo(function Shape({ children, style, element, def
     document.addEventListener('mousemove', move);
     document.addEventListener('mouseup', up);
   };
+  const handleClick: React.MouseEventHandler<HTMLDivElement> = (e) => {
+    // 阻止向父组件冒泡
+    e.stopPropagation();
+    e.preventDefault();
+    dispatch(hideContextMenuAction());
+  };
   return (
     <div
       className={`${styles.shape} ${active ? styles.shapeActive : null}`}
       style={style}
       onMouseDown={handleMouseDownOnShape}
+      onClick={handleClick}
       ref={currentElement}
     >
       {active && (
