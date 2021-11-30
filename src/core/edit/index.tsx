@@ -5,6 +5,7 @@ import style from '../index.module.scss';
 import RenderTemplate from '@/core/renderTemplate';
 import { createSelector } from 'reselect';
 import { useSelector } from 'react-redux';
+import ContextMenu from './contextMenu';
 const Edit = memo(function Edit(props) {
   const [componentListData] = useSelector(
     createSelector(
@@ -23,9 +24,19 @@ const Edit = memo(function Edit(props) {
     });
     return result;
   };
+  const handleContextMenu: React.MouseEventHandler<HTMLDivElement> = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    console.log(`dianji`);
+  };
 
   return (
-    <div id="editor" style={{ width: '1200px', height: '750px' }} className={style.editor}>
+    <div
+      id="editor"
+      style={{ width: '1200px', height: '750px' }}
+      className={style.editor}
+      onContextMenu={handleContextMenu}
+    >
       <Grid />
       {componentListData.length
         ? componentListData.map((item, index) => (
@@ -39,6 +50,8 @@ const Edit = memo(function Edit(props) {
             </Shape>
           ))
         : null}
+
+      <ContextMenu />
     </div>
   );
 });

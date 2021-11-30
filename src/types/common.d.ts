@@ -4,9 +4,9 @@ interface Window {
 type dynamicTyping<Type = any> = {
   [Property in keyof Type]: Type[Property];
 };
-interface dispatchType<T, K> {
+interface dispatchType<T, K = unknown> {
   type: T;
-  data: K;
+  data?: K;
 }
 interface MergeEvent extends React.MouseEvent {
   target: HTMLElement;

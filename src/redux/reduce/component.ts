@@ -9,7 +9,7 @@ const initialState: componentInitialStateType = {
   curComponent: null,
 };
 
-export default (state = initialState, action: componentActionMerage) => {
+export default (state = initialState, action: Required<componentActionMerage>) => {
   switch (action.type) {
     case types.addComponent:
       const componentDataList = [...state.componentDataList, action.data];

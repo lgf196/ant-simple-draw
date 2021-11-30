@@ -13,3 +13,13 @@ export type curComponent = typeof curComponent;
  */
 export const setShapeStyle = 'setShapeStyle';
 export type setShapeStyle = typeof setShapeStyle;
+/**
+ * @description 显示右键菜单
+ */
+export const showContextMenu = 'showContextMenu';
+export type showContextMenu = typeof showContextMenu;
+/**
+ * @description 隐藏右键菜单
+ */
+export const hideContextMenu = 'hideContextMenu';
+export type hideContextMenu = typeof hideContextMenu;
