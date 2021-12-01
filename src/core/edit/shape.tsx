@@ -6,6 +6,7 @@ import {
   componentActionMerage,
   curComponentAction,
   setShapeStyleAction,
+  isClickComponentAction,
 } from '@/redux/action/component';
 import { createSelector } from 'reselect';
 import { useSelector } from 'react-redux';
@@ -36,6 +37,7 @@ const Shape: FC<ShapeType> = memo(function Shape({ children, style, element, def
    */
   const handleMouseDownOnShape: React.MouseEventHandler<HTMLDivElement> = async (e) => {
     e.stopPropagation();
+    dispatch(isClickComponentAction(true));
     dispatch(curComponentAction(element));
     setCursors(getCursor(element));
     const pos = { ...defaultStyle };
@@ -132,7 +134,7 @@ const Shape: FC<ShapeType> = memo(function Shape({ children, style, element, def
   const handleMouseDownOnPoint = (point: pointType, e: MergeEvent) => {
     e.stopPropagation();
     e.preventDefault();
-
+    dispatch(isClickComponentAction(true));
     const style = { ...defaultStyle } as Required<MergeCSSProperties>;
 
     // 组件宽高比
@@ -201,6 +203,7 @@ const Shape: FC<ShapeType> = memo(function Shape({ children, style, element, def
   const handleRotate: React.MouseEventHandler<HTMLDivElement> = (e) => {
     e.preventDefault();
     e.stopPropagation();
+    dispatch(isClickComponentAction(true));
     const pos = { ...defaultStyle };
     const startY = e.clientY;
     const startX = e.clientX;

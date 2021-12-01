@@ -3,10 +3,12 @@ import { componentActionMerage } from '../action/component';
 export interface componentInitialStateType {
   componentDataList: templateDataType[];
   curComponent: templateDataType | null;
+  isClickComponent: boolean;
 }
 const initialState: componentInitialStateType = {
   componentDataList: [],
   curComponent: null,
+  isClickComponent: false,
 };
 
 export default (
@@ -19,6 +21,8 @@ export default (
       return { ...state, componentDataList };
     case types.curComponent:
       return { ...state, curComponent: action.data };
+    case types.isClickComponent:
+      return { ...state, isClickComponent: action.data };
     case types.setShapeStyle:
       const { curComponent } = state;
       const { width, height, top, left, rotate } = action.data;

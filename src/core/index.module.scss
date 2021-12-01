@@ -74,9 +74,9 @@
     li {
       position: relative;
       cursor: pointer;
-      padding: 10px 15px 10px 20px;
+      padding: 11px 15px 11px 20px;
       display: flex;
-      width: 200px;
+      width: 240px;
       @include style(15px, #000000);
       justify-content: space-between;
       .contextmenuHotkey {

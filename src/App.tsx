@@ -5,18 +5,28 @@ import style from './app.module.scss';
 import Edit from '@/core/edit';
 import { deepCopy, getSingleArrayVal } from '@/utils';
 import { useGetCopentConfigList } from './core/config/common';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 import {
   addComponentAction,
   componentActionMerage,
   curComponentAction,
+  isClickComponentAction,
 } from '@/redux/action/component';
 import { contextMenuActionMerage, hideContextMenuAction } from '@/redux/action/contextMenu';
 import { getRandomStr, $ } from '@/utils';
+import { createSelector } from 'reselect';
 const App: FC = () => {
   const { baseConfigList } = useGetCopentConfigList();
+
   const dispatch = useDispatch<Dispatch<componentActionMerage | contextMenuActionMerage>>();
+
+  const [isClickComponent] = useSelector(
+    createSelector([(state: storeType) => state.component], (component) => {
+      return [component.isClickComponent] as const;
+    }),
+  );
+
   const handleDrop: React.DragEventHandler<HTMLDivElement> = async (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -32,12 +42,17 @@ const App: FC = () => {
       dispatch(addComponentAction(component));
     }
   };
+
   const handleDragOver: React.DragEventHandler<HTMLDivElement> = (e) => {
     e.preventDefault();
     // console.log(`onDragOver------`, e);
   };
+
   const handleMouseUp: React.MouseEventHandler<HTMLDivElement> = (e) => {
     // 这里点击空白区域的时候，不选中组件,且按键不显示
+    if (!isClickComponent) {
+      dispatch(curComponentAction(null));
+    }
     if (e.button !== 2) {
       dispatch(hideContextMenuAction());
     }
@@ -55,8 +70,7 @@ const App: FC = () => {
             onDrop={handleDrop}
             onDragOver={handleDragOver}
             onMouseDown={(e) => {
-              // 这里点击空白区域的时候，不选中组件,且按键不显示
-              dispatch(curComponentAction(null));
+              dispatch(isClickComponentAction(false));
             }}
             onMouseUp={handleMouseUp}
           >

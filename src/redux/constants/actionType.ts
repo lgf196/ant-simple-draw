@@ -9,6 +9,11 @@ export type addComponent = typeof addComponent;
 export const curComponent = 'curComponent';
 export type curComponent = typeof curComponent;
 /**
+ * @description 判断当前组件是否选中
+ */
+export const isClickComponent = 'isClickComponent';
+export type isClickComponent = typeof isClickComponent;
+/**
  * @description 修改选中的组件样式
  */
 export const setShapeStyle = 'setShapeStyle';
