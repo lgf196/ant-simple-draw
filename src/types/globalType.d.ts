@@ -1,6 +1,7 @@
 import React from 'react';
 import { componentInitialStateType } from '@/redux/reduce/component';
 import { contextMenuInitialStateType } from '@/redux/reduce/contextMenu';
+import { markLineInitialStateType } from '@/redux/reduce/markLine';
 declare global {
   /* eslint-disable */
   interface templateDateInterface<T = string, K = unknown> {
@@ -26,8 +27,12 @@ declare global {
     componentId?: string;
     [par: string]: any;
   }
+  /**
+   * @description 全局声明redux中的store数据
+   */
   interface storeType {
     component: componentInitialStateType;
     contextMenu: contextMenuInitialStateType;
+    markLine: markLineInitialStateType;
   }
 }

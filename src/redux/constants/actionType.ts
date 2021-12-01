@@ -28,3 +28,13 @@ export type showContextMenu = typeof showContextMenu;
  */
 export const hideContextMenu = 'hideContextMenu';
 export type hideContextMenu = typeof hideContextMenu;
+/**
+ * @description 显示对齐线
+ */
+export const showMarkLine = 'showMarkLine';
+export type showMarkLine = typeof showMarkLine;
+/**
+ * @description 隐藏对齐线
+ */
+export const hidewMarkLine = 'hidewMarkLine';
+export type hidewMarkLine = typeof hidewMarkLine;

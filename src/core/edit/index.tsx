@@ -7,6 +7,7 @@ import { createSelector } from 'reselect';
 import { useDispatch, useSelector } from 'react-redux';
 import ContextMenu from './ContextMenuComponent';
 import { contextMenuActionMerage, showContextMenuAction } from '@/redux/action/contextMenu';
+import MarkLine from './MarkLineComponent';
 const Edit = memo(function Edit(props) {
   const dispatch = useDispatch<Dispatch<contextMenuActionMerage>>();
   const [componentListData, curComponent] = useSelector(
@@ -67,6 +68,7 @@ const Edit = memo(function Edit(props) {
         : null}
 
       <ContextMenu />
+      <MarkLine />
     </div>
   );
 });
