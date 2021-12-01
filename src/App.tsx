@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
-import Toolbar from '@/layout/head';
-import SliderNav from '@/layout/slider';
+import Toolbar from '@/layout/HeadComponent';
+import SliderNav from '@/layout/SliderComponent';
 import style from './app.module.scss';
 import Edit from '@/core/edit';
 import { deepCopy, getSingleArrayVal } from '@/utils';

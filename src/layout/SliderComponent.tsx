@@ -1,9 +1,9 @@
 import React, { memo, useState } from 'react';
 import { Tabs } from 'antd';
-import TabTitle from './tabTitle';
+import TabTitle from './TabTitleComponent';
 const { TabPane } = Tabs;
 import { HighlightOutlined, DoubleLeftOutlined, DoubleRightOutlined } from '@ant-design/icons';
-import Drag from '@/core/dragTarget';
+import Drag from '@/core/DragTargetComponent';
 import { useGetCopentConfigList } from '@/core/config/common';
 const Slider = memo(function Slider() {
   const [collapse, setCollapse] = useState<boolean>(false);

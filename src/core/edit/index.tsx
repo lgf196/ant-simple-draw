@@ -1,11 +1,11 @@
 import React, { Dispatch, memo } from 'react';
-import Grid from './grid';
-import Shape from './shape';
+import Grid from './GridComponent';
+import Shape from './ShapeComponent';
 import style from '../index.module.scss';
-import RenderTemplate from '@/core/renderTemplate';
+import RenderTemplate from '@/core/RenderTemplateComponent';
 import { createSelector } from 'reselect';
 import { useDispatch, useSelector } from 'react-redux';
-import ContextMenu from './contextMenu';
+import ContextMenu from './ContextMenuComponent';
 import { contextMenuActionMerage, showContextMenuAction } from '@/redux/action/contextMenu';
 const Edit = memo(function Edit(props) {
   const dispatch = useDispatch<Dispatch<contextMenuActionMerage>>();
