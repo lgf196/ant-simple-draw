@@ -40,8 +40,7 @@
   position: absolute;
   background: #fff;
   border: 1px solid #2f54eb;
-  width: 8px;
-  height: 8px;
+  @include wh(8px, 8px);
   border-radius: 50%;
   z-index: 1;
 }
@@ -50,8 +49,6 @@
   top: -34px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 16px;
-  font-weight: 600;
   cursor: grab;
   color: #2f54eb;
   font-size: 20px;
@@ -86,5 +83,21 @@
         background-color: #f5f7fa;
       }
     }
+  }
+}
+.markLine {
+  height: 100%;
+  .line {
+    background: #59c7f9;
+    position: absolute;
+    z-index: 1000;
+  }
+  .xline {
+    width: 100%;
+    height: 1px;
+  }
+  .yline {
+    width: 1px;
+    height: 100%;
   }
 }

@@ -30,3 +30,9 @@ export const angleToCursor = [
   { start: 248, end: 293, cursor: 'sw' },
   { start: 293, end: 338, cursor: 'w' },
 ];
+/**
+ * @description  对齐线-分别对应三条横线和三条竖线
+ */
+export type markLineType = 'xt' | 'xc' | 'xb' | 'yl' | 'yc' | 'yr';
+
+export const lines: markLineType[] = ['xt', 'xc', 'xb', 'yl', 'yc', 'yr'];
