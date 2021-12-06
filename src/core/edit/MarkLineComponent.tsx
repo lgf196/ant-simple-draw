@@ -17,7 +17,7 @@ const MarkLine = memo(function MarkLine(props) {
           data-line={item}
           id={item}
         >
-          {item}
+          {/* {item} */}
         </div>
       ))}
     </div>
