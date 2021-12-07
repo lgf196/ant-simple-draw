@@ -1,9 +1,9 @@
 import React, { memo } from 'react';
-
+import styles from '../index.module.scss';
 const Grid = memo(function Grid() {
   return (
     <>
-      <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+      <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" className={styles.grid}>
         <defs>
           <pattern
             id="smallGrid"
