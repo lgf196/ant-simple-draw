@@ -1,9 +1,7 @@
 import React, { FC, memo, useState, useRef } from 'react';
 import styles from '../index.module.scss';
 import { useDispatch } from 'react-redux';
-import { Dispatch } from 'redux';
 import {
-  componentActionMerage,
   curComponentAction,
   setShapeStyleAction,
   isClickComponentAction,
@@ -15,7 +13,8 @@ import { mod360 } from '@/utils/translate';
 import { $ } from '@/utils';
 import calculateComponentPositonAndSize from '@/utils/calculateComponentPositonAndSize';
 import { ReloadOutlined } from '@ant-design/icons';
-import { contextMenuActionMerage, hideContextMenuAction } from '@/redux/action/contextMenu';
+import { hideContextMenuAction } from '@/redux/action/contextMenu';
+import { showMarkLineAction, hideMarkLineAction } from '@/redux/action/markLine';
 export interface ShapeType {
   style?: MergeCSSProperties;
   defaultStyle: MergeCSSProperties;
@@ -30,7 +29,7 @@ const Shape: FC<ShapeType> = memo(function Shape({ children, style, element, def
       return [component.curComponent, active] as const;
     }),
   );
-  const dispatch = useDispatch<Dispatch<componentActionMerage | contextMenuActionMerage>>();
+  const dispatch = useDispatch<storeDisPatch>();
 
   /**
   @description 拖拽图形
@@ -56,9 +55,20 @@ const Shape: FC<ShapeType> = memo(function Shape({ children, style, element, def
       pos.top = curY - startY + startTop;
       pos.left = curX - startX + startLeft;
       dispatch(setShapeStyleAction(pos));
+      // 触发元素移动事件，用于显示标线、吸附功能
+      // curY - startY > 0 true 表示向下移动 false 表示向上移动
+      // curX - startX > 0 true 表示向右移动 false 表示向左移动
+      dispatch(
+        showMarkLineAction({
+          isDownward: curY - startY > 0,
+          isRightward: curX - startX > 0,
+        }),
+      );
     };
 
     const up = () => {
+      // 触发元素停止移动事件，用于隐藏标线
+      dispatch(hideMarkLineAction());
       document.removeEventListener('mousemove', move);
       document.removeEventListener('mouseup', up);
     };

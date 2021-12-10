@@ -1,9 +1,17 @@
 import React, { memo, useRef, useEffect } from 'react';
-import { lines } from '../config/shape';
+import { lines, markLineType } from '../config/shape';
 import styles from '../index.module.scss';
+import { useSetState } from '@/hooks';
 const MarkLine = memo(function MarkLine(props) {
   const eleRefList = useRef<HTMLDivElement[]>([]);
-
+  const [lineStatus, setLineStatus] = useSetState<Record<markLineType, boolean>>({
+    xt: false,
+    xc: false,
+    xb: false,
+    yl: false,
+    yc: false,
+    yr: false,
+  });
   useEffect(() => {
     console.log(`eleRefList.cu`, eleRefList.current);
   }, []);

@@ -13,7 +13,7 @@ import { Dispatch } from 'redux';
 import { componentActionMerage, isClickComponentAction } from '@/redux/action/component';
 import { contextMenuActionMerage, hideContextMenuAction } from '@/redux/action/contextMenu';
 const ContextMenu = memo(function ContextMenu(props) {
-  const dispatch = useDispatch<Dispatch<componentActionMerage | contextMenuActionMerage>>();
+  const dispatch = useDispatch<storeDisPatch>();
 
   const [curComponent, left, top, menuShow, componentDataList] = useSelector(
     createSelector(

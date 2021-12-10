@@ -2,6 +2,10 @@ import React from 'react';
 import { componentInitialStateType } from '@/redux/reduce/component';
 import { contextMenuInitialStateType } from '@/redux/reduce/contextMenu';
 import { markLineInitialStateType } from '@/redux/reduce/markLine';
+import { markLineActionMerage } from '@/redux/action/markLine';
+import { contextMenuActionMerage } from '@/redux/action/contextMenu';
+import { componentActionMerage } from '@/redux/action/component';
+import { Dispatch } from 'redux';
 declare global {
   /* eslint-disable */
   interface templateDateInterface<T = string, K = unknown> {
@@ -35,4 +39,10 @@ declare global {
     contextMenu: contextMenuInitialStateType;
     markLine: markLineInitialStateType;
   }
+  /**
+   * @description 全局声明redux中的dispatch数据
+   */
+  type storeDisPatch = Dispatch<
+    markLineActionMerage | contextMenuActionMerage | componentActionMerage
+  >;
 }
