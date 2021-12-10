@@ -16,6 +16,12 @@ interface xyTYpe<T = number> {
   y: T;
 }
 interface MergeCSSProperties extends React.CSSProperties {
-  // 这里要将rotate的类型给重置掉，方便后面对rotate进行操作
+  // 重置CSSProperties接口以下属性
   rotate?: any;
+  width?: any;
+  height?: any;
+  top?: any;
+  right?: any;
+  left?: any;
+  bottom?: any;
 }

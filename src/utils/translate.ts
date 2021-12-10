@@ -1,6 +1,6 @@
-export function mod360(deg: number) {
+export const mod360 = (deg: number) => {
   return (deg + 360) % 360;
-}
+};
 
 /**
  * @description 角度转弧度 Math.PI = 180 度
@@ -50,4 +50,11 @@ export const getCenterPoint = (p1: xyTYpe, p2: xyTYpe) => {
     x: p1.x + (p2.x - p1.x) / 2,
     y: p1.y + (p2.y - p1.y) / 2,
   };
+};
+export const sin = (rotate: number) => {
+  return Math.abs(Math.sin(angleToRadian(rotate)));
+};
+
+export const cos = (rotate: number) => {
+  return Math.abs(Math.cos(angleToRadian(rotate)));
 };
