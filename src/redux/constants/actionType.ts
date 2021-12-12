@@ -19,6 +19,11 @@ export type isClickComponent = typeof isClickComponent;
 export const setShapeStyle = 'setShapeStyle';
 export type setShapeStyle = typeof setShapeStyle;
 /**
+ * @description 对齐线改变的时候，修改当前组件
+ */
+export const setShapeSingleStyle = 'setShapeSingleStyle';
+export type setShapeSingleStyle = typeof setShapeSingleStyle;
+/**
  * @description 显示右键菜单
  */
 export const showContextMenu = 'showContextMenu';

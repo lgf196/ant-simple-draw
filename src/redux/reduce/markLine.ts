@@ -9,7 +9,7 @@ export interface markLineInitialStateType<K = number> extends markLineDataType {
   timestamp: K;
 }
 const initialState: markLineInitialStateType = {
-  timestamp: 0, // 时间戳，用来监听shape组件拖拽用的回调
+  timestamp: -1, // 时间戳，用来监听shape组件拖拽用的回调
   isDownward: false, // true 表示向下移动 false 表示向上移动
   isRightward: false, // true 表示向右移动 false 表示向左移动
 };

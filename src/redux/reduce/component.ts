@@ -32,6 +32,12 @@ export default (
       if (height) curComponent!.style!.height = height;
       if (rotate) curComponent!.style!.rotate = rotate;
       return { ...state, curComponent };
+    case types.setShapeSingleStyle:
+      const { key, value } = action.data;
+      const setShapeSingleStyle = state.curComponent as any;
+      setShapeSingleStyle.style[key] = value;
+
+      return { ...state, curComponent: setShapeSingleStyle };
     default:
       return state;
   }

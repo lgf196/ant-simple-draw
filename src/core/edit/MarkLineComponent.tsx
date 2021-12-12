@@ -1,15 +1,17 @@
-import React, { memo, useRef, useEffect } from 'react';
+import React, { memo, useRef, useEffect, useCallback } from 'react';
 import { lines, markLineType } from '../config/shape';
 import styles from '../index.module.scss';
 import { useSetState } from '@/hooks';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createSelector } from 'reselect';
 import { getComponentRotatedStyle } from '@/utils/style';
 import { $ } from '@/utils';
+import { setShapeSingleStyleAction } from '@/redux/action/component';
+import { useMandatoryUpdate } from '@/hooks';
 export interface conditionsType {
   isNearly: boolean;
-  lineNode: Element;
-  line: string;
+  lineNode: HTMLDivElement;
+  line: markLineType;
   dragShift: number;
   lineShift: number;
 }
@@ -17,6 +19,9 @@ export type linePosition = 'top' | 'left';
 const MarkLine = memo(function MarkLine(props) {
   const diff = 3; // 相距 dff 像素将自动吸附
   const eleRefList = useRef<HTMLDivElement[]>([]);
+  const dispatch = useDispatch<storeDisPatch>();
+  const forUpdate = useMandatoryUpdate();
+
   const [isDownward, isRightward, timestamp, componentDataList, curComponent] = useSelector(
     createSelector(
       [(state: storeType) => state.markLine, (state: storeType) => state.component],
@@ -32,14 +37,6 @@ const MarkLine = memo(function MarkLine(props) {
     yc: false,
     yr: false,
   });
-  useEffect(() => {
-    console.log(`object`, eleRefList.current);
-    if (timestamp > 0) {
-      // 正在拖动图形
-    } else if (timestamp === -1) {
-      // 停止拖动图形
-    }
-  }, [timestamp]);
 
   const isNearly = (dragValue: number, targetValue: number) => {
     return Math.abs(dragValue - targetValue) <= diff;
@@ -51,20 +48,62 @@ const MarkLine = memo(function MarkLine(props) {
     curComponentStyle: MergeCSSProperties,
   ) => {
     const { width, height } = curComponent!.style;
-    if (key == 'top') {
+    if (key === 'top') {
       return Math.round(condition.dragShift - (Number(height) - curComponentStyle.height) / 2);
     }
 
     return Math.round(condition.dragShift - (Number(width) - curComponentStyle.width) / 2);
   };
 
-  const showLine = () => {
+  const chooseTheTureLine = (
+    needToShow: markLineType[],
+    isRightward: boolean,
+    isDownward: boolean,
+  ) => {
+    if (isRightward) {
+      if (needToShow.includes('yr')) {
+        setLineStatus({ yr: true });
+      } else if (needToShow.includes('yc')) {
+        setLineStatus({ yc: true });
+      } else if (needToShow.includes('yl')) {
+        setLineStatus({ yl: true });
+      }
+    } else {
+      if (needToShow.includes('yl')) {
+        setLineStatus({ yl: true });
+      } else if (needToShow.includes('yc')) {
+        setLineStatus({ yc: true });
+      } else if (needToShow.includes('yr')) {
+        setLineStatus({ yr: true });
+      }
+
+      if (isDownward) {
+        if (needToShow.includes('xb')) {
+          setLineStatus({ xb: true });
+        } else if (needToShow.includes('xc')) {
+          setLineStatus({ xc: true });
+        } else if (needToShow.includes('xt')) {
+          setLineStatus({ xt: true });
+        }
+      } else {
+        if (needToShow.includes('xt')) {
+          setLineStatus({ xt: true });
+        } else if (needToShow.includes('xc')) {
+          setLineStatus({ xc: true });
+        } else if (needToShow.includes('xb')) {
+          setLineStatus({ xb: true });
+        }
+      }
+    }
+  };
+  const showLine = (isDownward: boolean, isRightward: boolean) => {
+    forUpdate();
     const curComponentStyle = getComponentRotatedStyle(curComponent!.style);
     const curComponentHalfwidth = curComponentStyle.width / 2;
     const curComponentHalfHeight = curComponentStyle.height / 2;
     hideLine();
-    componentDataList.forEach((component) => {
-      if (component == curComponent) return;
+    componentDataList.forEach((component: any) => {
+      if (component === curComponent) return;
       const componentStyle = getComponentRotatedStyle(component.style);
       const { top, left, bottom, right } = componentStyle;
       const componentHalfwidth = componentStyle.width / 2;
@@ -155,10 +194,32 @@ const MarkLine = memo(function MarkLine(props) {
         ],
       };
 
-      const needToShow = [];
+      const needToShow: markLineType[] = [];
       const { rotate } = curComponent!.style;
+      const conditionsKey = Object.keys(conditions) as linePosition[];
+      conditionsKey.forEach((key: linePosition) => {
+        // 遍历符合的条件并处理
+        conditions[key].forEach((condition) => {
+          if (!condition.isNearly) return;
+          // dispatch(
+          //   setShapeSingleStyleAction({
+          //     key,
+          //     value:
+          //       Number(rotate) !== 0
+          //         ? translatecurComponentShift(key, condition, curComponentStyle)
+          //         : condition.dragShift,
+          //   }),
+          // );
+          condition.lineNode.style[key] = `${condition.lineShift}px`;
+          needToShow.push(condition.line);
+        });
+      });
 
-      Object.keys(conditions).forEach((key) => {});
+      // 同一方向上同时显示三条线可能不太美观，因此才有了这个解决方案
+      // 同一方向上的线只显示一条，例如多条横条只显示一条横线
+      if (needToShow.length) {
+        chooseTheTureLine(needToShow, isDownward, isRightward);
+      }
     });
   };
   const hideLine = () => {
@@ -166,18 +227,28 @@ const MarkLine = memo(function MarkLine(props) {
       setLineStatus({ [line]: false });
     });
   };
+  useEffect(() => {
+    console.log(`object`, eleRefList.current);
+    if (timestamp > 0) {
+      // 正在拖动图形
+      showLine(isDownward, isRightward);
+    } else if (timestamp === -1) {
+      // 停止拖动图形
+      hideLine();
+    }
+  }, [timestamp, isDownward, isRightward, curComponent, componentDataList]);
+
   return (
     <div className={styles.markLine}>
       {lines.map((item, index) => (
         <div
           className={`${styles.line} ${item.includes('x') ? styles.xline : styles.yline}`}
           ref={(ref: HTMLDivElement) => eleRefList.current!.push(ref)}
+          style={{ display: lineStatus[item] === false ? 'none' : 'block' }}
           key={index}
           data-line={item}
           id={item}
-        >
-          {/* {item} */}
-        </div>
+        ></div>
       ))}
     </div>
   );

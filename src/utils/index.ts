@@ -60,5 +60,5 @@ export const getRandomStr = (): string => {
  * @description 获取dom元素
  */
 export const $ = (selector: string) => {
-  return document.querySelector(selector) as Element;
+  return document.querySelector<HTMLDivElement>(selector)!;
 };

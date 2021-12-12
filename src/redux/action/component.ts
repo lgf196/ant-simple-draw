@@ -7,7 +7,8 @@ export type componentActionMerage =
   | dispatchType<types.addComponent, templateDataType>
   | dispatchType<types.isClickComponent, boolean>
   | dispatchType<types.curComponent, templateDataType | null>
-  | dispatchType<types.setShapeStyle, React.CSSProperties>;
+  | dispatchType<types.setShapeStyle, React.CSSProperties>
+  | dispatchType<types.setShapeSingleStyle, any>;
 
 export const addComponentAction = (data: templateDataType): componentActionMerage => ({
   type: types.addComponent,
@@ -26,5 +27,10 @@ export const curComponentAction = (data: templateDataType | null): componentActi
 
 export const setShapeStyleAction = (data: React.CSSProperties): componentActionMerage => ({
   type: types.setShapeStyle,
+  data,
+});
+
+export const setShapeSingleStyleAction = (data: any): componentActionMerage => ({
+  type: types.setShapeSingleStyle,
   data,
 });
