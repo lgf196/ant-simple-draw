@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 // 公共样式
-export const commonStyle: React.CSSProperties = {
-  rotate: '0',
+export const commonStyle: MergeCSSProperties = {
+  rotate: 0,
   opacity: 1,
 };
 // 属性

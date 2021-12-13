@@ -7,7 +7,6 @@ import { createSelector } from 'reselect';
 import { getComponentRotatedStyle } from '@/utils/style';
 import { $ } from '@/utils';
 import { setShapeSingleStyleAction } from '@/redux/action/component';
-import { useMandatoryUpdate } from '@/hooks';
 export interface conditionsType {
   isNearly: boolean;
   lineNode: HTMLDivElement;
@@ -16,11 +15,11 @@ export interface conditionsType {
   lineShift: number;
 }
 export type linePosition = 'top' | 'left';
+
 const MarkLine = memo(function MarkLine(props) {
   const diff = 3; // 相距 dff 像素将自动吸附
   const eleRefList = useRef<HTMLDivElement[]>([]);
   const dispatch = useDispatch<storeDisPatch>();
-  const forUpdate = useMandatoryUpdate();
 
   const [isDownward, isRightward, timestamp, componentDataList, curComponent] = useSelector(
     createSelector(
@@ -29,6 +28,7 @@ const MarkLine = memo(function MarkLine(props) {
         [isDownward, isRightward, timestamp, componentDataList, curComponent] as const,
     ),
   );
+
   const [lineStatus, setLineStatus] = useSetState<Record<markLineType, boolean>>({
     xt: false,
     xc: false,
@@ -38,6 +38,9 @@ const MarkLine = memo(function MarkLine(props) {
     yr: false,
   });
 
+  /**
+   * @description 吸附
+   */
   const isNearly = (dragValue: number, targetValue: number) => {
     return Math.abs(dragValue - targetValue) <= diff;
   };
@@ -55,10 +58,13 @@ const MarkLine = memo(function MarkLine(props) {
     return Math.round(condition.dragShift - (Number(width) - curComponentStyle.width) / 2);
   };
 
+  /**
+   * @description 显示不同的对齐线，并不是全部显示
+   */
   const chooseTheTureLine = (
     needToShow: markLineType[],
-    isRightward: boolean,
     isDownward: boolean,
+    isRightward: boolean,
   ) => {
     if (isRightward) {
       if (needToShow.includes('yr')) {
@@ -76,39 +82,43 @@ const MarkLine = memo(function MarkLine(props) {
       } else if (needToShow.includes('yr')) {
         setLineStatus({ yr: true });
       }
+    }
 
-      if (isDownward) {
-        if (needToShow.includes('xb')) {
-          setLineStatus({ xb: true });
-        } else if (needToShow.includes('xc')) {
-          setLineStatus({ xc: true });
-        } else if (needToShow.includes('xt')) {
-          setLineStatus({ xt: true });
-        }
-      } else {
-        if (needToShow.includes('xt')) {
-          setLineStatus({ xt: true });
-        } else if (needToShow.includes('xc')) {
-          setLineStatus({ xc: true });
-        } else if (needToShow.includes('xb')) {
-          setLineStatus({ xb: true });
-        }
+    if (isDownward) {
+      if (needToShow.includes('xb')) {
+        setLineStatus({ xb: true });
+      } else if (needToShow.includes('xc')) {
+        setLineStatus({ xc: true });
+      } else if (needToShow.includes('xt')) {
+        setLineStatus({ xt: true });
+      }
+    } else {
+      if (needToShow.includes('xt')) {
+        setLineStatus({ xt: true });
+      } else if (needToShow.includes('xc')) {
+        setLineStatus({ xc: true });
+      } else if (needToShow.includes('xb')) {
+        setLineStatus({ xb: true });
       }
     }
   };
-  const showLine = (isDownward: boolean, isRightward: boolean) => {
-    forUpdate();
+
+  const showLine = (
+    isDownward: boolean,
+    isRightward: boolean,
+    curComponent: templateDataType,
+    componentDataList: templateDataType[],
+  ) => {
     const curComponentStyle = getComponentRotatedStyle(curComponent!.style);
     const curComponentHalfwidth = curComponentStyle.width / 2;
     const curComponentHalfHeight = curComponentStyle.height / 2;
     hideLine();
-    componentDataList.forEach((component: any) => {
+    componentDataList.forEach((component) => {
       if (component === curComponent) return;
       const componentStyle = getComponentRotatedStyle(component.style);
       const { top, left, bottom, right } = componentStyle;
       const componentHalfwidth = componentStyle.width / 2;
       const componentHalfHeight = componentStyle.height / 2;
-
       const conditions: Record<linePosition, conditionsType[]> = {
         top: [
           {
@@ -201,6 +211,7 @@ const MarkLine = memo(function MarkLine(props) {
         // 遍历符合的条件并处理
         conditions[key].forEach((condition) => {
           if (!condition.isNearly) return;
+          // 图形旋转之后，对齐线有些闪动
           // dispatch(
           //   setShapeSingleStyleAction({
           //     key,
@@ -210,6 +221,7 @@ const MarkLine = memo(function MarkLine(props) {
           //         : condition.dragShift,
           //   }),
           // );
+
           condition.lineNode.style[key] = `${condition.lineShift}px`;
           needToShow.push(condition.line);
         });
@@ -228,10 +240,9 @@ const MarkLine = memo(function MarkLine(props) {
     });
   };
   useEffect(() => {
-    console.log(`object`, eleRefList.current);
     if (timestamp > 0) {
       // 正在拖动图形
-      showLine(isDownward, isRightward);
+      showLine(isDownward, isRightward, curComponent!, componentDataList);
     } else if (timestamp === -1) {
       // 停止拖动图形
       hideLine();

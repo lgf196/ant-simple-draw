@@ -48,17 +48,17 @@ const Shape: FC<ShapeType> = memo(function Shape({ children, style, element, def
 
     // 如果元素没有移动，则不保存快照
     let hasMove = false;
-    const move = (moveEvent: MouseEvent) => {
+    const move = async (moveEvent: MouseEvent) => {
       hasMove = true;
       const curX = moveEvent.clientX;
       const curY = moveEvent.clientY;
       pos.top = curY - startY + startTop;
       pos.left = curX - startX + startLeft;
-      dispatch(setShapeStyleAction(pos));
+      await dispatch(setShapeStyleAction(pos));
       // 触发元素移动事件，用于显示标线、吸附功能
       // curY - startY > 0 true 表示向下移动 false 表示向上移动
       // curX - startX > 0 true 表示向右移动 false 表示向左移动
-      dispatch(
+      await dispatch(
         showMarkLineAction({
           isDownward: curY - startY > 0,
           isRightward: curX - startX > 0,
