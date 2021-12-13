@@ -74,9 +74,10 @@ const Edit = memo(function Edit(props) {
   };
   const handleMouseDown: React.MouseEventHandler<HTMLDivElement> = (e) => {
     // 如果没有选中组件 在画布上点击时需要调用 e.preventDefault() 防止触发 drop 事件
-    if (!curComponent) {
-      e.preventDefault();
-    }
+    // if (!curComponent) {
+    //   e.preventDefault();
+    // }
+    e.preventDefault();
     hideArea();
     // 获取编辑器的位移信息，每次点击时都需要获取一次。主要是为了方便开发时调试用。
     const rectInfo = $('#editor').getBoundingClientRect();
