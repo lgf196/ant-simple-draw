@@ -15,6 +15,10 @@ interface xyTYpe<T = number> {
   x: T;
   y: T;
 }
+interface whType<T = number> {
+  width: T;
+  height: T;
+}
 interface MergeCSSProperties extends React.CSSProperties {
   // 重置CSSProperties接口以下属性
   rotate?: any;

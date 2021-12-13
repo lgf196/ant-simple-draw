@@ -36,7 +36,6 @@ export default (
       const { key, value } = action.data;
       const setShapeSingleStyle = state.curComponent as any;
       setShapeSingleStyle.style[key] = value;
-
       return { ...state, curComponent: setShapeSingleStyle };
     default:
       return state;
