@@ -43,3 +43,13 @@ export type showMarkLine = typeof showMarkLine;
  */
 export const hidewMarkLine = 'hidewMarkLine';
 export type hidewMarkLine = typeof hidewMarkLine;
+/**
+ * @description 设置组合合并器
+ */
+export const setAreaData = 'setAreaData';
+export type setAreaData = typeof setAreaData;
+/**
+ * @description 组件组合合并
+ */
+export const areacompose = 'areacompose';
+export type areacompose = typeof areacompose;

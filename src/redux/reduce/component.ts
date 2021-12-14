@@ -11,6 +11,17 @@ const initialState: componentInitialStateType = {
   isClickComponent: false,
 };
 
+const setShapeStyleHandle = (state: componentInitialStateType, data: MergeCSSProperties) => {
+  const { curComponent } = state;
+  const { width, height, top, left, rotate } = data;
+  if (top) curComponent!.style!.top = top;
+  if (left) curComponent!.style!.left = left;
+  if (width) curComponent!.style!.width = width;
+  if (height) curComponent!.style!.height = height;
+  if (rotate) curComponent!.style!.rotate = rotate;
+  return { ...state, curComponent };
+};
+
 export default (
   state = initialState,
   action: Required<componentActionMerage>,
@@ -24,14 +35,7 @@ export default (
     case types.isClickComponent:
       return { ...state, isClickComponent: action.data };
     case types.setShapeStyle:
-      const { curComponent } = state;
-      const { width, height, top, left, rotate } = action.data;
-      if (top) curComponent!.style!.top = top;
-      if (left) curComponent!.style!.left = left;
-      if (width) curComponent!.style!.width = width;
-      if (height) curComponent!.style!.height = height;
-      if (rotate) curComponent!.style!.rotate = rotate;
-      return { ...state, curComponent };
+      return setShapeStyleHandle(state, action.data);
     case types.setShapeSingleStyle:
       const { key, value } = action.data;
       const setShapeSingleStyle = state.curComponent as any;

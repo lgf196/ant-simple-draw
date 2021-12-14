@@ -6,6 +6,8 @@ import { markLineActionMerage } from '@/redux/action/markLine';
 import { contextMenuActionMerage } from '@/redux/action/contextMenu';
 import { componentActionMerage } from '@/redux/action/component';
 import { Dispatch } from 'redux';
+import { composeInitialStateType } from '@/redux/reduce/compose';
+import { composeMenuActionMerage } from '@/redux/action/compose';
 declare global {
   /* eslint-disable */
   interface templateDateInterface<T = string, K = unknown> {
@@ -38,11 +40,12 @@ declare global {
     component: componentInitialStateType;
     contextMenu: contextMenuInitialStateType;
     markLine: markLineInitialStateType;
+    compose: composeInitialStateType;
   }
   /**
    * @description 全局声明redux中的dispatch数据
    */
   type storeDisPatch = Dispatch<
-    markLineActionMerage | contextMenuActionMerage | componentActionMerage
+    markLineActionMerage | contextMenuActionMerage | componentActionMerage | composeMenuActionMerage
   >;
 }

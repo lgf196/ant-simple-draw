@@ -1,4 +1,4 @@
-import React, { Dispatch, memo, useState } from 'react';
+import React, { Dispatch, memo, useState, useCallback, useMemo, useRef } from 'react';
 import Grid from './GridComponent';
 import Shape from './ShapeComponent';
 import AreaComponent from './AreaComponent';
@@ -11,18 +11,20 @@ import { contextMenuActionMerage, showContextMenuAction } from '@/redux/action/c
 import MarkLine from './MarkLineComponent';
 import { useSetState, useMandatoryUpdate } from '@/hooks';
 import { $ } from '@/utils';
+import { getComponentRotatedStyle } from '@/utils/style';
+import { composeAction, setAreaDataAction } from '@/redux/action/compose';
 const Edit = memo(function Edit(props) {
   const forUpdate = useMandatoryUpdate();
 
-  const [editorPosition, setEditorPosition] = useSetState<xyTYpe>({ x: 0, y: 0 });
+  const editorPosition = useRef<xyTYpe>({ x: 0, y: 0 });
 
-  const [areaPosition, setAreaPosition] = useSetState<xyTYpe>({ x: 0, y: 0 });
+  const areaPosition = useRef<xyTYpe>({ x: 0, y: 0 });
 
-  const [areawh, setAreawh] = useSetState<whType>({ width: 0, height: 0 });
+  const areawh = useRef<whType>({ width: 0, height: 0 });
 
   const [isShowArea, setIsShowArea] = useState<boolean>(false);
 
-  const dispatch = useDispatch<Dispatch<contextMenuActionMerage>>();
+  const dispatch = useDispatch<storeDisPatch>();
 
   const [componentListData, curComponent] = useSelector(
     createSelector(
@@ -70,7 +72,75 @@ const Edit = memo(function Edit(props) {
    */
   const hideArea = () => {
     setIsShowArea(false);
-    setAreawh({ width: 0, height: 0 });
+    areawh.current = { width: 0, height: 0 };
+  };
+  /**
+   * @description 得到在组选择器范围内的组件
+   */
+  const getSelectArea = () => {
+    const result: templateDataType[] = [];
+    const { x, y } = areaPosition.current;
+    // 计算所有的组件数据，判断是否在选中区域内
+    componentListData.forEach((component) => {
+      const { left, top, width, height } = getComponentRotatedStyle(component.style);
+      if (
+        x <= left &&
+        y <= top &&
+        left + width <= x + areawh.current.width &&
+        top + height <= y + areawh.current.height
+      ) {
+        result.push(component);
+      }
+    });
+    return result;
+  };
+  /**
+   * @description 创建组
+   */
+  const createGroup = () => {
+    // 获取选中区域的组件数据
+    const areaData = getSelectArea();
+    if (areaData.length <= 1) {
+      hideArea();
+      return;
+    }
+    // 根据选中区域和区域中每个组件的位移信息来创建 Group 组件
+    // 要遍历选择区域的每个组件，获取它们的 left top right bottom 信息来进行比较
+    let top = Infinity,
+      left = Infinity;
+    let right = -Infinity,
+      bottom = -Infinity;
+    areaData.forEach((component) => {
+      let style: MergeCSSProperties = {};
+      style = getComponentRotatedStyle(component.style);
+      if (style.left < left) left = style.left;
+      if (style.top < top) top = style.top;
+      if (style.right > right) right = style.right;
+      if (style.bottom > bottom) bottom = style.bottom;
+    });
+    const updateAreaWh = {
+      width: right - left,
+      height: bottom - top,
+    };
+    areaPosition.current = {
+      x: left,
+      y: top,
+    };
+    areawh.current = updateAreaWh;
+    // useRef只会更新数据，但是并不会重新渲染，所以要强制更新渲染
+    forUpdate();
+    // 设置选中区域位移大小信息和区域内的组件数据
+    dispatch(
+      setAreaDataAction({
+        style: {
+          left,
+          top,
+          ...updateAreaWh,
+        },
+        components: areaData,
+      }),
+    );
+    dispatch(composeAction());
   };
   const handleMouseDown: React.MouseEventHandler<HTMLDivElement> = (e) => {
     // 如果没有选中组件 在画布上点击时需要调用 e.preventDefault() 防止触发 drop 事件
@@ -81,27 +151,34 @@ const Edit = memo(function Edit(props) {
     hideArea();
     // 获取编辑器的位移信息，每次点击时都需要获取一次。主要是为了方便开发时调试用。
     const rectInfo = $('#editor').getBoundingClientRect();
-    setEditorPosition({ x: rectInfo.x, y: rectInfo.y });
+
+    editorPosition.current = { x: rectInfo.x, y: rectInfo.y };
+
     const startX = e.clientX;
+
     const startY = e.clientY;
-    setAreaPosition({
-      x: startX - (editorPosition.x || rectInfo.x),
-      y: startY - (editorPosition.y || rectInfo.y),
-    });
+
+    areaPosition.current = {
+      x: startX - (editorPosition.current.x || rectInfo.x),
+      y: startY - (editorPosition.current.y || rectInfo.y),
+    };
+
     // 展示选中区域
     setIsShowArea(true);
 
     const move = (moveEvent: MouseEvent) => {
-      setAreawh({
+      // useRef只会更新数据，但是并不会重新渲染，所以要强制更新渲染
+      forUpdate();
+      areawh.current = {
         width: Math.abs(moveEvent.clientX - startX),
         height: Math.abs(moveEvent.clientY - startY),
-      });
+      };
       if (moveEvent.clientX < startX) {
-        setAreaPosition({ x: moveEvent.clientX - editorPosition.x });
+        areaPosition.current.x = moveEvent.clientX - editorPosition.current.x;
       }
 
       if (moveEvent.clientY < startY) {
-        setAreaPosition({ y: moveEvent.clientY - editorPosition.y });
+        areaPosition.current.y = moveEvent.clientY - editorPosition.current.y;
       }
     };
 
@@ -112,6 +189,7 @@ const Edit = memo(function Edit(props) {
         hideArea();
         return;
       }
+      createGroup();
     };
 
     document.addEventListener('mousemove', move);
@@ -141,7 +219,7 @@ const Edit = memo(function Edit(props) {
 
       <ContextMenu />
       <MarkLine />
-      {isShowArea && <AreaComponent {...areawh} {...areaPosition} />}
+      {isShowArea && <AreaComponent {...areawh.current} {...areaPosition.current} />}
     </div>
   );
 });
