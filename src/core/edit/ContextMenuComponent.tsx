@@ -89,7 +89,15 @@ const ContextMenu = memo(function ContextMenu(props) {
   return (
     <>
       {menuShow ? (
-        <div className={style.contextmenu} style={{ top: top + 'px', left: left + 'px' }}>
+        <div
+          className={style.contextmenu}
+          style={{ top: top + 'px', left: left + 'px' }}
+          onMouseDown={(e) => {
+            // 不写这个的话，会触发组合器 onMousemove事件
+            e.preventDefault();
+            e.stopPropagation();
+          }}
+        >
           <ul
             onMouseUp={(e) => {
               e.preventDefault();

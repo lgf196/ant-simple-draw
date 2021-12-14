@@ -108,7 +108,6 @@ const Edit = memo(function Edit(props) {
     const up = (e: MouseEvent) => {
       document.removeEventListener('mousemove', move);
       document.removeEventListener('mouseup', up);
-
       if (e.clientX === startX && e.clientY === startY) {
         hideArea();
         return;
