@@ -10,7 +10,7 @@ import { composeInitialStateType } from '@/redux/reduce/compose';
 import { composeMenuActionMerage } from '@/redux/action/compose';
 declare global {
   /* eslint-disable */
-  interface templateDateInterface<T = string, K = unknown> {
+  interface templateDateInterface<T = string, K = any> {
     /**
      * @description 类别
      */

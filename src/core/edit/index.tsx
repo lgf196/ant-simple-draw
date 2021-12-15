@@ -10,9 +10,17 @@ import ContextMenu from './ContextMenuComponent';
 import { contextMenuActionMerage, showContextMenuAction } from '@/redux/action/contextMenu';
 import MarkLine from './MarkLineComponent';
 import { useSetState, useMandatoryUpdate } from '@/hooks';
-import { $ } from '@/utils';
+import { $, getRandomStr } from '@/utils';
 import { getComponentRotatedStyle } from '@/utils/style';
 import { composeAction, setAreaDataAction } from '@/redux/action/compose';
+import { areaDataType } from '@/redux/reduce/compose';
+import { commonAttr, commonStyle } from '../config/common';
+import createGroupStyle from '@/utils/createGroupStyle';
+import {
+  addComponentAction,
+  curComponentAction,
+  deleteComponentAction,
+} from '@/redux/action/component';
 const Edit = memo(function Edit(props) {
   const forUpdate = useMandatoryUpdate();
 
@@ -36,10 +44,10 @@ const Edit = memo(function Edit(props) {
    * @description 将值转化为对应的style样式，拼接单位
    */
   const getShapeStyle = (style: React.CSSProperties) => {
-    const result: React.CSSProperties = {};
+    const result = Object.create({});
     ['width', 'height', 'top', 'left', 'rotate'].forEach((attr) => {
       if (attr !== 'rotate') {
-        (result as any)[attr] = (style as any)[attr] + 'px';
+        result[attr] = (style as any)[attr] + 'px';
       } else {
         result.transform = 'rotate(' + style[attr] + 'deg)';
       }
@@ -130,17 +138,60 @@ const Edit = memo(function Edit(props) {
     // useRef只会更新数据，但是并不会重新渲染，所以要强制更新渲染
     forUpdate();
     // 设置选中区域位移大小信息和区域内的组件数据
-    dispatch(
-      setAreaDataAction({
-        style: {
-          left,
-          top,
-          ...updateAreaWh,
-        },
-        components: areaData,
-      }),
-    );
-    dispatch(composeAction());
+    // dispatch(
+    //   setAreaDataAction({
+    //     style: {
+    //       left,
+    //       top,
+    //       ...updateAreaWh,
+    //     },
+    //     components: areaData,
+    //   }),
+    // );
+    compose({
+      style: {
+        left,
+        top,
+        ...updateAreaWh,
+      },
+      components: areaData,
+    });
+  };
+  /**
+   * @description 组合合并组件
+   */
+  const compose = (areaData: areaDataType) => {
+    const components: templateDataType[] = [];
+    areaData.components.forEach((component) => {
+      if (component.component !== 'Group') {
+        components.push(component);
+      }
+    });
+    const groupComponent: templateDataType = {
+      category: 'compose',
+      type: 'Group',
+      id: 'GroupComponent',
+      component: 'Group',
+      label: 'Group',
+      ...commonAttr,
+      propValue: components,
+      style: {
+        ...commonStyle,
+        ...areaData.style,
+      },
+      componentId: getRandomStr(),
+    };
+
+    createGroupStyle(groupComponent);
+
+    dispatch(addComponentAction(groupComponent));
+
+    dispatch(curComponentAction(groupComponent));
+
+    // 将已经放到 Group 组件数据删除，也就是在 componentData 中删除，因为它们已经放到 Group 组件中了
+    dispatch(deleteComponentAction(areaData.components.map((item) => item.componentId!)));
+
+    hideArea();
   };
   const handleMouseDown: React.MouseEventHandler<HTMLDivElement> = (e) => {
     // 如果没有选中组件 在画布上点击时需要调用 e.preventDefault() 防止触发 drop 事件
@@ -212,7 +263,7 @@ const Edit = memo(function Edit(props) {
               element={item}
               defaultStyle={item.style!}
             >
-              <RenderTemplate type={item.type} category={item.category} style={item.style!} />
+              <RenderTemplate {...item} propValue={item.propValue!} />
             </Shape>
           ))
         : null}

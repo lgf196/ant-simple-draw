@@ -1,4 +1,32 @@
 import { cos, sin } from './translate';
+
+export const getStyle = (style: MergeCSSProperties, filter: string[] = []) => {
+  const needUnit = [
+    'fontSize',
+    'width',
+    'height',
+    'top',
+    'left',
+    'borderWidth',
+    'letterSpacing',
+    'borderRadius',
+  ];
+  const result = Object.create({});
+  Object.keys(style).forEach((key) => {
+    if (!filter.includes(key)) {
+      if (key !== 'rotate') {
+        result[key] = (style as any)[key];
+
+        if (needUnit.includes(key)) {
+          result[key] += 'px';
+        }
+      } else {
+        result.transform = key + '(' + style[key] + 'deg)';
+      }
+    }
+  });
+  return result;
+};
 /**
  * @description 获取一个组件旋转 rotate 后的样式
  */

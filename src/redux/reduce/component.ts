@@ -22,6 +22,14 @@ const setShapeStyleHandle = (state: componentInitialStateType, data: MergeCSSPro
   return { ...state, curComponent };
 };
 
+const deleteComponent = (state: componentInitialStateType, data: string[]) => {
+  const { componentDataList } = state;
+  const newComponentDataList = componentDataList.filter(
+    (item) => !data.includes(item.componentId!),
+  );
+  return { ...state, componentDataList: newComponentDataList };
+};
+
 export default (
   state = initialState,
   action: Required<componentActionMerage>,
@@ -30,6 +38,8 @@ export default (
     case types.addComponent:
       const componentDataList = [...state.componentDataList, action.data];
       return { ...state, componentDataList };
+    case types.deleteComponent:
+      return deleteComponent(state, action.data);
     case types.curComponent:
       return { ...state, curComponent: action.data };
     case types.isClickComponent:

@@ -4,20 +4,21 @@ import { Spin } from 'antd';
 export type RenderTemplateType = {
   type: string;
   category: string;
-  style: React.CSSProperties;
 };
 
 const DynamicFunc = (category: string, type: string) => {
-  let Component: FC<RenderTemplateType>;
+  let Component: FC<templateDataType>;
   Component = lazyComponent(category, type);
-  return (props: RenderTemplateType) => (
+  return (props: templateDataType) => (
     <Suspense fallback={<Spin />}>
-      <Component {...props} />
+      <div style={{ width: '100%', height: '100%' }}>
+        <Component {...props} />
+      </div>
     </Suspense>
   );
 };
 
-const RenderTemplate: FC<RenderTemplateType> = memo(function RenderTemplate(props) {
+const RenderTemplate: FC<templateDataType> = memo(function RenderTemplate(props) {
   const { type, category } = props;
 
   const Dynamic = useMemo(() => {

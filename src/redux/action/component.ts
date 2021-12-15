@@ -5,6 +5,7 @@ import * as types from '@/redux/constants/actionType';
  */
 export type componentActionMerage =
   | dispatchType<types.addComponent, templateDataType>
+  | dispatchType<types.deleteComponent, string[]>
   | dispatchType<types.isClickComponent, boolean>
   | dispatchType<types.curComponent, templateDataType | null>
   | dispatchType<types.setShapeStyle, React.CSSProperties>
@@ -12,6 +13,11 @@ export type componentActionMerage =
 
 export const addComponentAction = (data: templateDataType): componentActionMerage => ({
   type: types.addComponent,
+  data,
+});
+
+export const deleteComponentAction = (data: string[]): componentActionMerage => ({
+  type: types.deleteComponent,
   data,
 });
 

@@ -58,3 +58,6 @@ export const sin = (rotate: number) => {
 export const cos = (rotate: number) => {
   return Math.abs(Math.cos(angleToRadian(rotate)));
 };
+export function toPercent(val: number) {
+  return val * 100 + '%';
+}
