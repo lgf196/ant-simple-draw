@@ -11,19 +11,21 @@ import {
   addComponentAction,
   componentActionMerage,
   curComponentAction,
+  deleteComponentAction,
   isClickComponentAction,
 } from '@/redux/action/component';
 import { contextMenuActionMerage, hideContextMenuAction } from '@/redux/action/contextMenu';
 import { getRandomStr, $ } from '@/utils';
 import { createSelector } from 'reselect';
+import decomposeComponent from '@/utils/decomposeComponent';
 const App: FC = () => {
   const { baseConfigList } = useGetCopentConfigList();
 
-  const dispatch = useDispatch<Dispatch<componentActionMerage | contextMenuActionMerage>>();
+  const dispatch = useDispatch<storeDisPatch>();
 
-  const [isClickComponent] = useSelector(
+  const [isClickComponent, curComponent] = useSelector(
     createSelector([(state: storeType) => state.component], (component) => {
-      return [component.isClickComponent] as const;
+      return [component.isClickComponent, component.curComponent] as const;
     }),
   );
 
@@ -51,10 +53,27 @@ const App: FC = () => {
   const handleMouseUp: React.MouseEventHandler<HTMLDivElement> = (e) => {
     // 这里点击空白区域的时候，不选中组件,且按键不显示
     if (!isClickComponent) {
+      decompose();
       dispatch(curComponentAction(null));
     }
     if (e.button !== 2) {
       dispatch(hideContextMenuAction());
+    }
+  };
+  /**
+   * @description 取消组合合并的组件
+   */
+  const decompose = () => {
+    if (curComponent && curComponent.component === 'Group') {
+      const parentStyle = { ...curComponent.style };
+      const components: templateDataType[] = curComponent.propValue;
+      const editorRect = $('#editor').getBoundingClientRect();
+      components.forEach((component) => {
+        // 将组合中的各个子组件拆分出来，并计算它们新的 style
+        decomposeComponent(component, editorRect, parentStyle);
+        dispatch(addComponentAction(component));
+      });
+      dispatch(deleteComponentAction([curComponent.componentId!]));
     }
   };
   return (

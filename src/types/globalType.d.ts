@@ -24,7 +24,7 @@ declare global {
     label: T;
     propValue?: K;
     icon?: T;
-    style: React.CSSProperties;
+    style: MergeCSSProperties;
   }
   interface templateDataType extends templateDateInterface {
     /**

@@ -1,6 +1,8 @@
 import React, { memo, useMemo, FC, Suspense } from 'react';
 import { lazyComponent } from '@/utils/function';
 import { Spin } from 'antd';
+import styles from './index.module.scss';
+
 export type RenderTemplateType = {
   type: string;
   category: string;
@@ -11,7 +13,11 @@ const DynamicFunc = (category: string, type: string) => {
   Component = lazyComponent(category, type);
   return (props: templateDataType) => (
     <Suspense fallback={<Spin />}>
-      <div style={{ width: '100%', height: '100%' }}>
+      <div
+        style={{ ...props.style }}
+        id={`components_${props.componentId}`}
+        className={styles.renderComponent}
+      >
         <Component {...props} />
       </div>
     </Suspense>

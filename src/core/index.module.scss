@@ -25,6 +25,9 @@
   background: #fff;
   margin: auto;
 }
+.renderComponent {
+  @include wh(100%, 100%);
+}
 .shape {
   position: absolute;
 

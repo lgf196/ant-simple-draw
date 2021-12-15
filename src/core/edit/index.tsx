@@ -11,7 +11,7 @@ import { contextMenuActionMerage, showContextMenuAction } from '@/redux/action/c
 import MarkLine from './MarkLineComponent';
 import { useSetState, useMandatoryUpdate } from '@/hooks';
 import { $, getRandomStr } from '@/utils';
-import { getComponentRotatedStyle } from '@/utils/style';
+import { getComponentRotatedStyle, getStyle } from '@/utils/style';
 import { composeAction, setAreaDataAction } from '@/redux/action/compose';
 import { areaDataType } from '@/redux/reduce/compose';
 import { commonAttr, commonStyle } from '../config/common';
@@ -193,6 +193,7 @@ const Edit = memo(function Edit(props) {
 
     hideArea();
   };
+
   const handleMouseDown: React.MouseEventHandler<HTMLDivElement> = (e) => {
     // 如果没有选中组件 在画布上点击时需要调用 e.preventDefault() 防止触发 drop 事件
     // if (!curComponent) {
@@ -246,6 +247,9 @@ const Edit = memo(function Edit(props) {
     document.addEventListener('mousemove', move);
     document.addEventListener('mouseup', up);
   };
+  const getComponentStyle = (style: MergeCSSProperties) => {
+    return getStyle(style, ['top', 'left', 'width', 'height', 'rotate']);
+  };
   return (
     <div
       id="editor"
@@ -263,7 +267,11 @@ const Edit = memo(function Edit(props) {
               element={item}
               defaultStyle={item.style!}
             >
-              <RenderTemplate {...item} propValue={item.propValue!} />
+              <RenderTemplate
+                {...item}
+                style={getComponentStyle(item.style)}
+                propValue={item.propValue!}
+              />
             </Shape>
           ))
         : null}
