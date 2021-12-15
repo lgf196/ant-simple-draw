@@ -1,5 +1,4 @@
 import { pointType } from '@/core/config/shape';
-import React from 'react';
 import { calculateRotatedPointCoordinate, getCenterPoint } from './translate';
 
 export interface pointInfoType {

@@ -1,6 +1,9 @@
 import { getStyle } from '@/utils/style';
 import { toPercent } from '@/utils/translate';
 
+/**
+ * @description 处理合并组件的样式，更具百分比来显示样式
+ */
 export default function createGroupStyle(groupComponent: templateDataType) {
   const parentStyle: MergeCSSProperties = groupComponent.style;
   if (groupComponent.propValue) {
