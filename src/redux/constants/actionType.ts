@@ -58,3 +58,13 @@ export type setAreaData = typeof setAreaData;
  */
 export const areacompose = 'areacompose';
 export type areacompose = typeof areacompose;
+/**
+ * @description 前进，后退快照索引
+ */
+export const snapshotIndex = 'snapshotIndex';
+export type snapshotIndex = typeof snapshotIndex;
+/**
+ * @description 前进，后退存储编辑器快照数据
+ */
+export const snapshotData = 'snapshotData';
+export type snapshotData = typeof snapshotData;

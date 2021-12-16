@@ -11,7 +11,12 @@ import {
   DownloadOutlined,
 } from '@ant-design/icons';
 import { Tooltip, Button } from 'antd';
+import { useDispatch } from 'react-redux';
 const Head = memo(function Head() {
+  const dispatch = useDispatch<storeDisPatch>();
+  const handle = () => {
+    console.log(`2222`, 2222);
+  };
   return (
     <div className={style.header}>
       <h1 className={style.title}>

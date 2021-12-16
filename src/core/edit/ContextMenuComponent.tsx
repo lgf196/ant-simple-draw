@@ -18,7 +18,7 @@ const ContextMenu = memo(function ContextMenu(props) {
   const [curComponent, left, top, menuShow, componentDataList] = useSelector(
     createSelector(
       [(state: storeType) => state.component, (state: storeType) => state.contextMenu],
-      ({ curComponent, componentDataList }, { left, top, menuShow }) =>
+      ({ componentDataList, curComponent }, { left, top, menuShow }) =>
         [curComponent, left, top, menuShow, componentDataList] as const,
     ),
   );

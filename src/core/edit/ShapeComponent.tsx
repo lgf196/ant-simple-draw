@@ -30,7 +30,6 @@ const Shape: FC<ShapeType> = memo(function Shape({ children, style, element, def
     }),
   );
   const dispatch = useDispatch<storeDisPatch>();
-
   /**
   @description 拖拽图形
    */
