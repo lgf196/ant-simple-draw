@@ -68,3 +68,18 @@ export type snapshotIndex = typeof snapshotIndex;
  */
 export const snapshotData = 'snapshotData';
 export type snapshotData = typeof snapshotData;
+/**
+ * @description 撤销
+ */
+export const undo = 'undo';
+export type undo = typeof undo;
+/**
+ * @description 重做
+ */
+export const redo = 'redo';
+export type redo = typeof redo;
+/**
+ * @description 添加快照，也就是缓存区
+ */
+export const recordSnapshot = 'recordSnapshot';
+export type recordSnapshot = typeof recordSnapshot;
