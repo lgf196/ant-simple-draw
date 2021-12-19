@@ -2,7 +2,7 @@ import * as types from '@/redux/constants/actionType';
 import { snapshotActionMerage } from '../action/snapshot';
 
 export interface snapshotInitialStateType {
-  snapshotData: templateDataType[];
+  snapshotData: any[];
   snapshotIndex: number;
 }
 const initialState: snapshotInitialStateType = {

@@ -21,7 +21,7 @@ import {
   curComponentAction,
   deleteComponentAction,
 } from '@/redux/action/component';
-import { undoAction } from '@/redux/action/snapshot';
+import { recordSnapshotAction, undoAction } from '@/redux/action/snapshot';
 const Edit = memo(function Edit(props) {
   const forUpdate = useMandatoryUpdate();
 
@@ -107,7 +107,7 @@ const Edit = memo(function Edit(props) {
    * @description 创建组
    */
   const createGroup = () => {
-    dispatch(undoAction());
+    dispatch(recordSnapshotAction());
     // 获取选中区域的组件数据
     const areaData = getSelectArea();
     if (areaData.length <= 1) {

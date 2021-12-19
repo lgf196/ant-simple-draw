@@ -1,22 +1,26 @@
 import { put, takeEvery, call, takeLatest, race, delay, all, select } from 'redux-saga/effects';
 import * as types from '@/redux/constants/actionType';
-import { snapshotActionMerage, snapshotIndexAction } from '../action/snapshot';
+import { snapshotActionMerage, snapshotDataAction, snapshotIndexAction } from '../action/snapshot';
 import { snapshotInitialStateType } from '../reduce/snapshot';
+import { deepCopy } from '@/utils';
+import { componentInitialStateType } from '../reduce/component';
 export const effects = {
   *undo(actions: snapshotActionMerage) {
-    const res: snapshotInitialStateType = yield select((state: storeType) => state.snapshot);
-    yield put(snapshotIndexAction(++res.snapshotIndex));
-    console.log(`5`, res.snapshotIndex);
+    console.log(`3333`, 3333);
   },
   *redo() {
     console.log(`2`, 3333);
   },
   *recordSnapshot() {
     // 添加新的快照
-    const getStore = (state: storeType) => state.snapshot;
-    const cart: snapshotInitialStateType = yield select(getStore);
-    //  yield put(snapshotIndexAction());
-    console.log(`5`, 3333);
+    const res: snapshotInitialStateType = yield select((state: storeType) => state.snapshot);
+    const component: componentInitialStateType = yield select(
+      (state: storeType) => state.component,
+    );
+    yield put(snapshotIndexAction(++res.snapshotIndex));
+    res.snapshotData[res.snapshotIndex] = deepCopy(component.componentDataList);
+    yield put(snapshotDataAction(res.snapshotData));
+    console.log(`5`, res.snapshotIndex, res.snapshotData);
   },
 };
 
