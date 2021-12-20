@@ -7,7 +7,10 @@ import RenderTemplate from '@/core/RenderTemplateComponent';
 import { createSelector } from 'reselect';
 import { useDispatch, useSelector } from 'react-redux';
 import ContextMenu from './ContextMenuComponent';
-import { contextMenuActionMerage, showContextMenuAction } from '@/redux/action/contextMenu';
+import {
+  contextMenuActionMerage,
+  // showContextMenuAction
+} from '@/redux/action/contextMenu';
 import MarkLine from './MarkLineComponent';
 import { useSetState, useMandatoryUpdate } from '@/hooks';
 import { $, getRandomStr } from '@/utils';
@@ -18,10 +21,17 @@ import { commonAttr, commonStyle } from '../config/common';
 import createGroupStyle from '@/utils/createGroupStyle';
 import {
   addComponentAction,
-  curComponentAction,
-  deleteComponentAction,
+  // curComponentAction,
+  // deleteComponentAction,
 } from '@/redux/action/component';
 import { recordSnapshotAction, undoAction } from '@/redux/action/snapshot';
+import {
+  addComponent,
+  curComponentAction,
+  deleteComponentAction,
+} from '@/store/controller/component';
+import { showContextMenuAction } from '@/store/controller/contextMenu';
+import produce from 'immer';
 const Edit = memo(function Edit(props) {
   const forUpdate = useMandatoryUpdate();
 
@@ -33,7 +43,7 @@ const Edit = memo(function Edit(props) {
 
   const [isShowArea, setIsShowArea] = useState<boolean>(false);
 
-  const dispatch = useDispatch<storeDisPatch>();
+  const dispatch = useDispatch();
 
   const [componentListData, curComponent] = useSelector(
     createSelector(
@@ -184,14 +194,13 @@ const Edit = memo(function Edit(props) {
       componentId: getRandomStr(),
     };
 
-    createGroupStyle(groupComponent);
-
-    dispatch(addComponentAction(groupComponent));
-
-    dispatch(curComponentAction(groupComponent));
-
+    const createGroupStyleComponent = createGroupStyle(groupComponent);
     // 将已经放到 Group 组件数据删除，也就是在 componentData 中删除，因为它们已经放到 Group 组件中了
     dispatch(deleteComponentAction(areaData.components.map((item) => item.componentId!)));
+
+    dispatch(addComponent(createGroupStyleComponent));
+
+    dispatch(curComponentAction(createGroupStyleComponent));
 
     hideArea();
   };

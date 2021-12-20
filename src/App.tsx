@@ -10,18 +10,28 @@ import { Dispatch } from 'redux';
 import {
   addComponentAction,
   componentActionMerage,
-  curComponentAction,
-  deleteComponentAction,
-  isClickComponentAction,
+  // curComponentAction,
+  // deleteComponentAction,
+  // isClickComponentAction,
 } from '@/redux/action/component';
-import { contextMenuActionMerage, hideContextMenuAction } from '@/redux/action/contextMenu';
+import {
+  contextMenuActionMerage,
+  // hideContextMenuAction
+} from '@/redux/action/contextMenu';
 import { getRandomStr, $ } from '@/utils';
 import { createSelector } from 'reselect';
 import decomposeComponent from '@/utils/decomposeComponent';
+import {
+  addComponent,
+  curComponentAction,
+  isClickComponentAction,
+  deleteComponentAction,
+} from '@/store/controller/component';
+import { hideContextMenuAction } from '@/store/controller/contextMenu';
 const App: FC = () => {
   const { baseConfigList } = useGetCopentConfigList();
 
-  const dispatch = useDispatch<storeDisPatch>();
+  const dispatch = useDispatch();
 
   const [isClickComponent, curComponent] = useSelector(
     createSelector([(state: storeType) => state.component], (component) => {
@@ -41,7 +51,7 @@ const App: FC = () => {
       component.style!.top = e.clientY - rectInfo.y;
       component.style!.left = e.clientX - rectInfo.x;
       component.componentId = getRandomStr();
-      dispatch(addComponentAction(component));
+      dispatch(addComponent(component));
     }
   };
 
@@ -70,8 +80,9 @@ const App: FC = () => {
       const editorRect = $('#editor').getBoundingClientRect();
       components.forEach((component) => {
         // 将组合中的各个子组件拆分出来，并计算它们新的 style
-        decomposeComponent(component, editorRect, parentStyle);
-        dispatch(addComponentAction(component));
+        const decomposeComponentStyle = decomposeComponent(component, editorRect, parentStyle);
+
+        dispatch(addComponent(decomposeComponentStyle));
       });
       // 组合的子组件已近添加了，这个时候组合组件得删除，没用了
       dispatch(deleteComponentAction([curComponent.componentId!]));

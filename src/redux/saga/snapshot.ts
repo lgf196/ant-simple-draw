@@ -17,10 +17,10 @@ export const effects = {
     const component: componentInitialStateType = yield select(
       (state: storeType) => state.component,
     );
-    yield put(snapshotIndexAction(++res.snapshotIndex));
-    res.snapshotData[res.snapshotIndex] = deepCopy(component.componentDataList);
-    yield put(snapshotDataAction(res.snapshotData));
-    console.log(`5`, res.snapshotIndex, res.snapshotData);
+    // yield put(snapshotIndexAction(++res.snapshotIndex));
+    // res.snapshotData[res.snapshotIndex] = deepCopy(component.componentDataList);
+    // yield put(snapshotDataAction(res.snapshotData));
+    // console.log(`5`, res.snapshotIndex, res.snapshotData);
   },
 };
 

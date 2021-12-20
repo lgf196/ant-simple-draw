@@ -11,9 +11,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createSelector } from 'reselect';
 import { Dispatch } from 'redux';
 import { componentActionMerage, isClickComponentAction } from '@/redux/action/component';
-import { contextMenuActionMerage, hideContextMenuAction } from '@/redux/action/contextMenu';
+import {
+  contextMenuActionMerage,
+  // hideContextMenuAction
+} from '@/redux/action/contextMenu';
+import { hideContextMenuAction } from '@/store/controller/contextMenu';
 const ContextMenu = memo(function ContextMenu(props) {
-  const dispatch = useDispatch<storeDisPatch>();
+  const dispatch = useDispatch();
 
   const [curComponent, left, top, menuShow, componentDataList] = useSelector(
     createSelector(

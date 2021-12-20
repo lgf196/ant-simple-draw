@@ -1,11 +1,10 @@
 import React, { FC, memo, useState, useRef } from 'react';
 import styles from '../index.module.scss';
 import { useDispatch } from 'react-redux';
-import {
-  curComponentAction,
-  setShapeStyleAction,
-  isClickComponentAction,
-} from '@/redux/action/component';
+import // curComponentAction,
+// setShapeStyleAction,
+// isClickComponentAction,
+'@/redux/action/component';
 import { createSelector } from 'reselect';
 import { useSelector } from 'react-redux';
 import { angleToCursor, initialAngle, pointList, pointType } from '@/core/config/shape';
@@ -13,8 +12,16 @@ import { mod360 } from '@/utils/translate';
 import { $ } from '@/utils';
 import calculateComponentPositonAndSize from '@/utils/calculateComponentPositonAndSize';
 import { ReloadOutlined } from '@ant-design/icons';
-import { hideContextMenuAction } from '@/redux/action/contextMenu';
-import { showMarkLineAction, hideMarkLineAction } from '@/redux/action/markLine';
+// import { hideContextMenuAction } from '@/redux/action/contextMenu';
+// import { showMarkLineAction, hideMarkLineAction } from '@/redux/action/markLine';
+import { hideContextMenuAction } from '@/store/controller/contextMenu';
+import { showMarkLineAction, hideMarkLineAction } from '@/store/controller/markLine';
+import {
+  addComponent,
+  curComponentAction,
+  isClickComponentAction,
+  setShapeStyleAction,
+} from '@/store/controller/component';
 export interface ShapeType {
   style?: MergeCSSProperties;
   defaultStyle: MergeCSSProperties;
@@ -29,7 +36,7 @@ const Shape: FC<ShapeType> = memo(function Shape({ children, style, element, def
       return [component.curComponent, active] as const;
     }),
   );
-  const dispatch = useDispatch<storeDisPatch>();
+  const dispatch = useDispatch();
   /**
   @description 拖拽图形
    */
