@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface showContextMenuDataType<T = number> {
   top: T;
@@ -14,7 +14,7 @@ const initialState: contextMenuInitialStateType = {
 };
 
 export const contextMenuSlice = createSlice({
-  name: ' contextMenu',
+  name: 'contextMenu',
   initialState,
   reducers: {
     showContextMenuAction: (state, action: PayloadAction<showContextMenuDataType>) => {
@@ -28,10 +28,6 @@ export const contextMenuSlice = createSlice({
     },
   },
 });
-
-export const incrementIfOdd = (amount: any) => (dispatch: any, getState: any) => {
-  console.log(`5`, 5);
-};
 
 export const { showContextMenuAction, hideContextMenuAction } = contextMenuSlice.actions;
 

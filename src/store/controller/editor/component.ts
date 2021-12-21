@@ -19,6 +19,9 @@ export const componentSlice = createSlice({
     addComponent: (state, action: PayloadAction<templateDataType>) => {
       state.componentDataList.push(action.payload);
     },
+    setComponentDataListAction: (state, action: PayloadAction<templateDataType[]>) => {
+      state.componentDataList = action.payload;
+    },
     deleteComponentAction: (state, action: PayloadAction<string[]>) => {
       const newComponentDataList = state.componentDataList.filter(
         (item) => !action.payload.includes(item.componentId!),
@@ -49,16 +52,13 @@ export const componentSlice = createSlice({
   },
 });
 
-export const incrementIfOdd = (amount: any) => (dispatch: any, getState: any) => {
-  console.log(`5`, 5);
-};
-
 export const {
   addComponent,
   deleteComponentAction,
   curComponentAction,
   setShapeStyleAction,
   isClickComponentAction,
+  setComponentDataListAction,
 } = componentSlice.actions;
 
 export default componentSlice.reducer;

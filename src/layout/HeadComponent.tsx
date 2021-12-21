@@ -12,10 +12,36 @@ import {
 } from '@ant-design/icons';
 import { Tooltip, Button } from 'antd';
 import { useDispatch } from 'react-redux';
+import { redo, undo } from '@/store/controller/editor/snapshot';
 const Head = memo(function Head() {
-  const dispatch = useDispatch<storeDisPatch>();
-  const handle = () => {
-    console.log(`2222`, 2222);
+  const dispatch = useDispatch();
+
+  const handle = (flag: string) => {
+    switch (flag) {
+      case 'ClearScreen':
+        console.log(`ClearScreen`);
+        break;
+      case 'Revoke':
+        dispatch(undo());
+        break;
+      case 'Redo':
+        dispatch(redo());
+        break;
+      case 'Copy':
+        console.log(`Copy`);
+        break;
+      case 'Cut':
+        console.log(`Cut`);
+        break;
+      case 'Paste':
+        console.log(`Paste`);
+        break;
+      case 'Print':
+        console.log(`Print`);
+        break;
+      default:
+        break;
+    }
   };
   return (
     <div className={style.header}>
@@ -33,10 +59,10 @@ const Head = memo(function Head() {
           <DeleteOutlined className={style.icon} />
         </Tooltip>
         <Tooltip title="撤销">
-          <UndoOutlined className={style.icon} />
+          <UndoOutlined className={style.icon} onClick={() => handle('Revoke')} />
         </Tooltip>
         <Tooltip title="重做">
-          <RedoOutlined className={style.icon} />
+          <RedoOutlined className={style.icon} onClick={() => handle('Redo')} />
         </Tooltip>
         <Tooltip title="复制">
           <CopyOutlined className={style.icon} />

@@ -5,7 +5,6 @@ import produce from 'immer';
  * @description 处理合并组件的样式，更具百分比来显示样式
  */
 export default function createGroupStyle(groupComponent: templateDataType) {
-  // 注意这里的数据是不可变的，要想改变不可变的数据，用immer
   return produce(groupComponent, (draftState) => {
     const parentStyle: MergeCSSProperties = draftState.style;
     if (draftState.propValue) {

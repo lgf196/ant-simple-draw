@@ -15,7 +15,7 @@ import {
   contextMenuActionMerage,
   // hideContextMenuAction
 } from '@/redux/action/contextMenu';
-import { hideContextMenuAction } from '@/store/controller/contextMenu';
+import { hideContextMenuAction } from '@/store/controller/editor/contextMenu';
 const ContextMenu = memo(function ContextMenu(props) {
   const dispatch = useDispatch();
 

@@ -24,14 +24,12 @@ import {
   // curComponentAction,
   // deleteComponentAction,
 } from '@/redux/action/component';
-import { recordSnapshotAction, undoAction } from '@/redux/action/snapshot';
 import {
   addComponent,
   curComponentAction,
   deleteComponentAction,
-} from '@/store/controller/component';
-import { showContextMenuAction } from '@/store/controller/contextMenu';
-import produce from 'immer';
+} from '@/store/controller/editor/component';
+import { showContextMenuAction } from '@/store/controller/editor/contextMenu';
 const Edit = memo(function Edit(props) {
   const forUpdate = useMandatoryUpdate();
 
@@ -117,7 +115,6 @@ const Edit = memo(function Edit(props) {
    * @description 创建组
    */
   const createGroup = () => {
-    dispatch(recordSnapshotAction());
     // 获取选中区域的组件数据
     const areaData = getSelectArea();
     if (areaData.length <= 1) {
@@ -149,17 +146,6 @@ const Edit = memo(function Edit(props) {
     areawh.current = updateAreaWh;
     // useRef只会更新数据，但是并不会重新渲染，所以要强制更新渲染
     forUpdate();
-    // 设置选中区域位移大小信息和区域内的组件数据
-    // dispatch(
-    //   setAreaDataAction({
-    //     style: {
-    //       left,
-    //       top,
-    //       ...updateAreaWh,
-    //     },
-    //     components: areaData,
-    //   }),
-    // );
     compose({
       style: {
         left,

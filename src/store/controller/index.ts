@@ -1,10 +1,6 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import component from './component';
-import contextMenu from './contextMenu';
-import markLine from './markLine';
+import editorModuleReducer from './editor';
 const Reducer = combineReducers({
-  component,
-  contextMenu,
-  markLine,
+  ...editorModuleReducer,
 });
 export default Reducer;

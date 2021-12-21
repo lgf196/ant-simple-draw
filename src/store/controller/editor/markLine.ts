@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface markLineDataType<T = boolean> {
   isDownward: T;
@@ -14,7 +14,7 @@ const initialState: markLineInitialStateType = {
 };
 
 export const markLineSlice = createSlice({
-  name: ' contextMenu',
+  name: 'markLine',
   initialState,
   reducers: {
     showMarkLineAction: (state, action: PayloadAction<markLineDataType>) => {
@@ -28,10 +28,6 @@ export const markLineSlice = createSlice({
     },
   },
 });
-
-export const incrementIfOdd = (amount: any) => (dispatch: any, getState: any) => {
-  console.log(`5`, 5);
-};
 
 export const { showMarkLineAction, hideMarkLineAction } = markLineSlice.actions;
 

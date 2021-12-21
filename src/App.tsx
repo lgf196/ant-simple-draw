@@ -26,8 +26,9 @@ import {
   curComponentAction,
   isClickComponentAction,
   deleteComponentAction,
-} from '@/store/controller/component';
-import { hideContextMenuAction } from '@/store/controller/contextMenu';
+} from '@/store/controller/editor/component';
+import { hideContextMenuAction } from '@/store/controller/editor/contextMenu';
+import { recordSnapshot } from './store/controller/editor/snapshot';
 const App: FC = () => {
   const { baseConfigList } = useGetCopentConfigList();
 
@@ -52,6 +53,7 @@ const App: FC = () => {
       component.style!.left = e.clientX - rectInfo.x;
       component.componentId = getRandomStr();
       dispatch(addComponent(component));
+      dispatch(recordSnapshot());
     }
   };
 

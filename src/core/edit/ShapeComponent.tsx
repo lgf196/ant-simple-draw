@@ -14,14 +14,15 @@ import calculateComponentPositonAndSize from '@/utils/calculateComponentPositonA
 import { ReloadOutlined } from '@ant-design/icons';
 // import { hideContextMenuAction } from '@/redux/action/contextMenu';
 // import { showMarkLineAction, hideMarkLineAction } from '@/redux/action/markLine';
-import { hideContextMenuAction } from '@/store/controller/contextMenu';
-import { showMarkLineAction, hideMarkLineAction } from '@/store/controller/markLine';
+import { hideContextMenuAction } from '@/store/controller/editor/contextMenu';
+import { showMarkLineAction, hideMarkLineAction } from '@/store/controller/editor/markLine';
 import {
   addComponent,
   curComponentAction,
   isClickComponentAction,
   setShapeStyleAction,
-} from '@/store/controller/component';
+} from '@/store/controller/editor/component';
+import { recordSnapshot } from '@/store/controller/editor/snapshot';
 export interface ShapeType {
   style?: MergeCSSProperties;
   defaultStyle: MergeCSSProperties;
@@ -73,6 +74,7 @@ const Shape: FC<ShapeType> = memo(function Shape({ children, style, element, def
     };
 
     const up = () => {
+      hasMove && dispatch(recordSnapshot());
       // 触发元素停止移动事件，用于隐藏标线
       dispatch(hideMarkLineAction());
       document.removeEventListener('mousemove', move);
@@ -208,6 +210,7 @@ const Shape: FC<ShapeType> = memo(function Shape({ children, style, element, def
     const up = () => {
       document.removeEventListener('mousemove', move);
       document.removeEventListener('mouseup', up);
+      needSave && dispatch(recordSnapshot());
     };
 
     document.addEventListener('mousemove', move);
@@ -247,6 +250,7 @@ const Shape: FC<ShapeType> = memo(function Shape({ children, style, element, def
     };
 
     const up = () => {
+      hasMove && dispatch(recordSnapshot());
       document.removeEventListener('mousemove', move);
       document.removeEventListener('mouseup', up);
       // 根据旋转角度重新获取光标位置，cursor
