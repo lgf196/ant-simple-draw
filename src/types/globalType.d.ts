@@ -10,6 +10,7 @@ import { composeInitialStateType } from '@/redux/reduce/compose';
 import { composeMenuActionMerage } from '@/redux/action/compose';
 import { snapshotInitialStateType } from '@/redux/reduce/snapshot';
 import { snapshotActionMerage } from '@/redux/action/snapshot';
+import { copyInitialStateType } from '@/store/controller/editor/copy';
 declare global {
   /* eslint-disable */
   interface templateDateInterface<T = string, K = any> {
@@ -44,6 +45,7 @@ declare global {
     markLine: markLineInitialStateType;
     compose: composeInitialStateType;
     snapshot: snapshotInitialStateType;
+    copys: copyInitialStateType;
   }
   /**
    * @description 全局声明redux中的dispatch数据

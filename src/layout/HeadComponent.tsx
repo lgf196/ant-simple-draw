@@ -13,6 +13,7 @@ import {
 import { Tooltip, Button } from 'antd';
 import { useDispatch } from 'react-redux';
 import { redo, undo } from '@/store/controller/editor/snapshot';
+import { copy, cut, paste } from '@/store/controller/editor/copy';
 const Head = memo(function Head() {
   const dispatch = useDispatch();
 
@@ -28,13 +29,13 @@ const Head = memo(function Head() {
         dispatch(redo());
         break;
       case 'Copy':
-        console.log(`Copy`);
+        dispatch(copy());
         break;
       case 'Cut':
-        console.log(`Cut`);
+        dispatch(cut());
         break;
       case 'Paste':
-        console.log(`Paste`);
+        dispatch(paste(false));
         break;
       case 'Print':
         console.log(`Print`);
@@ -65,13 +66,13 @@ const Head = memo(function Head() {
           <RedoOutlined className={style.icon} onClick={() => handle('Redo')} />
         </Tooltip>
         <Tooltip title="复制">
-          <CopyOutlined className={style.icon} />
+          <CopyOutlined className={style.icon} onClick={() => handle('Copy')} />
         </Tooltip>
         <Tooltip title="剪切">
-          <ScissorOutlined className={style.icon} />
+          <ScissorOutlined className={style.icon} onClick={() => handle('Cut')} />
         </Tooltip>
         <Tooltip title="粘贴">
-          <SnippetsOutlined className={style.icon} />
+          <SnippetsOutlined className={style.icon} onClick={() => handle('Paste')} />
         </Tooltip>
         <Tooltip title="打印">
           <PrinterOutlined className={style.icon} />

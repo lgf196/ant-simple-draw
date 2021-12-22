@@ -1,7 +1,7 @@
 import { getModuleData } from '@/core/config/common';
 import component from './component';
 import contextMenu from './contextMenu';
-import copy from './copy';
+import copys from './copy';
 import markLine from './markLine';
 import snapshot from './snapshot';
 
@@ -16,7 +16,7 @@ const editorModuleReducer = async () => {
 export default {
   component,
   contextMenu,
-  copy,
+  copys,
   markLine,
   snapshot,
 };
