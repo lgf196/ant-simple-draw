@@ -19,6 +19,7 @@
     "antd": "^4.16.13",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
+    "react-hotkeys-hook": "^3.4.4",
     "react-redux": "^7.2.6",
     "redux": "^4.1.2",
     "redux-saga": "^1.1.3",

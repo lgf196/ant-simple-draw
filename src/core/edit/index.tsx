@@ -1,4 +1,4 @@
-import React, { Dispatch, memo, useState, useCallback, useMemo, useRef } from 'react';
+import React, { memo, useState, useCallback, useMemo, useRef } from 'react';
 import Grid from './GridComponent';
 import Shape from './ShapeComponent';
 import AreaComponent from './AreaComponent';
@@ -7,29 +7,23 @@ import RenderTemplate from '@/core/RenderTemplateComponent';
 import { createSelector } from 'reselect';
 import { useDispatch, useSelector } from 'react-redux';
 import ContextMenu from './ContextMenuComponent';
-import {
-  contextMenuActionMerage,
-  // showContextMenuAction
-} from '@/redux/action/contextMenu';
 import MarkLine from './MarkLineComponent';
-import { useSetState, useMandatoryUpdate } from '@/hooks';
+import { useMandatoryUpdate } from '@/hooks';
 import { $, getRandomStr } from '@/utils';
 import { getComponentRotatedStyle, getStyle } from '@/utils/style';
-import { composeAction, setAreaDataAction } from '@/redux/action/compose';
 import { areaDataType } from '@/redux/reduce/compose';
 import { commonAttr, commonStyle } from '../config/common';
 import createGroupStyle from '@/utils/createGroupStyle';
-import {
-  addComponentAction,
-  // curComponentAction,
-  // deleteComponentAction,
-} from '@/redux/action/component';
+import { showContextMenuAction } from '@/store/controller/editor/contextMenu';
+import { useHotkeys } from 'react-hotkeys-hook';
+import { allKeyValueCode, keyCodeType } from '../config/hotKey';
+import { cut, copy, paste } from '@/store/controller/editor/copy';
+import { redo, undo } from '@/store/controller/editor/snapshot';
 import {
   addComponent,
   curComponentAction,
   deleteComponentAction,
 } from '@/store/controller/editor/component';
-import { showContextMenuAction } from '@/store/controller/editor/contextMenu';
 const Edit = memo(function Edit(props) {
   const forUpdate = useMandatoryUpdate();
 
@@ -49,6 +43,35 @@ const Edit = memo(function Edit(props) {
       (component) => [component.componentDataList, component.curComponent] as const,
     ),
   );
+  /**
+   * @description 按键操作
+   */
+  useHotkeys(allKeyValueCode, (event, handler) => {
+    switch (handler.key as keyCodeType) {
+      case 'Ctrl+X':
+        dispatch(cut());
+        break;
+      case 'Ctrl+C':
+        dispatch(copy());
+        break;
+      case 'Ctrl+V':
+        dispatch(paste(false));
+        break;
+      case 'Ctrl+Z':
+        dispatch(undo());
+        break;
+      case 'Shift+Z':
+        dispatch(redo());
+        break;
+      case 'Delete':
+        break;
+      case 'Shift+A':
+        break;
+      default:
+        break;
+    }
+    console.log(`event`, event, handler);
+  });
   /**
    * @description 将值转化为对应的style样式，拼接单位
    */

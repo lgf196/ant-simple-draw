@@ -14,6 +14,7 @@ import { Tooltip, Button } from 'antd';
 import { useDispatch } from 'react-redux';
 import { redo, undo } from '@/store/controller/editor/snapshot';
 import { copy, cut, paste } from '@/store/controller/editor/copy';
+import SvgComponent from '@/components/SvgIcon';
 const Head = memo(function Head() {
   const dispatch = useDispatch();
 
@@ -56,14 +57,26 @@ const Head = memo(function Head() {
         <Button type="primary" ghost icon={<DownloadOutlined />}>
           导出画布
         </Button>
-        <Tooltip title="清屏">
+        <Tooltip title="删除">
           <DeleteOutlined className={style.icon} />
         </Tooltip>
         <Tooltip title="撤销">
-          <UndoOutlined className={style.icon} onClick={() => handle('Revoke')} />
+          <SvgComponent
+            iconClass="undo"
+            style={{ width: '19px', height: '19px', margin: '0 15px' }}
+            fill="#2f54eb"
+            onClick={() => handle('Revoke')}
+          />
+          {/* <UndoOutlined className={style.icon} onClick={() => handle('Revoke')} /> */}
         </Tooltip>
-        <Tooltip title="重做">
-          <RedoOutlined className={style.icon} onClick={() => handle('Redo')} />
+        <Tooltip title="恢复">
+          <SvgComponent
+            iconClass="redo"
+            fill="#2f54eb"
+            style={{ width: '19px', height: '19px', margin: '0 15px' }}
+            onClick={() => handle('Redo')}
+          />
+          {/* <RedoOutlined className={style.icon} onClick={() => handle('Redo')} /> */}
         </Tooltip>
         <Tooltip title="复制">
           <CopyOutlined className={style.icon} onClick={() => handle('Copy')} />
