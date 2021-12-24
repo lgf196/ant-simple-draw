@@ -26,8 +26,8 @@ const Head = memo(function Head() {
         <Button type="primary" ghost icon={<DownloadOutlined />}>
           导出画布
         </Button>
-        <Tooltip title="全屏">
-          <ClearOutlined className={style.icon} />
+        <Tooltip title="清屏">
+          <ClearOutlined className={style.icon} onClick={() => editHandle('Shift+A')} />
         </Tooltip>
         <Tooltip title="撤销">
           <SvgComponent

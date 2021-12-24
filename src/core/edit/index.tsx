@@ -1,4 +1,4 @@
-import React, { memo, useState, useCallback, useMemo, useRef } from 'react';
+import React, { memo, useState, useRef } from 'react';
 import Grid from './GridComponent';
 import Shape from './ShapeComponent';
 import AreaComponent from './AreaComponent';
@@ -48,9 +48,13 @@ const Edit = memo(function Edit(props) {
   /**
    * @description 按键操作
    */
-  useHotkeys(allKeyValueCode, (event, handler) => {
-    editHandle(handler.key as keyCodeType);
-  });
+  useHotkeys(
+    allKeyValueCode,
+    (event, handler) => {
+      editHandle(handler.key as keyCodeType);
+    },
+    [componentListData, curComponent],
+  );
   /**
    * @description 将值转化为对应的style样式，拼接单位
    */

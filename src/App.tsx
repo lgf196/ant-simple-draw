@@ -88,6 +88,7 @@ const App: FC = () => {
       });
       // 组合的子组件已近添加了，这个时候组合组件得删除，没用了
       dispatch(deleteComponentAction([curComponent.componentId!]));
+      dispatch(recordSnapshot());
     }
   };
   return (
