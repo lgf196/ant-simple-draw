@@ -3,30 +3,22 @@ export type svgProps = {
   iconClass: string;
   fill?: string;
   fontSize?: string;
-  className?: string;
-  style?: React.CSSProperties;
-  onClick?: React.MouseEventHandler<SVGSVGElement>;
-};
+} & React.DOMAttributes<HTMLSpanElement> &
+  React.HTMLAttributes<HTMLSpanElement>;
 
 const SvgIcon: React.FC<svgProps> = memo(function SvgIcon({
   iconClass,
   fill,
   fontSize = '18px',
-  className,
-  onClick,
-  style,
+  ...props
 }) {
   const iconName = useMemo(() => '#icon-' + iconClass, [iconClass]);
   return (
-    <svg
-      fontSize={fontSize!}
-      style={{ ...svgStyle, fontSize, ...style }}
-      aria-hidden="true"
-      className={className!}
-      onClick={onClick}
-    >
-      <use xlinkHref={iconName} fill={fill!} />
-    </svg>
+    <span {...props}>
+      <svg fontSize={fontSize!} style={{ ...svgStyle, fontSize }} aria-hidden="true">
+        <use xlinkHref={iconName} fill={fill!} />
+      </svg>
+    </span>
   );
 });
 

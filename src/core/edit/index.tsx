@@ -17,14 +17,16 @@ import createGroupStyle from '@/utils/createGroupStyle';
 import { showContextMenuAction } from '@/store/controller/editor/contextMenu';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { allKeyValueCode, keyCodeType } from '../config/hotKey';
-import { cut, copy, paste } from '@/store/controller/editor/copy';
-import { redo, undo } from '@/store/controller/editor/snapshot';
 import {
   addComponent,
   curComponentAction,
   deleteComponentAction,
 } from '@/store/controller/editor/component';
+import useEdit from '@/core/edit/useEdit';
+
 const Edit = memo(function Edit(props) {
+  const { editHandle } = useEdit();
+
   const forUpdate = useMandatoryUpdate();
 
   const editorPosition = useRef<xyTYpe>({ x: 0, y: 0 });
@@ -47,30 +49,7 @@ const Edit = memo(function Edit(props) {
    * @description 按键操作
    */
   useHotkeys(allKeyValueCode, (event, handler) => {
-    switch (handler.key as keyCodeType) {
-      case 'Ctrl+X':
-        dispatch(cut());
-        break;
-      case 'Ctrl+C':
-        dispatch(copy());
-        break;
-      case 'Ctrl+V':
-        dispatch(paste(false));
-        break;
-      case 'Ctrl+Z':
-        dispatch(undo());
-        break;
-      case 'Shift+Z':
-        dispatch(redo());
-        break;
-      case 'Delete':
-        break;
-      case 'Shift+A':
-        break;
-      default:
-        break;
-    }
-    console.log(`event`, event, handler);
+    editHandle(handler.key as keyCodeType);
   });
   /**
    * @description 将值转化为对应的style样式，拼接单位
