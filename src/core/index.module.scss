@@ -1,6 +1,6 @@
 @import 'src/assets/scss/animate.scss';
 .tabContent {
-  @include wh(210px, 100%);
+  @include wh(200px, auto);
   background-color: #fff;
   display: flex;
   flex-wrap: wrap;
@@ -13,11 +13,18 @@
     margin-bottom: 10px;
     text-align: center;
     cursor: move;
+    border-radius: 10px;
     padding: 5px 0;
     border: 2px solid hsla(0, 0%, 62%, 0.24);
     img {
-      width: 95px;
+      width: 90px;
     }
+    p {
+      margin: 3px;
+    }
+  }
+  .list:hover {
+    border: 2px solid #1890ff;
   }
 }
 .editor {
@@ -53,9 +60,7 @@
   left: 50%;
   transform: translateX(-50%);
   cursor: grab;
-  color: #2f54eb;
-  font-size: 20px;
-  font-weight: 600;
+  @include style(20px, #2f54eb, 600);
   &:active {
     cursor: grabbing;
   }

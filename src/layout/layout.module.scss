@@ -35,3 +35,43 @@
     border-left: 1px solid rgba(0, 0, 0, 0.08);
   }
 }
+.sliderNav {
+  @include wh(100%, 100%);
+  overflow: hidden;
+}
+.main {
+  height: 100%;
+  position: relative;
+  display: flex;
+  .center {
+    flex: 1;
+    overflow: auto;
+    margin: 0 10px;
+    @include scroll(8px, 8px);
+    .content {
+      @include wh(100%, 100%);
+      overflow: scroll;
+      @include scroll(8px, 8px);
+    }
+  }
+  .right {
+    width: 270px;
+    height: calc(100vh - 80px);
+    overflow-y: scroll;
+    @include scroll(10px, 10px);
+    box-shadow: -2px 0 4px 0 rgb(0 0 0 / 10%);
+    position: relative;
+    .option {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: -30px;
+    }
+  }
+}
+.containerLayout {
+  @include wh(100%, calc(100vh - 80px));
+  overflow-y: scroll;
+  @include scroll(10px, 10px);
+  padding-bottom: 15px;
+}

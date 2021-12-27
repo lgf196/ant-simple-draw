@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import Toolbar from '@/layout/HeadComponent';
-import SliderNav from '@/layout/SliderComponent';
+import SliderNav from '@/layout/NewSliderComponent';
 import style from './app.module.scss';
 import Edit from '@/core/edit';
 import { deepCopy, getSingleArrayVal } from '@/utils';
@@ -94,7 +94,7 @@ const App: FC = () => {
   return (
     <>
       <Toolbar />
-      <main className={style.main}>
+      {/* <main className={style.main}>
         <section>
           <SliderNav />
         </section>
@@ -112,7 +112,10 @@ const App: FC = () => {
           </div>
         </section>
         <section className={style.right}>22</section>
-      </main>
+      </main> */}
+      <div className={style.mainBody}>
+        <SliderNav />
+      </div>
     </>
   );
 };
