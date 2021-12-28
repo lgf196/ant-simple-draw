@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useState } from 'react';
 import Make from '@/core/edit';
 import Drag from '@/core/DragTargetComponent';
 import { useGetCopentConfigList } from '@/core/config/common';
@@ -16,9 +16,11 @@ import {
 import { hideContextMenuAction } from '@/store/controller/editor/contextMenu';
 import { recordSnapshot } from '@/store/controller/editor/snapshot';
 import styles from './layout.module.scss';
-import { Drawer } from 'antd';
+import { DoubleRightOutlined, DoubleLeftOutlined } from '@ant-design/icons';
 const Edit = memo(function Edit(props) {
-  const { baseConfigList } = useGetCopentConfigList();
+  const [collapsed, setCollapsed] = useState<boolean>(true);
+
+  const { baseConfigList, getAllConfigList } = useGetCopentConfigList();
 
   const dispatch = useDispatch();
 
@@ -79,10 +81,18 @@ const Edit = memo(function Edit(props) {
       dispatch(recordSnapshot());
     }
   };
+  const toggleCollapsed = () => {
+    setCollapsed((pre) => !pre);
+  };
   return (
     <main className={styles.main}>
-      <section>
-        <Drag list={baseConfigList} />
+      <section className={styles.left}>
+        {getAllConfigList.map((item, index) => (
+          <div key={index}>
+            <h2 className={styles.title}>{item.title}</h2>
+            <Drag list={item.componentList} />
+          </div>
+        ))}
       </section>
       <section className={styles.center}>
         <div
@@ -98,107 +108,119 @@ const Edit = memo(function Edit(props) {
         </div>
       </section>
       <section className={styles.right}>
-        <div className={styles.option}>qsq</div>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
-        <p>32e2e2e2e</p>
+        <div
+          className={styles.option}
+          onClick={toggleCollapsed}
+          style={{ left: collapsed ? '-17.5px' : '-40px' }}
+        >
+          {!collapsed ? <DoubleLeftOutlined /> : <DoubleRightOutlined />}
+        </div>
+        <div
+          className={styles.editContainer}
+          style={{ width: collapsed ? '270px' : '0px', opacity: collapsed ? 1 : 0 }}
+        >
+          <h2 className={styles.attr}>属性设置</h2>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+          <p>32e2e2e2e</p>
+        </div>
       </section>
     </main>
   );

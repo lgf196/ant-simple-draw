@@ -23,9 +23,9 @@ const Head = memo(function Head() {
         </a>
       </h1>
       <div className={style.option}>
-        <Button type="primary" ghost icon={<DownloadOutlined />}>
+        {/* <Button type="primary" ghost icon={<DownloadOutlined />}>
           导出画布
-        </Button>
+        </Button> */}
         <Tooltip title="清屏">
           <ClearOutlined className={style.icon} onClick={() => editHandle('Shift+A')} />
         </Tooltip>

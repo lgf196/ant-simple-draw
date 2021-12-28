@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 // 公共样式
 export const commonStyle: MergeCSSProperties = {
   rotate: 0,
@@ -51,5 +51,14 @@ export const useGetCopentConfigList = () => {
     };
     getModuleConfigData();
   }, []);
-  return { baseConfigList };
+  const getAllConfigList = useMemo(() => {
+    return [
+      {
+        category: 'base',
+        title: '基础物料',
+        componentList: baseConfigList,
+      },
+    ];
+  }, [baseConfigList]);
+  return { baseConfigList, getAllConfigList };
 };

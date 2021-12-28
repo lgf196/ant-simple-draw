@@ -43,6 +43,12 @@
   height: 100%;
   position: relative;
   display: flex;
+  .left {
+    .title {
+      @include style(15px, #33383e, bold);
+      margin-bottom: 10px;
+    }
+  }
   .center {
     flex: 1;
     overflow: auto;
@@ -55,23 +61,35 @@
     }
   }
   .right {
-    width: 270px;
-    height: calc(100vh - 80px);
-    overflow-y: scroll;
-    @include scroll(10px, 10px);
-    box-shadow: -2px 0 4px 0 rgb(0 0 0 / 10%);
     position: relative;
     .option {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      left: -30px;
+      @include position(absolute, 10%, normal, normal, -17.5px);
+      border-radius: 50%;
+      @include wh(35px, 35px);
+      background: #fff;
+      cursor: pointer;
+      border: 1px solid #eeeff1;
+      box-shadow: -2px 0 4px 0 rgb(0 0 0 / 10%);
+      @include flexContainer(center);
+    }
+    .editContainer {
+      width: 270px;
+      height: calc(100vh - 80px);
+      overflow-y: scroll;
+      @include scroll(8px, 8px);
+      box-shadow: -2px 0 4px 0 rgb(0 0 0 / 10%);
+      transition: all 0.5s;
+      padding: 10px 0 0 10px;
+      .attr {
+        @include style(17px, #000000d9, bold);
+      }
     }
   }
 }
 .containerLayout {
   @include wh(100%, calc(100vh - 80px));
   overflow-y: scroll;
-  @include scroll(10px, 10px);
+  @include scroll(8px, 8px);
   padding-bottom: 15px;
+  overflow-x: hidden;
 }
