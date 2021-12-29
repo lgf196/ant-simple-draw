@@ -40,6 +40,11 @@ export const componentConfigList = async (
 /**
  * @description 自动获取componentTemplate文件下的config文件，且取出值
  */
+export interface getAllConfigListType {
+  category: string;
+  title: string;
+  componentList: templateDataType[];
+}
 export const useGetCopentConfigList = () => {
   const [baseConfigList, setBaseConfigList] = useState<templateDataType[]>([]);
   useEffect(() => {
@@ -51,8 +56,43 @@ export const useGetCopentConfigList = () => {
     };
     getModuleConfigData();
   }, []);
-  const getAllConfigList = useMemo(() => {
+  const getAllConfigList = useMemo<getAllConfigListType[]>(() => {
     return [
+      {
+        category: 'base',
+        title: '基础物料',
+        componentList: baseConfigList,
+      },
+      {
+        category: 'base',
+        title: '基础物料',
+        componentList: baseConfigList,
+      },
+      {
+        category: 'base',
+        title: '基础物料',
+        componentList: baseConfigList,
+      },
+      {
+        category: 'base',
+        title: '基础物料',
+        componentList: baseConfigList,
+      },
+      {
+        category: 'base',
+        title: '基础物料',
+        componentList: baseConfigList,
+      },
+      {
+        category: 'base',
+        title: '基础物料',
+        componentList: baseConfigList,
+      },
+      {
+        category: 'base',
+        title: '基础物料',
+        componentList: baseConfigList,
+      },
       {
         category: 'base',
         title: '基础物料',

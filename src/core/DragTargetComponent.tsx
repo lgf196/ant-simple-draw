@@ -11,12 +11,13 @@ const DragTarget: FC<{ list: templateDataType[] }> = memo(function DragTarget({ 
   };
   return (
     <div className={style.tabContent} onDragStart={handleDragStart}>
-      {list.map((item, index) => (
-        <div className={style.list} key={index} data-id={item.id} draggable>
-          <img src={item.icon} alt={item.label} data-id={item.id} />
-          <p data-id={item.id}>{item.label}</p>
-        </div>
-      ))}
+      {list &&
+        list.map((item, index) => (
+          <div className={style.list} key={index} data-id={item.id} draggable>
+            <img src={item.icon} alt={item.label} data-id={item.id} />
+            <p data-id={item.id}>{item.label}</p>
+          </div>
+        ))}
     </div>
   );
 });

@@ -1,7 +1,7 @@
 import React, { memo, useState } from 'react';
 import Make from '@/core/edit';
 import Drag from '@/core/DragTargetComponent';
-import { useGetCopentConfigList } from '@/core/config/common';
+import { getAllConfigListType, useGetCopentConfigList } from '@/core/config/common';
 import { deepCopy, getSingleArrayVal } from '@/utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { getRandomStr, $ } from '@/utils';
@@ -16,8 +16,26 @@ import {
 import { hideContextMenuAction } from '@/store/controller/editor/contextMenu';
 import { recordSnapshot } from '@/store/controller/editor/snapshot';
 import styles from './layout.module.scss';
-import { DoubleRightOutlined, DoubleLeftOutlined } from '@ant-design/icons';
+import {
+  DoubleRightOutlined,
+  DoubleLeftOutlined,
+  RightOutlined,
+  LeftOutlined,
+} from '@ant-design/icons';
+import { useSetState } from '@/hooks';
+import Vshow from '@/components/Vshow';
+import { Provider, KeepAlive } from 'react-keep-alive';
+export interface oneModuleAllType {
+  isShow: boolean;
+  componentInfo: Partial<getAllConfigListType>;
+}
+
 const Edit = memo(function Edit(props) {
+  const [oneModuleAll, setOneModuleAll] = useSetState<oneModuleAllType>({
+    isShow: false,
+    componentInfo: {},
+  });
+
   const [collapsed, setCollapsed] = useState<boolean>(true);
 
   const { baseConfigList, getAllConfigList } = useGetCopentConfigList();
@@ -84,16 +102,46 @@ const Edit = memo(function Edit(props) {
   const toggleCollapsed = () => {
     setCollapsed((pre) => !pre);
   };
-  return (
-    <main className={styles.main}>
-      <section className={styles.left}>
+  const MaterialsList = () =>
+    !oneModuleAll.isShow ? (
+      <div>
         {getAllConfigList.map((item, index) => (
           <div key={index}>
-            <h2 className={styles.title}>{item.title}</h2>
+            <div className={styles.head}>
+              <h2 className={styles.title}>{item.title}</h2>
+              <button
+                className={styles.more}
+                onClick={() => setOneModuleAll({ isShow: true, componentInfo: item })}
+              >
+                <span>全部</span>
+                <RightOutlined />
+              </button>
+            </div>
+
             <Drag list={item.componentList} />
           </div>
         ))}
+      </div>
+    ) : (
+      <div className={styles.moreList}>
+        <button className={styles.more} onClick={() => setOneModuleAll({ isShow: false })}>
+          <LeftOutlined />
+          <span>{oneModuleAll.componentInfo.title}</span>
+        </button>
+        <Drag list={oneModuleAll.componentInfo.componentList!} />
+      </div>
+    );
+
+  return (
+    <main className={styles.main}>
+      <section className={styles.left}>
+        <Provider>
+          <KeepAlive name="MaterialsList">
+            <MaterialsList />
+          </KeepAlive>
+        </Provider>
       </section>
+
       <section className={styles.center}>
         <div
           className={styles.content}

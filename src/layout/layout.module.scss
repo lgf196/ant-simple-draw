@@ -44,20 +44,45 @@
   position: relative;
   display: flex;
   .left {
-    .title {
-      @include style(15px, #33383e, bold);
-      margin-bottom: 10px;
+    overflow: scroll;
+    padding-right: 10px;
+    @include scroll(6px, 6px);
+    .moreList {
+      button {
+        margin-bottom: 10px;
+        cursor: pointer;
+        @include style(14px, #33383e, 500);
+        span {
+          padding: 0 1px;
+        }
+      }
+    }
+    .head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 5px;
+      .title {
+        @include style(13px, #33383e, 700);
+      }
+      .more {
+        cursor: pointer;
+        @include style(13px, #a0a0a0);
+        span {
+          padding: 0 1px;
+        }
+      }
     }
   }
   .center {
     flex: 1;
     overflow: auto;
     margin: 0 10px;
-    @include scroll(8px, 8px);
+    @include scroll(6px, 6px);
     .content {
       @include wh(100%, 100%);
       overflow: scroll;
-      @include scroll(8px, 8px);
+      @include scroll(6px, 6px);
     }
   }
   .right {
@@ -76,7 +101,7 @@
       width: 270px;
       height: calc(100vh - 80px);
       overflow-y: scroll;
-      @include scroll(8px, 8px);
+      @include scroll(6px, 6px);
       box-shadow: -2px 0 4px 0 rgb(0 0 0 / 10%);
       transition: all 0.5s;
       padding: 10px 0 0 10px;
