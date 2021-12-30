@@ -10,6 +10,9 @@ export default function decomposeComponent(
   parentStyle: MergeCSSProperties,
 ) {
   return produce(component, (draftState) => {
+    if (!$(`#components_${draftState.componentId}`)) {
+      return;
+    }
     const componentRect = $(`#components_${draftState.componentId}`).getBoundingClientRect();
     // 获取元素的中心点坐标
     const center = {

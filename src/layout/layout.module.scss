@@ -88,7 +88,7 @@
   .right {
     position: relative;
     .option {
-      @include position(absolute, 10%, normal, normal, -17.5px);
+      @include position(absolute, 10%, auto, auto, -17.5px);
       border-radius: 50%;
       @include wh(35px, 35px);
       background: #fff;
@@ -96,18 +96,24 @@
       border: 1px solid #eeeff1;
       box-shadow: -2px 0 4px 0 rgb(0 0 0 / 10%);
       @include flexContainer(center);
+      z-index: 1000;
     }
     .editContainer {
       width: 270px;
       height: calc(100vh - 80px);
-      overflow-y: scroll;
-      @include scroll(6px, 6px);
+      overflow: hidden;
       box-shadow: -2px 0 4px 0 rgb(0 0 0 / 10%);
       transition: all 0.5s;
       padding: 10px 0 0 10px;
       .attr {
         @include style(17px, #000000d9, bold);
       }
+    }
+    .attrsContainer {
+      height: calc(100vh - 160px);
+      overflow-y: scroll;
+      @include scroll(6px, 6px);
+      padding: 0 18px;
     }
   }
 }

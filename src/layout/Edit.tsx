@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useState, useMemo } from 'react';
 import Make from '@/core/edit';
 import Drag from '@/core/DragTargetComponent';
 import { getAllConfigListType, useGetCopentConfigList } from '@/core/config/common';
@@ -23,8 +23,9 @@ import {
   LeftOutlined,
 } from '@ant-design/icons';
 import { useSetState } from '@/hooks';
-import Vshow from '@/components/Vshow';
-import { Provider, KeepAlive } from 'react-keep-alive';
+import { Tabs } from 'antd';
+import WhXy from '@/core/attr/WhXy';
+const { TabPane } = Tabs;
 export interface oneModuleAllType {
   isShow: boolean;
   componentInfo: Partial<getAllConfigListType>;
@@ -102,44 +103,37 @@ const Edit = memo(function Edit(props) {
   const toggleCollapsed = () => {
     setCollapsed((pre) => !pre);
   };
-  const MaterialsList = () =>
-    !oneModuleAll.isShow ? (
-      <div>
-        {getAllConfigList.map((item, index) => (
-          <div key={index}>
-            <div className={styles.head}>
-              <h2 className={styles.title}>{item.title}</h2>
-              <button
-                className={styles.more}
-                onClick={() => setOneModuleAll({ isShow: true, componentInfo: item })}
-              >
-                <span>全部</span>
-                <RightOutlined />
-              </button>
-            </div>
-
-            <Drag list={item.componentList} />
-          </div>
-        ))}
-      </div>
-    ) : (
-      <div className={styles.moreList}>
-        <button className={styles.more} onClick={() => setOneModuleAll({ isShow: false })}>
-          <LeftOutlined />
-          <span>{oneModuleAll.componentInfo.title}</span>
-        </button>
-        <Drag list={oneModuleAll.componentInfo.componentList!} />
-      </div>
-    );
 
   return (
     <main className={styles.main}>
-      <section className={styles.left}>
-        <Provider>
-          <KeepAlive name="MaterialsList">
-            <MaterialsList />
-          </KeepAlive>
-        </Provider>
+      <section className={styles.left} style={{ display: !oneModuleAll.isShow ? 'block' : 'none' }}>
+        <div>
+          {getAllConfigList.map((item, index) => (
+            <div key={index}>
+              <div className={styles.head}>
+                <h2 className={styles.title}>{item.title}</h2>
+                <button
+                  className={styles.more}
+                  onClick={() => setOneModuleAll({ isShow: true, componentInfo: item })}
+                >
+                  <span>全部</span>
+                  <RightOutlined />
+                </button>
+              </div>
+              <Drag list={item.componentList} />
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className={styles.left} style={{ display: oneModuleAll.isShow ? 'block' : 'none' }}>
+        <div className={styles.moreList}>
+          <button className={styles.more} onClick={() => setOneModuleAll({ isShow: false })}>
+            <LeftOutlined />
+            <span>{oneModuleAll.componentInfo.title}</span>
+          </button>
+          <Drag list={oneModuleAll.componentInfo.componentList!} />
+        </div>
       </section>
 
       <section className={styles.center}>
@@ -167,107 +161,16 @@ const Edit = memo(function Edit(props) {
           className={styles.editContainer}
           style={{ width: collapsed ? '270px' : '0px', opacity: collapsed ? 1 : 0 }}
         >
-          <h2 className={styles.attr}>属性设置</h2>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
-          <p>32e2e2e2e</p>
+          <Tabs defaultActiveKey="1" centered>
+            <TabPane tab="属性" key="1">
+              <div className={styles.attrsContainer}>
+                <WhXy />
+              </div>
+            </TabPane>
+            <TabPane tab="交互" key="2">
+              <div className={styles.attrsContainer}>Content of Tab Pane 2</div>
+            </TabPane>
+          </Tabs>
         </div>
       </section>
     </main>
