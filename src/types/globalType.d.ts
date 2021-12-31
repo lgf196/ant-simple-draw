@@ -1,4 +1,3 @@
-import React from 'react';
 import { componentInitialStateType } from '@/redux/reduce/component';
 import { contextMenuInitialStateType } from '@/redux/reduce/contextMenu';
 import { markLineInitialStateType } from '@/redux/reduce/markLine';
@@ -13,6 +12,16 @@ import { snapshotActionMerage } from '@/redux/action/snapshot';
 import { copyInitialStateType } from '@/store/controller/editor/copy';
 declare global {
   /* eslint-disable */
+  interface FormType<T = string> {
+    key: T;
+    name: T;
+    type: T;
+    /**
+     * @description 设置后置标签
+     */
+    addonAfter?: any;
+    [par: string]: any;
+  }
   interface templateDateInterface<T = string, K = any> {
     /**
      * @description 类别
@@ -22,18 +31,56 @@ declare global {
      * @description 类别模块中的类型
      */
     type: T;
+    /**
+     * @description 组件id,用来区分组件的
+     */
     id: T;
+    /**
+     * @description 组件
+     */
     component: T;
+    /**
+     * @description 组件名称
+     */
     label: T;
-    propValue?: K;
-    icon?: T;
+    /**
+     * @description 组件样式
+     */
     style: MergeCSSProperties;
+    /**
+     * @description 组件属性
+     */
+    propValue?: K;
+    /**
+     * @description 组件icon/image
+     */
+    icon?: T;
+    /**
+     * @description 能够编辑属性类型的配置项，显示不同的form表单类型
+     */
+    editableEl: FormType[];
   }
   interface templateDataType extends templateDateInterface {
     /**
-     * @description 动态生成的组件id
+     * @description 动态生成的组件id，所有的操作基于这个id
      */
     componentId?: string;
+    /**
+     * @description 事件
+     */
+    events?: any;
+    /**
+     * @description 组合组件的样式
+     */
+    groupStyle?: MergeCSSProperties;
+    /**
+     * @description 组合组件
+     */
+    groupComponents?: any[];
+    /**
+     * @description 是否锁定组件
+     */
+    isLock?: boolean;
     [par: string]: any;
   }
   /**

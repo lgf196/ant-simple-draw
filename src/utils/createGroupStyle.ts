@@ -7,11 +7,11 @@ import produce from 'immer';
 export default function createGroupStyle(groupComponent: templateDataType) {
   return produce(groupComponent, (draftState) => {
     const parentStyle: MergeCSSProperties = draftState.style;
-    if (draftState.propValue) {
-      draftState.propValue.forEach((component: templateDataType) => {
+    if (draftState.groupComponents) {
+      draftState.groupComponents.forEach((component: templateDataType) => {
         // component.groupStyle 的 top left 是相对于 group 组件的位置
         // 如果已存在 component.groupStyle，说明已经计算过一次了。不需要再次计算
-        if (!Object.keys(component.groupStyle).length) {
+        if (!Object.keys(component.groupStyle!).length) {
           const style: MergeCSSProperties = { ...component.style };
           component.groupStyle = getStyle(style);
           if (component.groupStyle) {

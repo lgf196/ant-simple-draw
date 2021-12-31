@@ -21,8 +21,9 @@ export default function decomposeComponent(
     };
 
     draftState.style.rotate = mod360(draftState.style.rotate + parentStyle.rotate);
-    draftState.style.width = (parseFloat(draftState.groupStyle.width) / 100) * parentStyle.width;
-    draftState.style.height = (parseFloat(draftState.groupStyle.height) / 100) * parentStyle.height;
+    draftState.style.width = (parseFloat(draftState.groupStyle!.width) / 100) * parentStyle.width;
+    draftState.style.height =
+      (parseFloat(draftState.groupStyle!.height) / 100) * parentStyle.height;
     // 计算出元素新的 top left 坐标
     draftState.style.left = center.x - draftState.style.width / 2;
     draftState.style.top = center.y - draftState.style.height / 2;

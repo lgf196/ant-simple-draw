@@ -35,7 +35,7 @@ export const copySlice = createSlice({
         state.copyData.componentId = getRandomStr();
         // Group 的子组件根节点的 componentId 是通过组件的 componentId 生成的，必须重新生成 componentId，否则拆分 Group 的时候获取根节点不正确
         if (state.copyData.component === 'Group') {
-          state.copyData.propValue.forEach((item: templateDataType) => {
+          state.copyData.groupComponents!.forEach((item: templateDataType) => {
             item.componentId = getRandomStr();
           });
         }

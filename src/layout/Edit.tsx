@@ -12,6 +12,7 @@ import {
   curComponentAction,
   isClickComponentAction,
   deleteComponentAction,
+  setShapeStyleAction,
 } from '@/store/controller/editor/component';
 import { hideContextMenuAction } from '@/store/controller/editor/contextMenu';
 import { recordSnapshot } from '@/store/controller/editor/snapshot';
@@ -25,6 +26,8 @@ import {
 import { useSetState } from '@/hooks';
 import { Tabs } from 'antd';
 import WhXy from '@/core/attr/WhXy';
+import FormRender from '@/core/attr/FormRender';
+import { Store } from 'antd/lib/form/interface';
 const { TabPane } = Tabs;
 export interface oneModuleAllType {
   isShow: boolean;
@@ -87,7 +90,7 @@ const Edit = memo(function Edit(props) {
   const decompose = () => {
     if (curComponent && curComponent.component === 'Group') {
       const parentStyle = { ...curComponent.style };
-      const components: templateDataType[] = curComponent.propValue;
+      const components: templateDataType[] = curComponent.groupComponents!;
       const editorRect = $('#editor').getBoundingClientRect();
       components.forEach((component) => {
         // 将组合中的各个子组件拆分出来，并计算它们新的 style
@@ -104,6 +107,9 @@ const Edit = memo(function Edit(props) {
     setCollapsed((pre) => !pre);
   };
 
+  const handleFormSave = (val: Store) => {
+    dispatch(setShapeStyleAction({ width: val.w, height: val.h, top: val.y, left: val.x }));
+  };
   return (
     <main className={styles.main}>
       <section className={styles.left} style={{ display: !oneModuleAll.isShow ? 'block' : 'none' }}>
@@ -164,7 +170,14 @@ const Edit = memo(function Edit(props) {
           <Tabs defaultActiveKey="1" centered>
             <TabPane tab="属性" key="1">
               <div className={styles.attrsContainer}>
-                <WhXy />
+                {/* <WhXy /> */}
+                {curComponent && (
+                  <FormRender
+                    editType={curComponent.editableEl}
+                    onSave={handleFormSave}
+                    showEditPropsData={curComponent.propValue}
+                  />
+                )}
               </div>
             </TabPane>
             <TabPane tab="交互" key="2">

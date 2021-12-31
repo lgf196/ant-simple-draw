@@ -4,12 +4,30 @@ export const commonStyle: MergeCSSProperties = {
   rotate: 0,
   opacity: 1,
 };
-// 属性
+// 默认的编辑类型-form表单类型
+export const defaultEditableEl = (
+  keySet: string[] = ['w', 'h', 'x', 'y'],
+  nameSet: string[] = ['w', 'h', 'x', 'y'],
+) => {
+  const formDate: FormType[] = [];
+  nameSet.forEach((item, index) =>
+    formDate.push({ key: keySet[index], name: item, type: 'Number', addonAfter: 'px' }),
+  );
+  return formDate;
+};
+// 公共属性默认值==>不是主要的属性，但有时候要用的到
 export const commonAttr = {
-  animations: [],
   events: {},
   groupStyle: {}, // 当一个组件成为 Group 的子组件时使用
   isLock: false, // 是否锁定组件
+  editableEl: defaultEditableEl(), // 默认的右侧编辑属性
+  groupComponents: [],
+  propValue: {
+    w: 0,
+    h: 0,
+    x: 0,
+    y: 0,
+  },
 };
 /**
  * @description 更具传入的匹配文件目录，可以动态的获取所有的匹配文件
@@ -26,6 +44,7 @@ export const getModuleData = async <T = any>(
   }
   return arr;
 };
+// 添加一些其它的属性和字段
 export const componentConfigList = async (
   modules: Record<string, () => Promise<{ [key: string]: any }>>,
 ) => {

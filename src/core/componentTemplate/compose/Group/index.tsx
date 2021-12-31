@@ -4,8 +4,8 @@ import RenderTemplate from '@/core/RenderTemplateComponent';
 const Group: FC<templateDataType> = memo(function Group(props) {
   return (
     <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-      {props.propValue &&
-        props.propValue.map((item: templateDataType, index: React.Key | null | undefined) => (
+      {props.groupComponents &&
+        props.groupComponents.map((item: templateDataType, index: React.Key | null | undefined) => (
           <RenderTemplate
             {...item}
             propValue={item.propValue!}

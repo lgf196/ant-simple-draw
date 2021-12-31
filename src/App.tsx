@@ -78,7 +78,7 @@ const App: FC = () => {
   const decompose = () => {
     if (curComponent && curComponent.component === 'Group') {
       const parentStyle = { ...curComponent.style };
-      const components: templateDataType[] = curComponent.propValue;
+      const components: templateDataType[] = curComponent.groupComponents!;
       const editorRect = $('#editor').getBoundingClientRect();
       components.forEach((component) => {
         // 将组合中的各个子组件拆分出来，并计算它们新的 style

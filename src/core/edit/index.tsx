@@ -178,7 +178,7 @@ const Edit = memo(function Edit(props) {
       component: 'Group',
       label: 'Group',
       ...commonAttr,
-      propValue: components,
+      groupComponents: components,
       style: {
         ...commonStyle,
         ...areaData.style,
