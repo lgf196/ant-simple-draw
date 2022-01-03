@@ -25,7 +25,7 @@ import {
 } from '@ant-design/icons';
 import { useSetState } from '@/hooks';
 import { Tabs } from 'antd';
-import WhXy from '@/core/attr/WhXy';
+import WhXy from '@/core/attr/CustomizeInput';
 import FormRender from '@/core/attr/FormRender';
 import { Store } from 'antd/lib/form/interface';
 const { TabPane } = Tabs;
@@ -175,6 +175,7 @@ const Edit = memo(function Edit(props) {
                   <FormRender
                     editType={curComponent.editableEl}
                     onSave={handleFormSave}
+                    id={curComponent.componentId!}
                     showEditPropsData={curComponent.propValue}
                   />
                 )}

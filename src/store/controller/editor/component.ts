@@ -41,20 +41,20 @@ export const componentSlice = createSlice({
     setShapeStyleAction: (state, action: PayloadAction<MergeCSSProperties>) => {
       const { width, height, top, left, rotate } = action.payload;
       if (top) {
-        state.curComponent!.style!.top = top;
-        state.curComponent!.propValue.y = top;
+        state.curComponent!.style!.top = parseInt(top);
+        state.curComponent!.propValue.y = parseInt(top);
       }
       if (left) {
-        state.curComponent!.style!.left = left;
-        state.curComponent!.propValue.x = left;
+        state.curComponent!.style!.left = parseInt(left);
+        state.curComponent!.propValue.x = parseInt(left);
       }
       if (width) {
-        state.curComponent!.style!.width = width;
-        state.curComponent!.propValue.w = width;
+        state.curComponent!.style!.width = parseInt(width);
+        state.curComponent!.propValue.w = parseInt(width);
       }
       if (height) {
-        state.curComponent!.style!.height = height;
-        state.curComponent!.propValue.h = height;
+        state.curComponent!.style!.height = parseInt(height);
+        state.curComponent!.propValue.h = parseInt(height);
       }
       if (rotate) state.curComponent!.style!.rotate = rotate;
       for (let index = 0; index < state.componentDataList.length; index++) {

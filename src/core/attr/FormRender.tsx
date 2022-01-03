@@ -1,10 +1,12 @@
 import React, { FC, memo, useEffect } from 'react';
 import { Form, InputNumber } from 'antd';
 import { Store } from 'antd/lib/form/interface';
-
+import AttrContainer from './AttrContainer';
+import WhXy from './WhXy';
 export interface FormRenderType {
   editType: FormType[];
   onSave: Function;
+  id: string;
   showEditPropsData: any;
 }
 
@@ -12,6 +14,7 @@ const FormRender: FC<FormRenderType> = memo(function FormRender({
   editType,
   onSave,
   showEditPropsData,
+  id,
 }) {
   const [form] = Form.useForm();
 
@@ -20,7 +23,7 @@ const FormRender: FC<FormRenderType> = memo(function FormRender({
     return () => {
       form.resetFields();
     };
-  }, [form, showEditPropsData]);
+  }, [form, id]);
 
   const onFinish = (values: Store) => {
     onSave && onSave(values);
@@ -32,6 +35,9 @@ const FormRender: FC<FormRenderType> = memo(function FormRender({
 
   return (
     <>
+      <AttrContainer title={'样式'}>
+        <WhXy />
+      </AttrContainer>
       <Form form={form} name={`form_editor`} onFinish={onFinish} onValuesChange={handlechange}>
         {editType.map((item, index) => {
           return (

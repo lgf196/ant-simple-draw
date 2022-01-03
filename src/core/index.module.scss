@@ -126,3 +126,49 @@
     }
   }
 }
+.customizeInput {
+  display: flex;
+  align-items: center;
+  margin: 2px;
+  label::after {
+    content: ':';
+    position: relative;
+    top: -0.5px;
+    margin: 0 8px 0 2px;
+  }
+  .toggle {
+    // flex: 1;
+    height: 100%;
+    h2 {
+      margin: 0;
+      padding: 3px 5px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      font-weight: normal;
+    }
+    h2:hover {
+      background-color: #fafafa;
+      border-radius: 3px;
+    }
+    input {
+      border: 1px solid #cdd0d1;
+      width: 100%;
+      box-shadow: none;
+      border-radius: 3px;
+      background: #fff;
+      padding: 3px 5px;
+    }
+    input:focus {
+      border-color: #40a9ff;
+      box-shadow: 0 0 0 2px rgb(24 144 255 / 20%);
+      border-right-width: 1px !important;
+      outline: 0;
+    }
+  }
+}
+.whxy {
+  display: flex;
+  .item {
+    flex: 1;
+  }
+}
