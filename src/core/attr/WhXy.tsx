@@ -33,24 +33,24 @@ const WhXy = memo(function WhXy(props) {
     <div className={style.whxy}>
       <div className={style.item}>
         <CustomizeInput
-          attr={curComponent?.propValue.w}
+          attr={curComponent!.propValue.w}
           title="w"
           callBack={(e) => handle(e, 'w')}
         />
         <CustomizeInput
-          attr={curComponent?.propValue.h}
+          attr={curComponent!.propValue.h}
           title="h"
           callBack={(e) => handle(e, 'h')}
         />
       </div>
       <div className={style.item}>
         <CustomizeInput
-          attr={curComponent?.propValue.x}
+          attr={curComponent!.propValue.x}
           title="x"
           callBack={(e) => handle(e, 'x')}
         />
         <CustomizeInput
-          attr={curComponent?.propValue.y}
+          attr={curComponent!.propValue.y}
           title="y"
           callBack={(e) => handle(e, 'y')}
         />

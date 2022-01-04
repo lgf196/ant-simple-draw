@@ -6,6 +6,16 @@ import { markLineInitialStateType } from '@/store/controller/editor/markLine';
 import { snapshotInitialStateType } from '@/store/controller/editor/snapshot';
 declare global {
   /* eslint-disable */
+  interface mustExistProps<T = number | string> {
+    // 一定存在的属性
+    w: T;
+    h: T;
+    x: T;
+    y: T;
+  }
+  interface uncertainProps {
+    [par: string]: any;
+  }
   interface FormType<T = string> {
     /**
      * @description 表单的key值
@@ -49,7 +59,7 @@ declare global {
     /**
      * @description 组件属性
      */
-    propValue?: K;
+    propValue: mustExistProps & uncertainProps;
     /**
      * @description 组件icon/image
      */

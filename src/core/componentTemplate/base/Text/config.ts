@@ -1,5 +1,3 @@
-import { defaultEditableEl } from '@/core/config/common';
-
 export default {
   id: 'baseText01',
   category: 'base',

@@ -19,7 +19,6 @@ export default function decomposeComponent(
       x: componentRect.left - editorRect.left + componentRect.width / 2,
       y: componentRect.top - editorRect.top + componentRect.height / 2,
     };
-
     draftState.style.rotate = mod360(draftState.style.rotate + parentStyle.rotate);
     draftState.style.width = (parseFloat(draftState.groupStyle!.width) / 100) * parentStyle.width;
     draftState.style.height =
@@ -27,6 +26,11 @@ export default function decomposeComponent(
     // 计算出元素新的 top left 坐标
     draftState.style.left = center.x - draftState.style.width / 2;
     draftState.style.top = center.y - draftState.style.height / 2;
+    // 解除组合的时候，style的w,h,x,y要和propValue一样，不一样的话，在编辑的时候，会出现值不一样的情况
+    draftState.propValue.w = parseInt(draftState.style.width);
+    draftState.propValue.h = parseInt(draftState.style.height);
+    draftState.propValue.x = parseInt(draftState.style.left);
+    draftState.propValue.y = parseInt(draftState.style.top);
     draftState.groupStyle = {};
   });
 }

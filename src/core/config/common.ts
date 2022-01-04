@@ -4,17 +4,7 @@ export const commonStyle: MergeCSSProperties = {
   rotate: 0,
   opacity: 1,
 };
-// 默认的编辑类型-form表单类型
-export const defaultEditableEl = (
-  keySet: string[] = ['w', 'h', 'x', 'y'],
-  nameSet: string[] = ['w', 'h', 'x', 'y'],
-) => {
-  const formDate: FormType[] = [];
-  nameSet.forEach((item, index) =>
-    formDate.push({ key: keySet[index], name: item, type: 'Number', addonAfter: 'px' }),
-  );
-  return formDate;
-};
+
 // 公共属性默认值==>不是主要的属性，但有时候要用的到
 export const commonAttr = {
   events: {},
