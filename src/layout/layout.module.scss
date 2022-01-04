@@ -1,3 +1,4 @@
+@import 'src/assets/scss/animate.scss';
 .header {
   padding: 0 20px;
   @include wh(100%, 64px);
@@ -44,6 +45,7 @@
   position: relative;
   display: flex;
   .left {
+    animation: fade-in-left 0.4s;
     overflow: scroll;
     padding-right: 10px;
     @include scroll(6px, 6px);
@@ -103,7 +105,7 @@
       height: calc(100vh - 80px);
       overflow: hidden;
       box-shadow: -2px 0 4px 0 rgb(0 0 0 / 10%);
-      transition: all 0.5s;
+      transition: all 0.4s;
       padding: 10px 0 0 10px;
       .attr {
         @include style(17px, #000000d9, bold);

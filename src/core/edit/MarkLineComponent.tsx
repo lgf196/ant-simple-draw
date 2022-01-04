@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createSelector } from 'reselect';
 import { getComponentRotatedStyle } from '@/utils/style';
 import { $ } from '@/utils';
-import { setShapeSingleStyleAction } from '@/redux/action/component';
 export interface conditionsType {
   isNearly: boolean;
   lineNode: HTMLDivElement;
@@ -19,7 +18,6 @@ export type linePosition = 'top' | 'left';
 const MarkLine = memo(function MarkLine(props) {
   const diff = 3; // 相距 dff 像素将自动吸附
   const eleRefList = useRef<HTMLDivElement[]>([]);
-  const dispatch = useDispatch<storeDisPatch>();
 
   const [isDownward, isRightward, timestamp, componentDataList, curComponent] = useSelector(
     createSelector(

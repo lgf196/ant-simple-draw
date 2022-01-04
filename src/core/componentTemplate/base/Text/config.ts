@@ -22,5 +22,5 @@ export default {
     letterSpacing: 0,
     color: '',
   },
-  editableEl: [...defaultEditableEl()],
+  editableEl: [],
 } as templateDataType;

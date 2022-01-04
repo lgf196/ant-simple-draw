@@ -17,5 +17,5 @@ export default {
     width: 100,
     height: 50,
   },
-  editableEl: [...defaultEditableEl()],
+  editableEl: [],
 } as templateDataType;

@@ -20,7 +20,7 @@ export const commonAttr = {
   events: {},
   groupStyle: {}, // 当一个组件成为 Group 的子组件时使用
   isLock: false, // 是否锁定组件
-  editableEl: defaultEditableEl(), // 默认的右侧编辑属性
+  editableEl: [], // 默认的右侧编辑属性
   groupComponents: [],
   propValue: {
     w: 0,

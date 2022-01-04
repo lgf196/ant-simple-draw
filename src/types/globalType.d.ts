@@ -1,25 +1,24 @@
-import { componentInitialStateType } from '@/redux/reduce/component';
-import { contextMenuInitialStateType } from '@/redux/reduce/contextMenu';
-import { markLineInitialStateType } from '@/redux/reduce/markLine';
-import { markLineActionMerage } from '@/redux/action/markLine';
-import { contextMenuActionMerage } from '@/redux/action/contextMenu';
-import { componentActionMerage } from '@/redux/action/component';
-import { Dispatch } from 'redux';
-import { composeInitialStateType } from '@/redux/reduce/compose';
-import { composeMenuActionMerage } from '@/redux/action/compose';
-import { snapshotInitialStateType } from '@/redux/reduce/snapshot';
-import { snapshotActionMerage } from '@/redux/action/snapshot';
 import { copyInitialStateType } from '@/store/controller/editor/copy';
+import { configInitialStateType } from '@/store/controller/config';
+import { componentInitialStateType } from '@/store/controller/editor/component';
+import { contextMenuInitialStateType } from '@/store/controller/editor/contextMenu';
+import { markLineInitialStateType } from '@/store/controller/editor/markLine';
+import { snapshotInitialStateType } from '@/store/controller/editor/snapshot';
 declare global {
   /* eslint-disable */
   interface FormType<T = string> {
-    key: T;
-    name: T;
-    type: T;
     /**
-     * @description 设置后置标签
+     * @description 表单的key值
      */
-    addonAfter?: any;
+    key: T;
+    /**
+     * @description 表单的lable属性，名字
+     */
+    name: T;
+    /**
+     * @description 表单的类型，如，input，select等..
+     */
+    type: T;
     [par: string]: any;
   }
   interface templateDateInterface<T = string, K = any> {
@@ -90,18 +89,9 @@ declare global {
     component: componentInitialStateType;
     contextMenu: contextMenuInitialStateType;
     markLine: markLineInitialStateType;
-    compose: composeInitialStateType;
+    compose: componentInitialStateType;
     snapshot: snapshotInitialStateType;
     copys: copyInitialStateType;
+    config: configInitialStateType;
   }
-  /**
-   * @description 全局声明redux中的dispatch数据
-   */
-  type storeDisPatch = Dispatch<
-    | markLineActionMerage
-    | contextMenuActionMerage
-    | componentActionMerage
-    | composeMenuActionMerage
-    | snapshotActionMerage
-  >;
 }

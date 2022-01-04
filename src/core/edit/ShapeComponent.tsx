@@ -1,10 +1,6 @@
 import React, { FC, memo, useState, useRef } from 'react';
 import styles from '../index.module.scss';
 import { useDispatch } from 'react-redux';
-import // curComponentAction,
-// setShapeStyleAction,
-// isClickComponentAction,
-'@/redux/action/component';
 import { createSelector } from 'reselect';
 import { useSelector } from 'react-redux';
 import { angleToCursor, initialAngle, pointList, pointType } from '@/core/config/shape';
@@ -12,12 +8,9 @@ import { mod360 } from '@/utils/translate';
 import { $ } from '@/utils';
 import calculateComponentPositonAndSize from '@/utils/calculateComponentPositonAndSize';
 import { ReloadOutlined } from '@ant-design/icons';
-// import { hideContextMenuAction } from '@/redux/action/contextMenu';
-// import { showMarkLineAction, hideMarkLineAction } from '@/redux/action/markLine';
 import { hideContextMenuAction } from '@/store/controller/editor/contextMenu';
 import { showMarkLineAction, hideMarkLineAction } from '@/store/controller/editor/markLine';
 import {
-  addComponent,
   curComponentAction,
   isClickComponentAction,
   setShapeStyleAction,

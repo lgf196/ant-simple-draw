@@ -11,7 +11,6 @@ import MarkLine from './MarkLineComponent';
 import { useMandatoryUpdate } from '@/hooks';
 import { $, getRandomStr } from '@/utils';
 import { getComponentRotatedStyle, getStyle } from '@/utils/style';
-import { areaDataType } from '@/redux/reduce/compose';
 import { commonAttr, commonStyle } from '../config/common';
 import createGroupStyle from '@/utils/createGroupStyle';
 import { showContextMenuAction } from '@/store/controller/editor/contextMenu';
@@ -23,6 +22,10 @@ import {
   deleteComponentAction,
 } from '@/store/controller/editor/component';
 import useEdit from '@/core/edit/useEdit';
+export interface areaDataType {
+  style: MergeCSSProperties;
+  components: templateDataType[];
+}
 
 const Edit = memo(function Edit(props) {
   const { editHandle } = useEdit();

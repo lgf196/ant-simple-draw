@@ -1,4 +1,4 @@
-import React, { memo, useState, useMemo } from 'react';
+import React, { memo, useState, useMemo, FC } from 'react';
 import Make from '@/core/edit';
 import Drag from '@/core/DragTargetComponent';
 import { getAllConfigListType, useGetCopentConfigList } from '@/core/config/common';
@@ -25,7 +25,6 @@ import {
 } from '@ant-design/icons';
 import { useSetState } from '@/hooks';
 import { Tabs } from 'antd';
-import WhXy from '@/core/attr/CustomizeInput';
 import FormRender from '@/core/attr/FormRender';
 import { Store } from 'antd/lib/form/interface';
 const { TabPane } = Tabs;
@@ -33,8 +32,10 @@ export interface oneModuleAllType {
   isShow: boolean;
   componentInfo: Partial<getAllConfigListType>;
 }
-
-const Edit = memo(function Edit(props) {
+export interface EditType {
+  isShowLeftComponents: boolean;
+}
+const Edit: FC<EditType> = memo(function Edit({ isShowLeftComponents }) {
   const [oneModuleAll, setOneModuleAll] = useSetState<oneModuleAllType>({
     isShow: false,
     componentInfo: {},
@@ -112,10 +113,15 @@ const Edit = memo(function Edit(props) {
   };
   return (
     <main className={styles.main}>
-      <section className={styles.left} style={{ display: !oneModuleAll.isShow ? 'block' : 'none' }}>
-        <div>
+      <>
+        <section
+          className={`${styles.left} `}
+          style={{
+            display: !oneModuleAll.isShow && isShowLeftComponents ? 'block' : 'none',
+          }}
+        >
           {getAllConfigList.map((item, index) => (
-            <div key={index}>
+            <React.Fragment key={index}>
               <div className={styles.head}>
                 <h2 className={styles.title}>{item.title}</h2>
                 <button
@@ -127,21 +133,25 @@ const Edit = memo(function Edit(props) {
                 </button>
               </div>
               <Drag list={item.componentList} />
-            </div>
+            </React.Fragment>
           ))}
-        </div>
-      </section>
+        </section>
 
-      <section className={styles.left} style={{ display: oneModuleAll.isShow ? 'block' : 'none' }}>
-        <div className={styles.moreList}>
-          <button className={styles.more} onClick={() => setOneModuleAll({ isShow: false })}>
-            <LeftOutlined />
-            <span>{oneModuleAll.componentInfo.title}</span>
-          </button>
-          <Drag list={oneModuleAll.componentInfo.componentList!} />
-        </div>
-      </section>
-
+        <section
+          className={styles.left}
+          style={{
+            display: oneModuleAll.isShow && isShowLeftComponents ? 'block' : 'none',
+          }}
+        >
+          <div className={styles.moreList}>
+            <button className={styles.more} onClick={() => setOneModuleAll({ isShow: false })}>
+              <LeftOutlined />
+              <span>{oneModuleAll.componentInfo.title}</span>
+            </button>
+            <Drag list={oneModuleAll.componentInfo.componentList!} />
+          </div>
+        </section>
+      </>
       <section className={styles.center}>
         <div
           className={styles.content}
@@ -170,7 +180,6 @@ const Edit = memo(function Edit(props) {
           <Tabs defaultActiveKey="1" centered>
             <TabPane tab="属性" key="1">
               <div className={styles.attrsContainer}>
-                {/* <WhXy /> */}
                 {curComponent && (
                   <FormRender
                     editType={curComponent.editableEl}

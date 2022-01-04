@@ -35,16 +35,14 @@ const FormRender: FC<FormRenderType> = memo(function FormRender({
 
   return (
     <>
-      <AttrContainer title={'样式'}>
-        <WhXy />
-      </AttrContainer>
+      <WhXy />
       <Form form={form} name={`form_editor`} onFinish={onFinish} onValuesChange={handlechange}>
         {editType.map((item, index) => {
           return (
             <React.Fragment key={index}>
               {item.type === 'Number' && (
                 <Form.Item label={item.name} name={item.key}>
-                  <InputNumber size="small" addonAfter={item.addonAfter && item.addonAfter} />
+                  <InputNumber size="small" />
                 </Form.Item>
               )}
             </React.Fragment>

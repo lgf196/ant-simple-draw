@@ -1,7 +1,7 @@
-@-webkit-keyframes fade-in-left {
+@keyframes fade-in-left {
   0% {
-    -webkit-transform: translateX(-50px);
-    transform: translateX(-50px);
+    -webkit-transform: translateX(-40px);
+    transform: translateX(-40px);
     opacity: 0;
   }
   100% {
@@ -10,15 +10,15 @@
     opacity: 1;
   }
 }
-@keyframes fade-in-left {
+@keyframes fade-out-left {
   0% {
-    -webkit-transform: translateX(-50px);
-    transform: translateX(-50px);
-    opacity: 0;
-  }
-  100% {
     -webkit-transform: translateX(0);
     transform: translateX(0);
     opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateX(-50px);
+    transform: translateX(-50px);
+    opacity: 0;
   }
 }
