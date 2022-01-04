@@ -1,10 +1,14 @@
 import { useEffect, useState, useMemo } from 'react';
+// 编辑默认属性
+export const defaultProps = (par?: Partial<mustExistProps>) => {
+  const defaultVal = { x: 0, y: 0, w: 0, h: 0 };
+  return Object.assign({}, defaultVal, par);
+};
 // 公共样式
 export const commonStyle: MergeCSSProperties = {
   rotate: 0,
   opacity: 1,
 };
-
 // 公共属性默认值==>不是主要的属性，但有时候要用的到
 export const commonAttr = {
   events: {},
@@ -12,12 +16,7 @@ export const commonAttr = {
   isLock: false, // 是否锁定组件
   editableEl: [], // 默认的右侧编辑属性
   groupComponents: [],
-  propValue: {
-    w: 0,
-    h: 0,
-    x: 0,
-    y: 0,
-  },
+  propValue: defaultProps(),
 };
 /**
  * @description 更具传入的匹配文件目录，可以动态的获取所有的匹配文件
