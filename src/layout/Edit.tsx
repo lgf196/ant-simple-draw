@@ -1,4 +1,4 @@
-import React, { memo, useState, useMemo, FC } from 'react';
+import React, { memo, useState, useMemo, FC, useEffect } from 'react';
 import Make from '@/core/edit';
 import Drag from '@/core/DragTargetComponent';
 import { getAllConfigListType, useGetCopentConfigList } from '@/core/config/common';
@@ -40,7 +40,6 @@ const Edit: FC<EditType> = memo(function Edit({ isShowLeftComponents }) {
     isShow: false,
     componentInfo: {},
   });
-
   const [collapsed, setCollapsed] = useState<boolean>(true);
 
   const { baseConfigList, getAllConfigList } = useGetCopentConfigList();
