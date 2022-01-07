@@ -28,6 +28,16 @@
       padding: 0 15px;
       cursor: pointer;
     }
+    .preview {
+      padding: 10px 15px;
+      @include style(14px, #2254f4, 500);
+      cursor: pointer;
+      transition: all 0.4s;
+      &:hover {
+        background: $hoverShowBg;
+        border-radius: 4px;
+      }
+    }
   }
   .config {
     box-sizing: border-box;
@@ -36,19 +46,33 @@
     border-left: 1px solid rgba(0, 0, 0, 0.08);
   }
 }
-.sliderNav {
-  @include wh(100%, 100%);
-  overflow: hidden;
-}
 .main {
-  height: 100%;
+  height: calc(100% - 64px);
   position: relative;
   display: flex;
+  overflow: hidden;
   .left {
     animation: fade-in-left 0.4s;
-    overflow: scroll;
-    padding-right: 10px;
-    @include scroll(6px, 6px);
+    overflow: hidden;
+    padding-top: 10px;
+    padding-right: 15px;
+    // @include scroll(5px, 5px);
+    .leftMoveAnimate {
+      transition: all 0.4s;
+    }
+    .leftContainer {
+      .search {
+        padding: 15px 0;
+      }
+    }
+    .contentContainer {
+      width: 220px;
+      height: calc(100vh - 140px);
+      overflow-y: scroll;
+      overflow-x: hidden;
+      @include scroll(8px, 8px);
+      padding: 0 15px 0 0;
+    }
     .moreList {
       button {
         margin-bottom: 10px;
@@ -79,16 +103,18 @@
   .center {
     flex: 1;
     overflow: auto;
-    margin: 0 10px;
-    @include scroll(6px, 6px);
+    padding: 10px;
+    @include scroll(8px, 8px);
     .content {
       @include wh(100%, 100%);
-      overflow: scroll;
-      @include scroll(6px, 6px);
+      overflow: auto;
+      @include scroll(8px, 8px);
     }
   }
   .right {
     position: relative;
+    padding-top: 10px;
+    box-shadow: -2px 0 4px 0 rgb(0 0 0 / 10%);
     .option {
       @include position(absolute, 10%, auto, auto, -17.5px);
       border-radius: 50%;
@@ -102,19 +128,21 @@
     }
     .editContainer {
       width: 270px;
-      height: calc(100vh - 80px);
+      height: 100%;
+      // height: calc(100vh - 80px);
       overflow: hidden;
-      box-shadow: -2px 0 4px 0 rgb(0 0 0 / 10%);
+
       transition: all 0.4s;
-      padding: 10px 0 0 10px;
+      // padding: 10px 0 0 10px;
       .attr {
         @include style(17px, #000000d9, bold);
       }
     }
     .attrsContainer {
-      height: calc(100vh - 160px);
+      height: calc(100vh - 150px);
       overflow-y: scroll;
-      @include scroll(6px, 6px);
+      overflow-x: hidden;
+      @include scroll(8px, 8px);
       padding: 0 18px;
     }
   }
@@ -122,7 +150,7 @@
 .containerLayout {
   @include wh(100%, calc(100vh - 80px));
   overflow-y: scroll;
-  @include scroll(8px, 8px);
+  @include scroll(7px, 7px);
   padding-bottom: 15px;
   overflow-x: hidden;
 }

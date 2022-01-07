@@ -4,10 +4,18 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
  */
 export interface configInitialStateType {
   tabKey: string;
+  /**
+   * @description 画布的版心
+   */
+  canvasInformation: whType;
 }
 
 const initialState: configInitialStateType = {
   tabKey: '2',
+  canvasInformation: {
+    width: 1200,
+    height: 750,
+  },
 };
 
 export const configSlice = createSlice({

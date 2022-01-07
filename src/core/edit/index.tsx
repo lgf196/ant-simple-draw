@@ -42,10 +42,11 @@ const Edit = memo(function Edit(props) {
 
   const dispatch = useDispatch();
 
-  const [componentListData, curComponent] = useSelector(
+  const [componentListData, curComponent, canvasInformation] = useSelector(
     createSelector(
-      [(state: storeType) => state.component],
-      (component) => [component.componentDataList, component.curComponent] as const,
+      [(state: storeType) => state.component, (state: storeType) => state.config],
+      (component, config) =>
+        [component.componentDataList, component.curComponent, config.canvasInformation] as const,
     ),
   );
   /**
@@ -259,7 +260,7 @@ const Edit = memo(function Edit(props) {
   return (
     <div
       id="editor"
-      style={{ width: '1200px', height: '750px' }}
+      style={{ width: canvasInformation.width + 'px', height: canvasInformation.height + 'px' }}
       className={style.editor}
       onContextMenu={handleContextMenu}
       onMouseDown={handleMouseDown}

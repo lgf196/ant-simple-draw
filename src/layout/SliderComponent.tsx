@@ -1,18 +1,34 @@
 import React, { memo, useState, useMemo } from 'react';
-import { Tabs } from 'antd';
+import { Tabs, Input } from 'antd';
 import TabTitle from './TabTitleComponent';
 const { TabPane } = Tabs;
-import { HighlightOutlined, DoubleLeftOutlined, DoubleRightOutlined } from '@ant-design/icons';
-import style from './layout.module.scss';
-import Tempalte from './Tempalte';
-import Material from './Material';
-import Edit from './Edit';
-import Container from './Container';
+import {
+  HighlightOutlined,
+  DoubleLeftOutlined,
+  DoubleRightOutlined,
+  SearchOutlined,
+} from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { createSelector } from 'reselect';
 import { setTabKeyAction } from '@/store/controller/config';
+import styles from './layout.module.scss';
+import Drag from '@/core/DragTargetComponent';
+import { useSetState } from '@/hooks';
+import { RightOutlined, LeftOutlined } from '@ant-design/icons';
+import { getAllConfigListType, useGetCopentConfigList } from '@/core/config/common';
+export interface oneModuleAllType {
+  isShow: boolean;
+  componentInfo: Partial<getAllConfigListType>;
+}
 const Slider = memo(function Slider() {
   const dispatch = useDispatch();
+
+  const [oneModuleAll, setOneModuleAll] = useSetState<oneModuleAllType>({
+    isShow: false,
+    componentInfo: {},
+  });
+
+  const { baseConfigList, getAllBaseModuleConfigList, textConfigList } = useGetCopentConfigList();
 
   const [isShowLeftComponents, setIsShowLeftComponents] = useState<boolean>(true);
 
@@ -27,51 +43,194 @@ const Slider = memo(function Slider() {
   };
 
   const tabBarExtraContent = useMemo(() => {
-    if (tabKey === '2') {
-      return (
-        <div onClick={toggleShowLeftComponents} style={{ padding: '10px', cursor: 'pointer' }}>
-          {isShowLeftComponents ? <DoubleLeftOutlined /> : <DoubleRightOutlined />}
-        </div>
-      );
-    }
-    return null;
+    return (
+      <div onClick={toggleShowLeftComponents} style={{ padding: '20px', cursor: 'pointer' }}>
+        {isShowLeftComponents ? <DoubleLeftOutlined /> : <DoubleRightOutlined />}
+      </div>
+    );
   }, [tabKey, isShowLeftComponents]);
 
+  const Render = useMemo(() => {
+    const mergeList = [
+      {
+        category: 'text',
+        title: '文本',
+        componentList: textConfigList,
+      },
+      {
+        category: 'base',
+        title: '基础',
+        componentList: getAllBaseModuleConfigList,
+      },
+    ];
+    return mergeList.map((item, index) => (
+      <React.Fragment key={index}>
+        <TabPane
+          key={index + 1}
+          tab={<TabTitle title={item.title} icon={<HighlightOutlined style={{ margin: 0 }} />} />}
+        >
+          <div
+            className={styles.leftMoveAnimate}
+            style={{
+              width: isShowLeftComponents ? '220px' : '0px',
+              opacity: isShowLeftComponents ? '1' : '0',
+            }}
+          >
+            <div className={styles.leftContainer}>
+              <div className={styles.search}>
+                <Input placeholder="请选择" prefix={<SearchOutlined />} allowClear />
+              </div>
+              {item.category === 'base' ? (
+                <>
+                  <div
+                    className={styles.contentContainer}
+                    style={{
+                      display: !oneModuleAll.isShow ? 'block' : 'none',
+                      visibility: isShowLeftComponents ? 'visible' : 'hidden',
+                    }}
+                  >
+                    {item.componentList.map((child, k) => (
+                      <React.Fragment key={k}>
+                        <>
+                          <div className={styles.head}>
+                            <h2 className={styles.title}>{child.title}</h2>
+                            <button
+                              className={styles.more}
+                              onClick={() =>
+                                setOneModuleAll({ isShow: true, componentInfo: child })
+                              }
+                            >
+                              <span>全部</span>
+                              <RightOutlined />
+                            </button>
+                          </div>
+                          <Drag list={child.componentList} />
+                        </>
+                      </React.Fragment>
+                    ))}
+                  </div>
+                  <div
+                    className={styles.contentContainer}
+                    style={{
+                      display: oneModuleAll.isShow ? 'block' : 'none',
+                      visibility: isShowLeftComponents ? 'visible' : 'hidden',
+                    }}
+                  >
+                    <div className={styles.moreList}>
+                      <button
+                        className={styles.more}
+                        onClick={() => setOneModuleAll({ isShow: false })}
+                      >
+                        <LeftOutlined />
+                        <span>{oneModuleAll.componentInfo.title}</span>
+                      </button>
+                      <Drag list={oneModuleAll.componentInfo.componentList!} />
+                    </div>
+                  </div>
+                </>
+              ) : null}
+              {item.category === 'text' ? (
+                <div
+                  className={styles.contentContainer}
+                  style={{
+                    visibility: isShowLeftComponents ? 'visible' : 'hidden',
+                  }}
+                >
+                  <Drag list={item.componentList as templateDataType[]} />
+                </div>
+              ) : null}
+            </div>
+          </div>
+        </TabPane>
+      </React.Fragment>
+    ));
+  }, [getAllBaseModuleConfigList, textConfigList, isShowLeftComponents, oneModuleAll]);
+
   return (
-    <div className={style.sliderNav}>
+    <>
       <Tabs
         tabPosition="left"
         tabBarExtraContent={tabBarExtraContent}
         onChange={(val) => dispatch(setTabKeyAction(val))}
         defaultActiveKey={tabKey}
       >
-        <TabPane
-          key="1"
-          tab={<TabTitle title="模板" icon={<HighlightOutlined style={{ margin: 0 }} />} />}
-        >
-          <Container>
-            <Tempalte />
-          </Container>
-        </TabPane>
-        <TabPane
-          key="2"
-          tab={<TabTitle title="制作" icon={<HighlightOutlined style={{ margin: 0 }} />} />}
-        >
-          {/* <Drag list={baseConfigList} /> */}
-          <Container>
-            <Edit isShowLeftComponents={isShowLeftComponents} />
-          </Container>
-        </TabPane>
-        <TabPane
-          key="3"
-          tab={<TabTitle title="素材" icon={<HighlightOutlined style={{ margin: 0 }} />} />}
-        >
-          <Container>
-            <Material />
-          </Container>
-        </TabPane>
+        {Render}
+        {/* {mergeAllModuleCategory.map((item, index) => (
+          <TabPane
+            key={index + 1}
+            tab={
+              <TabTitle title={item.category} icon={<HighlightOutlined style={{ margin: 0 }} />} />
+            }
+          >
+            <div
+              className={styles.leftMoveAnimate}
+              style={{
+                width: isShowLeftComponents ? '220px' : '0px',
+                opacity: isShowLeftComponents ? '1' : '0',
+              }}
+            >
+              <div className={styles.leftContainer}>
+                <div className={styles.search}>
+                  <Input placeholder="请选择" prefix={<SearchOutlined />} allowClear />
+                </div>
+                {item.componentList ? (
+                  <>
+                    <div
+                      className={styles.contentContainer}
+                      style={{
+                        display: !oneModuleAll.isShow ? 'block' : 'none',
+                        visibility: isShowLeftComponents ? 'visible' : 'hidden',
+                      }}
+                    >
+                      {item.componentList.map((child, k) => (
+                        <React.Fragment key={k}>
+                          {child.componentList ? (
+                            <div className={styles.head}>
+                              <h2 className={styles.title}>{child.title}</h2>
+                              <button
+                                className={styles.more}
+                                onClick={() =>
+                                  setOneModuleAll({ isShow: true, componentInfo: child })
+                                }
+                              >
+                                <span>全部</span>
+                                <RightOutlined />
+                              </button>
+                            </div>
+                          ) : null}
+
+                          <Drag list={child.componentList} />
+                        </React.Fragment>
+                      ))}
+                    </div>
+                    <div
+                      className={styles.contentContainer}
+                      style={{
+                        display: oneModuleAll.isShow ? 'block' : 'none',
+                        visibility: isShowLeftComponents ? 'visible' : 'hidden',
+                      }}
+                    >
+                      <div className={styles.moreList}>
+                        <button
+                          className={styles.more}
+                          onClick={() => setOneModuleAll({ isShow: false })}
+                        >
+                          <LeftOutlined />
+                          <span>{oneModuleAll.componentInfo.title}</span>
+                        </button>
+                        <Drag list={oneModuleAll.componentInfo.componentList!} />
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <Drag list={item.componentList} />
+                )}
+              </div>
+            </div>
+          </TabPane>
+        ))} */}
       </Tabs>
-    </div>
+    </>
   );
 });
 

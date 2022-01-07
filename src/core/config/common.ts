@@ -55,58 +55,66 @@ export interface getAllConfigListType {
 }
 export const useGetCopentConfigList = () => {
   const [baseConfigList, setBaseConfigList] = useState<templateDataType[]>([]);
+  const [textConfigList, setTextConfigList] = useState<templateDataType[]>([]);
   useEffect(() => {
-    const getModuleConfigData = async () => {
+    const getBaseModuleConfigData = async () => {
       const list = await componentConfigList(
         import.meta.glob('../componentTemplate/base/*/config.ts'),
       );
       setBaseConfigList(list);
     };
-    getModuleConfigData();
+    const getTextModuleConfigData = async () => {
+      const list = await componentConfigList(
+        import.meta.glob('../componentTemplate/text/*/config.ts'),
+      );
+      setTextConfigList(list);
+    };
+    getBaseModuleConfigData();
+    getTextModuleConfigData();
   }, []);
-  const getAllConfigList = useMemo<getAllConfigListType[]>(() => {
+  const getAllBaseModuleConfigList = useMemo<getAllConfigListType[]>(() => {
     return [
       {
         category: 'base',
-        title: '基础物料',
+        title: '表格',
         componentList: baseConfigList,
       },
       {
         category: 'base',
-        title: '基础物料',
+        title: '天气',
         componentList: baseConfigList,
       },
       {
         category: 'base',
-        title: '基础物料',
+        title: '人物',
         componentList: baseConfigList,
       },
       {
         category: 'base',
-        title: '基础物料',
+        title: '没好',
         componentList: baseConfigList,
       },
       {
         category: 'base',
-        title: '基础物料',
+        title: '元素的',
         componentList: baseConfigList,
       },
       {
         category: 'base',
-        title: '基础物料',
+        title: '我好的',
         componentList: baseConfigList,
       },
       {
         category: 'base',
-        title: '基础物料',
+        title: '是的呀',
         componentList: baseConfigList,
       },
       {
         category: 'base',
-        title: '基础物料',
+        title: '不是的',
         componentList: baseConfigList,
       },
     ];
   }, [baseConfigList]);
-  return { baseConfigList, getAllConfigList };
+  return { baseConfigList, getAllBaseModuleConfigList, textConfigList };
 };

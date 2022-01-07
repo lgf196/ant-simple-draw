@@ -23,6 +23,7 @@ export const componentSlice = createSlice({
       state.componentDataList = action.payload;
     },
     deleteComponentAction: (state, action: PayloadAction<string[]>) => {
+      state.curComponent = null;
       if (action.payload.includes('clearAll')) {
         state.componentDataList = [];
         return;
