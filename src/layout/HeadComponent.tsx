@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { FC, memo } from 'react';
 import style from './layout.module.scss';
 import {
   ClearOutlined,
@@ -14,17 +14,32 @@ import useEdit from '@/core/edit/useEdit';
 import { useSelector } from 'react-redux';
 import { createSelector } from 'reselect';
 import { useNavigate, Link } from 'react-router-dom';
-const Head = memo(function Head() {
+import { sessionStorage } from '@/utils/storage';
+export interface HeadType {
+  /**
+   * @description 类型，更具不同的类型显示，不同的模块
+   */
+  type?: string;
+}
+const Head: FC<HeadType> = memo(function Head({ type = 'edit' }) {
   const { editHandle } = useEdit();
   const push = useNavigate();
-  const [tabKey] = useSelector(
-    createSelector([(state: storeType) => state.config], (config) => {
-      return [config.tabKey] as const;
-    }),
+  const [componentDataList, canvasInformation] = useSelector(
+    createSelector(
+      [(state: storeType) => state.component, (state: storeType) => state.config],
+      (component, config) => {
+        return [component.componentDataList, config.canvasInformation] as const;
+      },
+    ),
   );
 
   const operate = () => {
-    push('/preview');
+    if (!componentDataList.length) {
+      return;
+    }
+    sessionStorage.setItem('componentDataList', componentDataList);
+    sessionStorage.setItem('canvasInformation', canvasInformation);
+    window.open('/preview');
   };
 
   return (
@@ -35,42 +50,44 @@ const Head = memo(function Head() {
           <span>DRAW</span>
         </a>
       </h1>
-      <div className={style.option}>
-        <button className={style.preview} onClick={operate}>
-          预览
-        </button>
-        <Tooltip title="清屏">
-          <ClearOutlined className={style.icon} onClick={() => editHandle('Shift+A')} />
-        </Tooltip>
-        <Tooltip title="撤销">
-          <SvgComponent
-            iconClass="undo"
-            fill="#2f54eb"
-            onClick={() => editHandle('Ctrl+Z')}
-            className={style.icon}
-          />
-        </Tooltip>
-        <Tooltip title="恢复">
-          <SvgComponent
-            iconClass="redo"
-            fill="#2f54eb"
-            onClick={() => editHandle('Shift+Z')}
-            className={style.icon}
-          />
-        </Tooltip>
-        <Tooltip title="复制">
-          <CopyOutlined className={style.icon} onClick={() => editHandle('Ctrl+C')} />
-        </Tooltip>
-        <Tooltip title="剪切">
-          <ScissorOutlined className={style.icon} onClick={() => editHandle('Ctrl+X')} />
-        </Tooltip>
-        <Tooltip title="粘贴">
-          <SnippetsOutlined className={style.icon} onClick={() => editHandle('Ctrl+V')} />
-        </Tooltip>
-        <Tooltip title="打印">
-          <PrinterOutlined className={style.icon} />
-        </Tooltip>
-      </div>
+      {type === 'edit' ? (
+        <div className={style.option}>
+          <button className={style.preview} onClick={operate}>
+            预览
+          </button>
+          <Tooltip title="清屏">
+            <ClearOutlined className={style.icon} onClick={() => editHandle('Shift+A')} />
+          </Tooltip>
+          <Tooltip title="撤销">
+            <SvgComponent
+              iconClass="undo"
+              fill="#2f54eb"
+              onClick={() => editHandle('Ctrl+Z')}
+              className={style.icon}
+            />
+          </Tooltip>
+          <Tooltip title="恢复">
+            <SvgComponent
+              iconClass="redo"
+              fill="#2f54eb"
+              onClick={() => editHandle('Shift+Z')}
+              className={style.icon}
+            />
+          </Tooltip>
+          <Tooltip title="复制">
+            <CopyOutlined className={style.icon} onClick={() => editHandle('Ctrl+C')} />
+          </Tooltip>
+          <Tooltip title="剪切">
+            <ScissorOutlined className={style.icon} onClick={() => editHandle('Ctrl+X')} />
+          </Tooltip>
+          <Tooltip title="粘贴">
+            <SnippetsOutlined className={style.icon} onClick={() => editHandle('Ctrl+V')} />
+          </Tooltip>
+          <Tooltip title="打印">
+            <PrinterOutlined className={style.icon} />
+          </Tooltip>
+        </div>
+      ) : null}
     </div>
   );
 });

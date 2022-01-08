@@ -1,18 +1,22 @@
-import React, { memo } from 'react';
+import React, { memo, useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { createSelector } from 'reselect';
 import RenderTemplate from '@/core/RenderTemplateComponent';
 import { getStyle } from '@/utils/style';
+import Head from '@/layout/HeadComponent';
+import { sessionStorage } from '@/utils/storage';
 const Preview = memo(function Preview(props) {
-  const [componentListData, canvasInformation] = useSelector(
-    createSelector(
-      [(state: storeType) => state.component, (state: storeType) => state.config],
-      (component, config) => [component.componentDataList, config.canvasInformation] as const,
-    ),
-  );
+  const [componentListData, setComponentListData] = useState<templateDataType[]>([]);
+  const [canvasInformation, setCanvasInformation] = useState<any>({});
+  useEffect(() => {
+    if (sessionStorage.getItem('componentDataList')) {
+      setComponentListData(sessionStorage.getItem('componentDataList'));
+      setCanvasInformation(sessionStorage.getItem('canvasInformation'));
+    }
+  }, []);
   return (
     <div>
-      <p>111</p>
+      <Head type="preview" />
       <div
         style={{
           width: canvasInformation.width + 'px',
@@ -21,15 +25,16 @@ const Preview = memo(function Preview(props) {
           margin: '0 auto',
         }}
       >
-        {componentListData.length &&
-          componentListData.map((item, index) => (
-            <RenderTemplate
-              {...item}
-              key={index}
-              style={{ position: 'absolute', ...getStyle(item.style) }}
-              propValue={item.propValue!}
-            />
-          ))}
+        {componentListData.length
+          ? componentListData.map((item, index) => (
+              <RenderTemplate
+                {...item}
+                key={index}
+                style={{ position: 'absolute', ...getStyle(item.style) }}
+                propValue={item.propValue!}
+              />
+            ))
+          : null}
       </div>
     </div>
   );

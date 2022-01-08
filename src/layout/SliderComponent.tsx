@@ -44,7 +44,7 @@ const Slider = memo(function Slider() {
 
   const tabBarExtraContent = useMemo(() => {
     return (
-      <div onClick={toggleShowLeftComponents} style={{ padding: '20px', cursor: 'pointer' }}>
+      <div onClick={toggleShowLeftComponents} className={styles.tabBarExtraContent}>
         {isShowLeftComponents ? <DoubleLeftOutlined /> : <DoubleRightOutlined />}
       </div>
     );
@@ -152,83 +152,8 @@ const Slider = memo(function Slider() {
         tabPosition="left"
         tabBarExtraContent={tabBarExtraContent}
         onChange={(val) => dispatch(setTabKeyAction(val))}
-        defaultActiveKey={tabKey}
       >
         {Render}
-        {/* {mergeAllModuleCategory.map((item, index) => (
-          <TabPane
-            key={index + 1}
-            tab={
-              <TabTitle title={item.category} icon={<HighlightOutlined style={{ margin: 0 }} />} />
-            }
-          >
-            <div
-              className={styles.leftMoveAnimate}
-              style={{
-                width: isShowLeftComponents ? '220px' : '0px',
-                opacity: isShowLeftComponents ? '1' : '0',
-              }}
-            >
-              <div className={styles.leftContainer}>
-                <div className={styles.search}>
-                  <Input placeholder="请选择" prefix={<SearchOutlined />} allowClear />
-                </div>
-                {item.componentList ? (
-                  <>
-                    <div
-                      className={styles.contentContainer}
-                      style={{
-                        display: !oneModuleAll.isShow ? 'block' : 'none',
-                        visibility: isShowLeftComponents ? 'visible' : 'hidden',
-                      }}
-                    >
-                      {item.componentList.map((child, k) => (
-                        <React.Fragment key={k}>
-                          {child.componentList ? (
-                            <div className={styles.head}>
-                              <h2 className={styles.title}>{child.title}</h2>
-                              <button
-                                className={styles.more}
-                                onClick={() =>
-                                  setOneModuleAll({ isShow: true, componentInfo: child })
-                                }
-                              >
-                                <span>全部</span>
-                                <RightOutlined />
-                              </button>
-                            </div>
-                          ) : null}
-
-                          <Drag list={child.componentList} />
-                        </React.Fragment>
-                      ))}
-                    </div>
-                    <div
-                      className={styles.contentContainer}
-                      style={{
-                        display: oneModuleAll.isShow ? 'block' : 'none',
-                        visibility: isShowLeftComponents ? 'visible' : 'hidden',
-                      }}
-                    >
-                      <div className={styles.moreList}>
-                        <button
-                          className={styles.more}
-                          onClick={() => setOneModuleAll({ isShow: false })}
-                        >
-                          <LeftOutlined />
-                          <span>{oneModuleAll.componentInfo.title}</span>
-                        </button>
-                        <Drag list={oneModuleAll.componentInfo.componentList!} />
-                      </div>
-                    </div>
-                  </>
-                ) : (
-                  <Drag list={item.componentList} />
-                )}
-              </div>
-            </div>
-          </TabPane>
-        ))} */}
       </Tabs>
     </>
   );

@@ -1,7 +1,7 @@
 @import 'src/assets/scss/animate.scss';
 .header {
   padding: 0 20px;
-  @include wh(100%, 64px);
+  @include wh(100%, $headHeight);
   background: #fff;
   box-shadow: 0 2px 8px #f0f1f2;
   display: flex;
@@ -63,6 +63,15 @@
     .leftContainer {
       .search {
         padding: 15px 0;
+      }
+    }
+    .tabBarExtraContent {
+      padding: 15px;
+      cursor: pointer;
+      transition: all 0.4s;
+      &:hover {
+        background: $hoverShowBg;
+        border-radius: 4px;
       }
     }
     .contentContainer {
