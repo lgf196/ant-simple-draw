@@ -10,7 +10,6 @@ import {
 } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { createSelector } from 'reselect';
-import { setTabKeyAction } from '@/store/controller/config';
 import styles from './layout.module.scss';
 import Drag from '@/core/DragTargetComponent';
 import { useSetState } from '@/hooks';
@@ -32,12 +31,6 @@ const Slider = memo(function Slider() {
 
   const [isShowLeftComponents, setIsShowLeftComponents] = useState<boolean>(true);
 
-  const [tabKey] = useSelector(
-    createSelector([(state: storeType) => state.config], (config) => {
-      return [config.tabKey] as const;
-    }),
-  );
-
   const toggleShowLeftComponents = () => {
     setIsShowLeftComponents((pre) => !pre);
   };
@@ -48,7 +41,7 @@ const Slider = memo(function Slider() {
         {isShowLeftComponents ? <DoubleLeftOutlined /> : <DoubleRightOutlined />}
       </div>
     );
-  }, [tabKey, isShowLeftComponents]);
+  }, [isShowLeftComponents]);
 
   const Render = useMemo(() => {
     const mergeList = [
@@ -148,11 +141,7 @@ const Slider = memo(function Slider() {
 
   return (
     <>
-      <Tabs
-        tabPosition="left"
-        tabBarExtraContent={tabBarExtraContent}
-        onChange={(val) => dispatch(setTabKeyAction(val))}
-      >
+      <Tabs tabPosition="left" tabBarExtraContent={tabBarExtraContent}>
         {Render}
       </Tabs>
     </>
