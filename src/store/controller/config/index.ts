@@ -1,4 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, Dispatch, PayloadAction } from '@reduxjs/toolkit';
+import { sessionStorage } from '@/utils/storage';
 /**
  * @description 全局配置中心
  */
@@ -30,4 +31,12 @@ export const configSlice = createSlice({
 
 export const { setTabKeyAction } = configSlice.actions;
 
+export const saveLocally = () => (dispatch: Dispatch, getState: () => storeType) =>
+  Promise.resolve().then(() => {
+    if (!getState().component.componentDataList.length) {
+      return;
+    }
+    sessionStorage.setItem('componentDataList', getState().component.componentDataList);
+    sessionStorage.setItem('canvasInformation', getState().config.canvasInformation);
+  });
 export default configSlice.reducer;

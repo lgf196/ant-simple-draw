@@ -11,10 +11,10 @@ import {
 import { Tooltip, Button } from 'antd';
 import SvgComponent from '@/components/SvgIcon';
 import useEdit from '@/core/edit/useEdit';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createSelector } from 'reselect';
 import { useNavigate, Link } from 'react-router-dom';
-import { sessionStorage } from '@/utils/storage';
+import { saveLocally } from '@/store/controller/config';
 export interface HeadType {
   /**
    * @description 类型，更具不同的类型显示，不同的模块
@@ -22,8 +22,8 @@ export interface HeadType {
   type?: string;
 }
 const Head: FC<HeadType> = memo(function Head({ type = 'edit' }) {
+  const dispatch = useDispatch<any>();
   const { editHandle } = useEdit();
-  const push = useNavigate();
   const [componentDataList, canvasInformation] = useSelector(
     createSelector(
       [(state: storeType) => state.component, (state: storeType) => state.config],
@@ -32,14 +32,13 @@ const Head: FC<HeadType> = memo(function Head({ type = 'edit' }) {
       },
     ),
   );
-
   const operate = () => {
     if (!componentDataList.length) {
       return;
     }
-    sessionStorage.setItem('componentDataList', componentDataList);
-    sessionStorage.setItem('canvasInformation', canvasInformation);
-    window.open('/preview');
+    dispatch(saveLocally()).then(() => {
+      window.open('/preview');
+    });
   };
 
   return (
