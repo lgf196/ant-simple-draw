@@ -73,15 +73,6 @@ const Head: FC<HeadType> = memo(function Head({ type = 'edit' }) {
               className={style.icon}
             />
           </Tooltip>
-          <Tooltip title="复制">
-            <CopyOutlined className={style.icon} onClick={() => editHandle('Ctrl+C')} />
-          </Tooltip>
-          <Tooltip title="剪切">
-            <ScissorOutlined className={style.icon} onClick={() => editHandle('Ctrl+X')} />
-          </Tooltip>
-          <Tooltip title="粘贴">
-            <SnippetsOutlined className={style.icon} onClick={() => editHandle('Ctrl+V')} />
-          </Tooltip>
           <Tooltip title="打印">
             <PrinterOutlined className={style.icon} />
           </Tooltip>
