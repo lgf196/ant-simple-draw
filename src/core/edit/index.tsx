@@ -1,4 +1,4 @@
-import React, { memo, useState, useRef } from 'react';
+import React, { memo, useState, useRef, useMemo } from 'react';
 import Grid from './GridComponent';
 import Shape from './ShapeComponent';
 import AreaComponent from './AreaComponent';
@@ -28,7 +28,7 @@ export interface areaDataType {
 }
 
 const Edit = memo(function Edit(props) {
-  const { editHandle } = useEdit();
+  const { editHandle, decompose } = useEdit();
 
   const forUpdate = useMandatoryUpdate();
 
@@ -104,23 +104,25 @@ const Edit = memo(function Edit(props) {
   /**
    * @description 得到在组选择器范围内的组件
    */
-  const getSelectArea = () => {
-    const result: templateDataType[] = [];
-    const { x, y } = areaPosition.current;
-    // 计算所有的组件数据，判断是否在选中区域内
-    componentListData.forEach((component) => {
-      const { left, top, width, height } = getComponentRotatedStyle(component.style);
-      if (
-        x <= left &&
-        y <= top &&
-        left + width <= x + areawh.current.width &&
-        top + height <= y + areawh.current.height
-      ) {
-        result.push(component);
-      }
-    });
-    return result;
-  };
+  const getSelectArea = useMemo(() => {
+    return () => {
+      const result: templateDataType[] = [];
+      const { x, y } = areaPosition.current;
+      // 计算所有的组件数据，判断是否在选中区域内
+      componentListData.forEach((component) => {
+        const { left, top, width, height } = getComponentRotatedStyle(component.style);
+        if (
+          x <= left &&
+          y <= top &&
+          left + width <= x + areawh.current.width &&
+          top + height <= y + areawh.current.height
+        ) {
+          result.push(component);
+        }
+      });
+      return result;
+    };
+  }, [componentListData]);
   /**
    * @description 创建组
    */
@@ -131,6 +133,7 @@ const Edit = memo(function Edit(props) {
       hideArea();
       return;
     }
+
     // 根据选中区域和区域中每个组件的位移信息来创建 Group 组件
     // 要遍历选择区域的每个组件，获取它们的 left top right bottom 信息来进行比较
     let top = Infinity,
@@ -167,12 +170,20 @@ const Edit = memo(function Edit(props) {
   };
   /**
    * @description 组合合并组件
+   * @notice 当旋转的时候，合并组合的时候，样式有bug
    */
   const compose = (areaData: areaDataType) => {
     const components: templateDataType[] = [];
     areaData.components.forEach((component) => {
       if (component.component !== 'Group') {
         components.push(component);
+      } else {
+        // 如果要组合的组件中，已经存在组合数据，则需要提前拆分
+        decompose(
+          component,
+          component.groupComponents!.map((item) => item.componentId!),
+        );
+        components.push(...component.groupComponents!);
       }
     });
     const groupComponent: templateDataType = {

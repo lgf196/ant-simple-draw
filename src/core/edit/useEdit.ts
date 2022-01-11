@@ -3,7 +3,9 @@ import { recordSnapshot, redo, undo } from '@/store/controller/editor/snapshot';
 import { copy, cut, paste } from '@/store/controller/editor/copy';
 import { keyCodeType } from '../config/hotKey';
 import { createSelector } from 'reselect';
-import { deleteComponentAction } from '@/store/controller/editor/component';
+import { addComponent, deleteComponentAction } from '@/store/controller/editor/component';
+import decomposeComponent from '@/utils/decomposeComponent';
+import { $ } from '@/utils';
 const useEdit = () => {
   const [curComponent, componentDataList] = useSelector(
     createSelector(
@@ -71,6 +73,40 @@ const useEdit = () => {
         break;
     }
   };
+
+  /**
+   * @description 取消组合合并的组件
+   */
+  const decompose = (GroupComponents: templateDataType, deleteMergeComponent: string[]) => {
+    /* if (curComponent && curComponent.component === 'Group') {
+      const parentStyle = { ...curComponent.style };
+      const components: templateDataType[] = curComponent.groupComponents!;
+      const editorRect = $('#editor').getBoundingClientRect();
+      components.forEach((component) => {
+        // 将组合中的各个子组件拆分出来，并计算它们新的 style
+        const decomposeComponentStyle = decomposeComponent(component, editorRect, parentStyle);
+
+        dispatch(addComponent(decomposeComponentStyle));
+      });
+      // 组合的子组件已近添加了，这个时候组合组件得删除，没用了
+      dispatch(deleteComponentAction([curComponent.componentId!]));
+      dispatch(recordSnapshot());
+    } */
+
+    const parentStyle = { ...GroupComponents.style };
+    const components: templateDataType[] = GroupComponents.groupComponents!;
+    const editorRect = $('#editor').getBoundingClientRect();
+    components.forEach((component) => {
+      // 将组合中的各个子组件拆分出来，并计算它们新的 style
+      const decomposeComponentStyle = decomposeComponent(component, editorRect, parentStyle);
+
+      dispatch(addComponent(decomposeComponentStyle));
+    });
+    // 组合的子组件已近添加了，这个时候组合组件得删除，没用了
+    dispatch(deleteComponentAction(deleteMergeComponent));
+    dispatch(recordSnapshot());
+  };
+
   return {
     editHandle,
     cutHandle,
@@ -79,6 +115,7 @@ const useEdit = () => {
     undoHandle,
     redoHandle,
     deleteHandle,
+    decompose,
   };
 };
 
