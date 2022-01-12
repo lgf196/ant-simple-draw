@@ -6,12 +6,14 @@ import {
   SnippetsOutlined,
   ScissorOutlined,
   ClearOutlined,
+  CaretRightOutlined,
 } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { createSelector } from 'reselect';
 import { hideContextMenuAction } from '@/store/controller/editor/contextMenu';
 import useEdit from './useEdit';
 import { keyCodeType } from '../config/hotKey';
+import SvgIcon from '@/components/SvgIcon';
 export interface contextMenuListType {
   title: string;
   keyText: keyCodeType;
@@ -118,6 +120,15 @@ const ContextMenu = memo(function ContextMenu(props) {
                 <div className={style.contextmenuHotkey}>{item.keyText}</div>
               </li>
             ))}
+            <li>
+              <div className={style.contextmenudes}>
+                <SvgIcon iconClass="layer" />
+                <span style={{ paddingLeft: '8px' }}>图层层级</span>
+              </div>
+              <div className={style.contextmenuHotkey}>
+                <CaretRightOutlined />
+              </div>
+            </li>
           </ul>
         </div>
       ) : null}
