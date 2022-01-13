@@ -1,4 +1,3 @@
-import { useEffect, useState, useMemo } from 'react';
 // 编辑默认属性
 export const defaultProps = (par?: Partial<mustExistProps>) => {
   const defaultVal = { x: 0, y: 0, w: 0, h: 0 };
@@ -45,11 +44,3 @@ export const componentConfigList = async (
   }
   return baseConfig;
 };
-/**
- * @description 自动获取componentTemplate文件下的config文件，且取出值
- */
-export interface getAllConfigListType {
-  category: string;
-  title: string;
-  componentList: templateDataType[];
-}

@@ -1,5 +1,13 @@
 import { useEffect, useState, useMemo } from 'react';
-import { componentConfigList, getAllConfigListType } from '../config/common';
+import { componentConfigList } from '../config/common';
+/**
+ * @description 自动获取componentTemplate文件下的config文件，且取出值
+ */
+export interface getAllConfigListType {
+  category: string;
+  title: string;
+  componentList: templateDataType[];
+}
 export const useGetCopentConfigList = () => {
   const [baseConfigList, setBaseConfigList] = useState<templateDataType[]>([]);
   const [textConfigList, setTextConfigList] = useState<templateDataType[]>([]);

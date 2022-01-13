@@ -14,8 +14,7 @@ import styles from './layout.module.scss';
 import Drag from '@/core/DragTargetComponent';
 import { useSetState } from '@/hooks';
 import { RightOutlined, LeftOutlined } from '@ant-design/icons';
-import { getAllConfigListType } from '@/core/config/common';
-import { useGetCopentConfigList } from '@/core/componentTemplate/config';
+import { getAllConfigListType, useGetCopentConfigList } from '@/core/componentTemplate/config';
 export interface oneModuleAllType {
   isShow: boolean;
   componentInfo: Partial<getAllConfigListType>;

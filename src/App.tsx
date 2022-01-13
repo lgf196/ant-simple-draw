@@ -1,7 +1,6 @@
 import React, { memo, useState, useMemo, FC, useEffect } from 'react';
 import Toolbar from '@/layout/HeadComponent';
 import SliderNav from '@/layout/SliderComponent';
-import { getAllConfigListType } from '@/core/config/common';
 import { deepCopy, getSingleArrayVal } from '@/utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { getRandomStr, $ } from '@/utils';
@@ -19,7 +18,7 @@ import { Store } from 'antd/lib/form/interface';
 import Edit from '@/core/edit';
 import Attr from './layout/Attr';
 import useEdit from '@/core/edit/useEdit';
-import { useGetCopentConfigList } from './core/componentTemplate/config';
+import { getAllConfigListType, useGetCopentConfigList } from './core/componentTemplate/config';
 export interface oneModuleAllType {
   isShow: boolean;
   componentInfo: Partial<getAllConfigListType>;
