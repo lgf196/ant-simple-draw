@@ -1,8 +1,8 @@
 import { defaultProps } from '@/core/config/common';
 
 export default {
-  id: 'baseButton02',
-  category: 'base',
+  id: 'textButton02',
+  category: 'text',
   type: 'Button',
   component: 'Button',
   label: '按钮组件',

@@ -3,7 +3,12 @@ import { recordSnapshot, redo, undo } from '@/store/controller/editor/snapshot';
 import { copy, cut, paste } from '@/store/controller/editor/copy';
 import { keyCodeType } from '../config/hotKey';
 import { createSelector } from 'reselect';
-import { addComponent, deleteComponentAction } from '@/store/controller/editor/component';
+import {
+  addComponent,
+  bottomComponentAction,
+  deleteComponentAction,
+  topComponentAction,
+} from '@/store/controller/editor/component';
 import decomposeComponent from '@/utils/decomposeComponent';
 import { $ } from '@/utils';
 const useEdit = () => {
@@ -42,6 +47,10 @@ const useEdit = () => {
     dispatch(recordSnapshot());
   };
 
+  const layerTopHandle = () => dispatch(topComponentAction());
+
+  const bottomLayerHandle = () => dispatch(bottomComponentAction());
+
   const editHandle = (key: keyCodeType, otherParameters?: { isContextMenuMouse: boolean }) => {
     let isContextMenuMouse = false;
     if (otherParameters) {
@@ -68,6 +77,11 @@ const useEdit = () => {
         break;
       case 'Shift+A':
         deleteHandle('clearAll');
+      case 'Ctrl+Shift+↑':
+        layerTopHandle();
+        break;
+      case 'Ctrl+Shift+↓':
+        bottomLayerHandle();
         break;
       default:
         break;
@@ -115,6 +129,8 @@ const useEdit = () => {
     undoHandle,
     redoHandle,
     deleteHandle,
+    layerTopHandle,
+    bottomLayerHandle,
     decompose,
   };
 };

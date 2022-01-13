@@ -1,7 +1,7 @@
 import React, { memo, useState, useMemo, FC, useEffect } from 'react';
 import Toolbar from '@/layout/HeadComponent';
 import SliderNav from '@/layout/SliderComponent';
-import { getAllConfigListType, useGetCopentConfigList } from '@/core/config/common';
+import { getAllConfigListType } from '@/core/config/common';
 import { deepCopy, getSingleArrayVal } from '@/utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { getRandomStr, $ } from '@/utils';
@@ -19,6 +19,7 @@ import { Store } from 'antd/lib/form/interface';
 import Edit from '@/core/edit';
 import Attr from './layout/Attr';
 import useEdit from '@/core/edit/useEdit';
+import { useGetCopentConfigList } from './core/componentTemplate/config';
 export interface oneModuleAllType {
   isShow: boolean;
   componentInfo: Partial<getAllConfigListType>;
@@ -28,7 +29,7 @@ export interface EditType {
 }
 
 const App: FC = () => {
-  const { baseConfigList } = useGetCopentConfigList();
+  const { allModuleConfigList } = useGetCopentConfigList();
 
   const { decompose } = useEdit();
 
@@ -49,7 +50,7 @@ const App: FC = () => {
     const rectInfo = $('#editor').getBoundingClientRect();
     if (id) {
       const component = deepCopy(
-        getSingleArrayVal<templateDateInterface>(baseConfigList, 'id', id),
+        getSingleArrayVal<templateDateInterface>(allModuleConfigList, 'id', id),
       ) as templateDataType;
       component.style!.top = e.clientY - rectInfo.y;
       component.style!.left = e.clientX - rectInfo.x;

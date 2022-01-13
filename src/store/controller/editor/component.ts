@@ -66,6 +66,20 @@ export const componentSlice = createSlice({
         }
       }
     },
+    topComponentAction: (state) => {
+      // 图层置顶
+      state.componentDataList = state.componentDataList.filter(
+        (item) => item.componentId !== state.curComponent?.componentId,
+      );
+      state.componentDataList.push(state.curComponent!);
+    },
+    bottomComponentAction: (state) => {
+      // 图层置底
+      state.componentDataList = state.componentDataList.filter(
+        (item) => item.componentId !== state.curComponent?.componentId,
+      );
+      state.componentDataList.unshift(state.curComponent!);
+    },
   },
 });
 
@@ -76,6 +90,8 @@ export const {
   setShapeStyleAction,
   isClickComponentAction,
   setComponentDataListAction,
+  topComponentAction,
+  bottomComponentAction,
 } = componentSlice.actions;
 
 export default componentSlice.reducer;

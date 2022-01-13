@@ -83,16 +83,28 @@
     li {
       position: relative;
       cursor: pointer;
-      padding: 11px 15px 11px 20px;
+      padding: 8px 16px;
       display: flex;
       width: 240px;
-      @include style(15px, #000000);
+      @include style(14px, #000000);
       justify-content: space-between;
       .contextmenuHotkey {
         color: #808080;
       }
       &:hover {
         background-color: #f5f7fa;
+        .child {
+          display: block;
+        }
+      }
+      .child {
+        position: absolute;
+        left: 100%;
+        top: 0;
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+        display: none;
       }
     }
   }

@@ -1,8 +1,8 @@
 import { defaultProps } from '@/core/config/common';
 
 export default {
-  id: 'baseText01',
-  category: 'base',
+  id: 'textText01',
+  category: 'text',
   type: 'Text',
   component: 'Text',
   label: '文本组件',

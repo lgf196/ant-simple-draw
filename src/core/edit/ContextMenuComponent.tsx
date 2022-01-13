@@ -14,11 +14,16 @@ import { hideContextMenuAction } from '@/store/controller/editor/contextMenu';
 import useEdit from './useEdit';
 import { keyCodeType } from '../config/hotKey';
 import SvgIcon from '@/components/SvgIcon';
-export interface contextMenuListType {
+
+export interface contextMenuListItem {
   title: string;
   keyText: keyCodeType;
-  icon: React.ReactNode;
+  icon?: React.ReactNode;
   isClick: boolean;
+  childrenIcon?: React.ReactNode;
+}
+export interface contextMenuListType extends contextMenuListItem {
+  children?: contextMenuListItem[];
 }
 const ContextMenu = memo(function ContextMenu(props) {
   const dispatch = useDispatch();
@@ -61,8 +66,36 @@ const ContextMenu = memo(function ContextMenu(props) {
         title: '删除',
         keyText: 'Delete',
         icon: <DeleteOutlined />,
-
         isClick,
+      },
+      {
+        title: '图层层级',
+        keyText: 'Delete',
+        icon: <SvgIcon iconClass="layer" />,
+        isClick,
+        childrenIcon: <CaretRightOutlined />,
+        children: [
+          {
+            title: '移到顶层',
+            keyText: 'Ctrl+Shift+↑',
+            isClick,
+          },
+          {
+            title: '上移一层',
+            keyText: 'Delete',
+            isClick,
+          },
+          {
+            title: '下移一层',
+            keyText: 'Delete',
+            isClick,
+          },
+          {
+            title: '移到底层',
+            keyText: 'Ctrl+Shift+↓',
+            isClick,
+          },
+        ],
       },
       {
         title: '清屏',
@@ -75,15 +108,42 @@ const ContextMenu = memo(function ContextMenu(props) {
     return contextMenuList;
   }, [componentDataList, curComponent, copyData]);
 
-  const menu = (e: React.MouseEvent, keyCode: keyCodeType, isClick: boolean) => {
+  const menu = (e: React.MouseEvent, item: contextMenuListType) => {
+    const { keyText, isClick } = item;
     e.preventDefault();
     e.stopPropagation();
-    if (!isClick) {
+    if (!isClick || item.children?.length) {
       return;
     }
-    editHandle(keyCode, { isContextMenuMouse: true });
+    editHandle(keyText, { isContextMenuMouse: true });
     dispatch(hideContextMenuAction());
   };
+
+  const ContextMenuItem = (data: contextMenuListType[]) => {
+    return data.map((item, index) => {
+      return (
+        <li
+          onClick={(e) => menu(e, item)}
+          key={index}
+          style={{
+            borderTop: item.keyText === 'Shift+A' ? '1px solid #0000000f' : 'none',
+            cursor: item.isClick === true ? 'pointer' : 'not-allowed',
+            color: item.isClick === true ? '#000000' : '#00000040',
+          }}
+        >
+          <div className={style.contextmenudes}>
+            {item.icon ? <span style={{ paddingRight: '8px' }}>{item.icon}</span> : null}
+            <span>{item.title}</span>
+          </div>
+          <div className={style.contextmenuHotkey}>
+            {item.childrenIcon ? item.childrenIcon : item.keyText}
+          </div>
+          {item.children ? <ul className={style.child}>{ContextMenuItem(item.children)}</ul> : null}
+        </li>
+      );
+    });
+  };
+
   return (
     <>
       {menuShow ? (
@@ -103,32 +163,7 @@ const ContextMenu = memo(function ContextMenu(props) {
               // dispatch(isClickComponentAction(true));
             }}
           >
-            {renderList.map((item, index) => (
-              <li
-                onClick={(e) => menu(e, item.keyText, item.isClick)}
-                key={index}
-                style={{
-                  borderTop: item.keyText === 'Shift+A' ? '1px solid #0000000f' : 'none',
-                  cursor: item.isClick === true ? 'pointer' : 'not-allowed',
-                  color: item.isClick === true ? '#000000' : '#00000040',
-                }}
-              >
-                <div className={style.contextmenudes}>
-                  {item.icon}
-                  <span style={{ paddingLeft: '8px' }}>{item.title}</span>
-                </div>
-                <div className={style.contextmenuHotkey}>{item.keyText}</div>
-              </li>
-            ))}
-            <li>
-              <div className={style.contextmenudes}>
-                <SvgIcon iconClass="layer" />
-                <span style={{ paddingLeft: '8px' }}>图层层级</span>
-              </div>
-              <div className={style.contextmenuHotkey}>
-                <CaretRightOutlined />
-              </div>
-            </li>
+            {ContextMenuItem(renderList)}
           </ul>
         </div>
       ) : null}
