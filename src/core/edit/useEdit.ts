@@ -8,6 +8,7 @@ import {
   bottomComponentAction,
   deleteComponentAction,
   downComponentAction,
+  getNotIncludedCurComponentHandle,
   topComponentAction,
   upComponentAction,
 } from '@/store/controller/editor/component';
@@ -49,9 +50,15 @@ const useEdit = () => {
     dispatch(recordSnapshot());
   };
 
-  const layerTopHandle = () => dispatch(topComponentAction());
+  const layerTopHandle = () => [
+    dispatch(getNotIncludedCurComponentHandle()),
+    dispatch(topComponentAction()),
+  ];
 
-  const bottomLayerHandle = () => dispatch(bottomComponentAction());
+  const bottomLayerHandle = () => [
+    dispatch(getNotIncludedCurComponentHandle()),
+    dispatch(bottomComponentAction()),
+  ];
 
   const upLayerHandle = () => dispatch(upComponentAction());
 

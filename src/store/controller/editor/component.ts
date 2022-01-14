@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction, Dispatch } from '@reduxjs/toolkit';
-
+import { createSlice, PayloadAction, Dispatch, createAction } from '@reduxjs/toolkit';
+export const getNotIncludedCurComponentHandle = createAction('getNotIncludedCurComponentHandle');
 export interface componentInitialStateType {
   componentDataList: templateDataType[];
   curComponent: templateDataType | null;
@@ -71,23 +71,12 @@ export const componentSlice = createSlice({
         }
       }
     },
-    getNotIncludedCurComponentHandle: (state) => {
-      state.componentDataList = state.componentDataList.filter(
-        (item) => item.componentId !== state.curComponent?.componentId,
-      );
-    },
     topComponentAction: (state) => {
       // 图层置顶
-      state.componentDataList = state.componentDataList.filter(
-        (item) => item.componentId !== state.curComponent?.componentId,
-      );
       state.componentDataList.push(state.curComponent!);
     },
     bottomComponentAction: (state) => {
       // 图层置底
-      state.componentDataList = state.componentDataList.filter(
-        (item) => item.componentId !== state.curComponent?.componentId,
-      );
       state.componentDataList.unshift(state.curComponent!);
     },
     upDownHandle: (
@@ -100,6 +89,13 @@ export const componentSlice = createSlice({
       state.componentDataList[curComponentIndex] = state.componentDataList[displacementIndex];
       state.componentDataList[displacementIndex] = temp;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(getNotIncludedCurComponentHandle, (state) => {
+      state.componentDataList = state.componentDataList.filter(
+        (item) => item.componentId !== state.curComponent?.componentId,
+      );
+    });
   },
 });
 
