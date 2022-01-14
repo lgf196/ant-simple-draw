@@ -55,6 +55,7 @@ const Edit = memo(function Edit(props) {
   useHotkeys(
     allKeyValueCode,
     (event, handler) => {
+      console.log(`event`, event);
       editHandle(handler.key as keyCodeType);
     },
     [componentListData, curComponent],

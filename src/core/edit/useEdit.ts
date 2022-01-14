@@ -7,7 +7,9 @@ import {
   addComponent,
   bottomComponentAction,
   deleteComponentAction,
+  downComponentAction,
   topComponentAction,
+  upComponentAction,
 } from '@/store/controller/editor/component';
 import decomposeComponent from '@/utils/decomposeComponent';
 import { $ } from '@/utils';
@@ -51,6 +53,10 @@ const useEdit = () => {
 
   const bottomLayerHandle = () => dispatch(bottomComponentAction());
 
+  const upLayerHandle = () => dispatch(upComponentAction());
+
+  const downLayerHandle = () => dispatch(downComponentAction());
+
   const editHandle = (key: keyCodeType, otherParameters?: { isContextMenuMouse: boolean }) => {
     let isContextMenuMouse = false;
     if (otherParameters) {
@@ -77,8 +83,15 @@ const useEdit = () => {
         break;
       case 'Shift+A':
         deleteHandle('clearAll');
+        break;
       case 'Ctrl+Shift+↑':
         layerTopHandle();
+        break;
+      case 'Ctrl+↑':
+        upLayerHandle();
+        break;
+      case 'Ctrl+↓':
+        downLayerHandle();
         break;
       case 'Ctrl+Shift+↓':
         bottomLayerHandle();
@@ -111,12 +124,10 @@ const useEdit = () => {
     const components: templateDataType[] = GroupComponents.groupComponents!;
     const editorRect = $('#editor').getBoundingClientRect();
     components.forEach((component) => {
-      // 将组合中的各个子组件拆分出来，并计算它们新的 style
       const decomposeComponentStyle = decomposeComponent(component, editorRect, parentStyle);
 
       dispatch(addComponent(decomposeComponentStyle));
     });
-    // 组合的子组件已近添加了，这个时候组合组件得删除，没用了
     dispatch(deleteComponentAction(deleteMergeComponent));
     dispatch(recordSnapshot());
   };
@@ -132,6 +143,8 @@ const useEdit = () => {
     layerTopHandle,
     bottomLayerHandle,
     decompose,
+    downLayerHandle,
+    upLayerHandle,
   };
 };
 

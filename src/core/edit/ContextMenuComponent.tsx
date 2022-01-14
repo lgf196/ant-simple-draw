@@ -82,12 +82,12 @@ const ContextMenu = memo(function ContextMenu(props) {
           },
           {
             title: '上移一层',
-            keyText: 'Delete',
+            keyText: 'Ctrl+↑',
             isClick,
           },
           {
             title: '下移一层',
-            keyText: 'Delete',
+            keyText: 'Ctrl+↓',
             isClick,
           },
           {
