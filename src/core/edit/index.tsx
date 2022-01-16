@@ -22,6 +22,8 @@ import {
   deleteComponentAction,
 } from '@/store/controller/editor/component';
 import useEdit from '@/core/edit/useEdit';
+import Scaleplate from './ScaleplateComponent';
+import styles from '../index.module.scss';
 export interface areaDataType {
   style: MergeCSSProperties;
   components: templateDataType[];
@@ -39,6 +41,8 @@ const Edit = memo(function Edit(props) {
   const areawh = useRef<whType>({ width: 0, height: 0 });
 
   const [isShowArea, setIsShowArea] = useState<boolean>(false);
+
+  const [ratioValue, setRatioValue] = useState(1)
 
   const dispatch = useDispatch();
 
@@ -277,6 +281,12 @@ const Edit = memo(function Edit(props) {
       onContextMenu={handleContextMenu}
       onMouseDown={handleMouseDown}
     >
+      <div className={styles.scaleplateTop}>
+        <Scaleplate direction="up" id="scaleplateUp" ratio={ratioValue} />
+      </div>
+      <div className={styles.scaleplateLeft}>
+        <Scaleplate direction="right" id="scaleplateRight" ratio={ratioValue} />
+      </div>
       <Grid />
       {componentListData.length
         ? componentListData.map((item, index) => (
