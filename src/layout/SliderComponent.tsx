@@ -8,8 +8,7 @@ import {
   DoubleRightOutlined,
   SearchOutlined,
 } from '@ant-design/icons';
-import { useDispatch, useSelector } from 'react-redux';
-import { createSelector } from 'reselect';
+import { useDispatch } from 'react-redux';
 import styles from './layout.module.scss';
 import Drag from '@/core/DragTargetComponent';
 import { useSetState } from '@/hooks';

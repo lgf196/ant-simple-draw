@@ -42,7 +42,7 @@ const Edit = memo(function Edit(props) {
 
   const [isShowArea, setIsShowArea] = useState<boolean>(false);
 
-  const [ratioValue, setRatioValue] = useState(1)
+  const [ratioValue, setRatioValue] = useState(1);
 
   const dispatch = useDispatch();
 
@@ -289,9 +289,9 @@ const Edit = memo(function Edit(props) {
       </div>
       <Grid />
       {componentListData.length
-        ? componentListData.map((item, index) => (
+        ? componentListData.map((item) => (
             <Shape
-              key={index}
+              key={item.componentId}
               style={getShapeStyle(item.style!)}
               element={item}
               defaultStyle={item.style!}

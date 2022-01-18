@@ -6,10 +6,10 @@ export type keyCodeType =
   | 'Shift+Z'
   | 'Delete'
   | 'Shift+A'
-  | 'Ctrl+Shift+↑'
-  | 'Ctrl+↑'
-  | 'Ctrl+↓'
-  | 'Ctrl+Shift+↓';
+  | 'Ctrl+Shift+Up'
+  | 'Ctrl+Up'
+  | 'Ctrl+Down'
+  | 'Ctrl+Shift+Down';
 
 export interface hotKeyListType {
   name: string;
@@ -47,19 +47,19 @@ export const hotKeyList: hotKeyListType[] = [
   },
   {
     name: '移到顶层',
-    key: 'Ctrl+Shift+↑',
+    key: 'Ctrl+Shift+Up',
   },
   {
     name: '上移一层',
-    key: 'Ctrl+↑',
+    key: 'Ctrl+Up',
   },
   {
     name: '下移一层',
-    key: 'Ctrl+↓',
+    key: 'Ctrl+Down',
   },
   {
     name: '移到顶层',
-    key: 'Ctrl+Shift+↓',
+    key: 'Ctrl+Shift+Down',
   },
 ];
 

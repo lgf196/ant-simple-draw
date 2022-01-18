@@ -91,16 +91,16 @@ const useEdit = () => {
       case 'Shift+A':
         deleteHandle('clearAll');
         break;
-      case 'Ctrl+Shift+↑':
+      case 'Ctrl+Shift+Up':
         layerTopHandle();
         break;
-      case 'Ctrl+↑':
+      case 'Ctrl+Up':
         upLayerHandle();
         break;
-      case 'Ctrl+↓':
+      case 'Ctrl+Down':
         downLayerHandle();
         break;
-      case 'Ctrl+Shift+↓':
+      case 'Ctrl+Shift+Down':
         bottomLayerHandle();
         break;
       default:

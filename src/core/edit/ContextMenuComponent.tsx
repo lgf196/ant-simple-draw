@@ -70,29 +70,29 @@ const ContextMenu = memo(function ContextMenu(props) {
       },
       {
         title: '图层层级',
-        keyText: 'Delete',
+        keyText: 'Combination' as any,
         icon: <SvgIcon iconClass="layer" />,
         isClick,
         childrenIcon: <CaretRightOutlined />,
         children: [
           {
             title: '移到顶层',
-            keyText: 'Ctrl+Shift+↑',
+            keyText: 'Ctrl+Shift+Up',
             isClick,
           },
           {
             title: '上移一层',
-            keyText: 'Ctrl+↑',
+            keyText: 'Ctrl+Up',
             isClick,
           },
           {
             title: '下移一层',
-            keyText: 'Ctrl+↓',
+            keyText: 'Ctrl+Down',
             isClick,
           },
           {
             title: '移到底层',
-            keyText: 'Ctrl+Shift+↓',
+            keyText: 'Ctrl+Shift+Down',
             isClick,
           },
         ],
@@ -120,11 +120,11 @@ const ContextMenu = memo(function ContextMenu(props) {
   };
 
   const ContextMenuItem = (data: contextMenuListType[]) => {
-    return data.map((item, index) => {
+    return data.map((item) => {
       return (
         <li
           onClick={(e) => menu(e, item)}
-          key={index}
+          key={item.keyText}
           style={{
             borderTop: item.keyText === 'Shift+A' ? '1px solid #0000000f' : 'none',
             cursor: item.isClick === true ? 'pointer' : 'not-allowed',
