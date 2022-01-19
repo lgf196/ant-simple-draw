@@ -47,21 +47,31 @@ const Attr = memo(function Attr(props) {
         }}
       >
         <Tabs defaultActiveKey="1" centered>
-          <TabPane tab="属性" key="1">
-            <div className={styles.attrsContainer}>
-              {curComponent && (
-                <FormRender
-                  editType={curComponent.editableEl}
-                  onSave={handleFormSave}
-                  id={curComponent.componentId!}
-                  showEditPropsData={curComponent.propValue}
-                />
-              )}
-            </div>
-          </TabPane>
-          <TabPane tab="交互" key="2">
-            <div className={styles.attrsContainer}>Content of Tab Pane 2</div>
-          </TabPane>
+          {!curComponent ? (
+            <>
+              <TabPane tab="画布配置" key="1">
+                <div className={styles.attrsContainer}>
+                  <div>11</div>
+                </div>
+              </TabPane>
+            </>
+          ) : (
+            <>
+              <TabPane tab="属性" key="1">
+                <div className={styles.attrsContainer}>
+                  <FormRender
+                    editType={curComponent.editableEl}
+                    onSave={handleFormSave}
+                    id={curComponent.componentId!}
+                    showEditPropsData={curComponent.propValue}
+                  />
+                </div>
+              </TabPane>
+              <TabPane tab="交互" key="2">
+                <div className={styles.attrsContainer}>Content of Tab Pane 2</div>
+              </TabPane>
+            </>
+          )}
         </Tabs>
       </div>
     </>
