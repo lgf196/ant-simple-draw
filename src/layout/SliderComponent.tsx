@@ -1,4 +1,4 @@
-import React, { memo, useState, useMemo } from 'react';
+import React, { memo, useState, useMemo, useEffect } from 'react';
 import { Tabs, Input } from 'antd';
 import TabTitle from './TabTitleComponent';
 const { TabPane } = Tabs;
@@ -8,12 +8,13 @@ import {
   DoubleRightOutlined,
   SearchOutlined,
 } from '@ant-design/icons';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './layout.module.scss';
 import Drag from '@/core/DragTargetComponent';
 import { useSetState } from '@/hooks';
 import { RightOutlined, LeftOutlined } from '@ant-design/icons';
 import { getAllConfigListType, useGetCopentConfigList } from '@/core/componentTemplate/config';
+import { createSelector } from 'reselect';
 export interface oneModuleAllType {
   isShow: boolean;
   componentInfo: Partial<getAllConfigListType>;
@@ -26,6 +27,10 @@ const Slider = memo(function Slider() {
     componentInfo: {},
   });
 
+  const [zenMode] = useSelector(
+    createSelector([(state: storeType) => state.config], ({ zenMode }) => [zenMode] as const),
+  );
+
   const { baseConfigList, getAllBaseModuleConfigList, textConfigList } = useGetCopentConfigList();
 
   const [isShowLeftComponents, setIsShowLeftComponents] = useState<boolean>(true);
@@ -34,6 +39,13 @@ const Slider = memo(function Slider() {
     setIsShowLeftComponents((pre) => !pre);
   };
 
+  useEffect(() => {
+    if (zenMode) {
+      setIsShowLeftComponents(false);
+    } else {
+      setIsShowLeftComponents(true);
+    }
+  }, [zenMode]);
   const tabBarExtraContent = useMemo(() => {
     return (
       <div onClick={toggleShowLeftComponents} className={styles.tabBarExtraContent}>

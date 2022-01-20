@@ -1,8 +1,7 @@
 import React, { FC, memo, useEffect } from 'react';
-import { Form, InputNumber } from 'antd';
+import { Form, InputNumber, Row, Col } from 'antd';
 import { Store } from 'antd/lib/form/interface';
 import AttrContainer from './AttrContainer';
-import WhXy from './WhXy';
 export interface FormRenderType {
   editType: FormType[];
   onSave: Function;
@@ -33,23 +32,26 @@ const FormRender: FC<FormRenderType> = memo(function FormRender({
     onFinish(form.getFieldsValue());
   };
 
+  const colFun = (col: number | undefined) => (col ? col : 24);
+
   return (
-    <>
-      <WhXy />
-      <Form form={form} name={`form_editor`} onFinish={onFinish} onValuesChange={handlechange}>
+    <Form form={form} name={`form_editor`} onFinish={onFinish} onValuesChange={handlechange}>
+      <Row>
         {editType.map((item, index) => {
           return (
             <React.Fragment key={index}>
-              {item.type === 'Number' && (
-                <Form.Item label={item.name} name={item.key}>
-                  <InputNumber size="small" />
-                </Form.Item>
-              )}
+              <Col span={colFun(item.col)}>
+                {item.type === 'Number' && (
+                  <Form.Item label={item.name} name={item.key}>
+                    <InputNumber size="small" />
+                  </Form.Item>
+                )}
+              </Col>
             </React.Fragment>
           );
         })}
-      </Form>
-    </>
+      </Row>
+    </Form>
   );
 });
 

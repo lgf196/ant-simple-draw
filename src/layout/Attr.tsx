@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import {
   DoubleRightOutlined,
   DoubleLeftOutlined,
@@ -12,23 +12,47 @@ import { createSelector } from 'reselect';
 import FormRender from '@/core/attr/FormRender';
 import { setShapeStyleAction } from '@/store/controller/editor/component';
 import { Store } from 'antd/lib/form/interface';
+import WhXy from '@/core/attr/WhXy';
+import { getRandomStr } from '@/utils';
+import { setCanvasInformationAction } from '@/store/controller/config';
 const { TabPane } = Tabs;
 const Attr = memo(function Attr(props) {
   const dispatch = useDispatch();
 
   const [collapsed, setCollapsed] = useState<boolean>(true);
 
-  const [isClickComponent, curComponent] = useSelector(
-    createSelector([(state: storeType) => state.component], (component) => {
-      return [component.isClickComponent, component.curComponent] as const;
-    }),
-  );
+  const [isClickComponent, curComponent, canvasInformation, canvasEditableEl, zenMode] =
+    useSelector(
+      createSelector(
+        [(state: storeType) => state.component, (state: storeType) => state.config],
+        (component, config) => {
+          return [
+            component.isClickComponent,
+            component.curComponent,
+            config.canvasInformation,
+            config.canvasEditableEl,
+            config.zenMode,
+          ] as const;
+        },
+      ),
+    );
+  useEffect(() => {
+    if (zenMode) {
+      setCollapsed(false);
+    } else {
+      setCollapsed(true);
+    }
+  }, [zenMode]);
 
   const toggleCollapsed = () => {
     setCollapsed((pre) => !pre);
   };
-  const handleFormSave = (val: Store) => {
-    dispatch(setShapeStyleAction({ width: val.w, height: val.h, top: val.y, left: val.x }));
+  const handleFormSave = (flag: string, val: any) => {
+    if (flag === 'canvasConfig') {
+      dispatch(setCanvasInformationAction(val));
+      console.log('val', val);
+    } else {
+    }
   };
   return (
     <>
@@ -49,25 +73,31 @@ const Attr = memo(function Attr(props) {
         <Tabs defaultActiveKey="1" centered>
           {!curComponent ? (
             <>
-              <TabPane tab="画布配置" key="1">
+              <TabPane tab={'画布配置'} key="1">
                 <div className={styles.attrsContainer}>
-                  <div>11</div>
+                  <FormRender
+                    editType={canvasEditableEl}
+                    onSave={(val: Store) => handleFormSave('canvasConfig', val)}
+                    id={'canvasConfig'}
+                    showEditPropsData={canvasInformation}
+                  />
                 </div>
               </TabPane>
             </>
           ) : (
             <>
-              <TabPane tab="属性" key="1">
+              <TabPane tab={'属性'} key="1">
                 <div className={styles.attrsContainer}>
+                  <WhXy />
                   <FormRender
                     editType={curComponent.editableEl}
-                    onSave={handleFormSave}
+                    onSave={(val: Store) => handleFormSave('shapeConfig', val)}
                     id={curComponent.componentId!}
                     showEditPropsData={curComponent.propValue}
                   />
                 </div>
               </TabPane>
-              <TabPane tab="交互" key="2">
+              <TabPane tab={'交互'} key="2">
                 <div className={styles.attrsContainer}>Content of Tab Pane 2</div>
               </TabPane>
             </>

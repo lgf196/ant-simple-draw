@@ -9,7 +9,8 @@ export type keyCodeType =
   | 'Ctrl+Shift+Up'
   | 'Ctrl+Up'
   | 'Ctrl+Down'
-  | 'Ctrl+Shift+Down';
+  | 'Ctrl+Shift+Down'
+  | 'Alt+Z';
 
 export interface hotKeyListType {
   name: string;
@@ -36,6 +37,10 @@ export const hotKeyList: hotKeyListType[] = [
   {
     name: '恢复',
     key: 'Shift+Z',
+  },
+  {
+    name: '禅模式',
+    key: 'Alt+Z',
   },
   {
     name: '删除',

@@ -29,6 +29,10 @@ declare global {
      * @description 表单的类型，如，input，select等..
      */
     type: T;
+    /**
+     * @description 用来配置栅格布局的,最大24
+     */
+    col?: number;
     [par: string]: any;
   }
   interface templateDateInterface<T = string, K = any> {

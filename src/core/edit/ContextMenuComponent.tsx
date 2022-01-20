@@ -30,15 +30,16 @@ const ContextMenu = memo(function ContextMenu(props) {
 
   const { editHandle } = useEdit();
 
-  const [curComponent, left, top, menuShow, componentDataList, copyData] = useSelector(
+  const [curComponent, left, top, menuShow, componentDataList, copyData, zenMode] = useSelector(
     createSelector(
       [
         (state: storeType) => state.component,
         (state: storeType) => state.contextMenu,
         (state: storeType) => state.copys,
+        (state: storeType) => state.config,
       ],
-      ({ componentDataList, curComponent }, { left, top, menuShow }, { copyData }) =>
-        [curComponent, left, top, menuShow, componentDataList, copyData] as const,
+      ({ componentDataList, curComponent }, { left, top, menuShow }, { copyData }, { zenMode }) =>
+        [curComponent, left, top, menuShow, componentDataList, copyData, zenMode] as const,
     ),
   );
   const renderList = useMemo(() => {
@@ -67,6 +68,12 @@ const ContextMenu = memo(function ContextMenu(props) {
         keyText: 'Delete',
         icon: <DeleteOutlined />,
         isClick,
+      },
+      {
+        title: `禅模式${zenMode ? '(关闭)' : '(开启)'}`,
+        keyText: 'Alt+Z',
+        icon: <DeleteOutlined />,
+        isClick: true,
       },
       {
         title: '图层层级',
@@ -106,7 +113,7 @@ const ContextMenu = memo(function ContextMenu(props) {
     ];
 
     return contextMenuList;
-  }, [componentDataList, curComponent, copyData]);
+  }, [componentDataList, curComponent, copyData, zenMode]);
 
   const menu = (e: React.MouseEvent, item: contextMenuListType) => {
     const { keyText, isClick } = item;
