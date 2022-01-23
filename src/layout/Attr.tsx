@@ -82,7 +82,6 @@ const Attr = memo(function Attr(props) {
                     id={'canvasConfig'}
                     showEditPropsData={canvasInformation}
                   />
-                  <BackGround />
                 </div>
               </TabPane>
             </>

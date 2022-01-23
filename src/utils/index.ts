@@ -2,6 +2,7 @@
  * @description node运行环境
  * @return "dev" | "alpha" | "preprod" | "prod"
  */
+import { RgbaColor } from 'react-colorful';
 export const environmentVariable = () => {
   const env = import.meta.env.VITE_APP_ANT;
   let parps = null;
@@ -61,4 +62,8 @@ export const getRandomStr = (): string => {
  */
 export const $ = (selector: string) => {
   return document.querySelector<HTMLDivElement>(selector)!;
+};
+
+export const stringRgba = (rgba: RgbaColor) => {
+  return `rgba(${rgba.r},${rgba.g},${rgba.b},${rgba.a})`;
 };

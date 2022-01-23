@@ -35,15 +35,14 @@
   top: 50%;
   transform: translateY(-50%);
   right: 260px;
-  @include wh(256px, 400px);
+  @include wh(300px, 360px);
   box-shadow: 0 4px 6px 0 rgb(0 0 0 / 6%);
   border: 1px solid $borderColor;
   border-radius: 4px;
   background: #fff;
   padding: 10px;
   .gradient {
-    display: flex;
-    flex-wrap: wrap;
+    @include flexContainer(space-between);
     li {
       cursor: pointer;
       @include wh(54px, 50px);
@@ -55,12 +54,17 @@
       background-position: 50% 50%;
       background-size: cover;
       background-color: rgb(255, 255, 255);
+      transition: all 0.4s;
+      &:hover {
+        transform: scale(1.1);
+      }
     }
   }
   .pickColor {
     padding: 0 8px;
     .pickColorController {
-      display: flex;
+      padding: 10px 0;
+      @include flexContainer(space-between);
     }
   }
 }

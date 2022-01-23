@@ -1,6 +1,11 @@
 import { createSlice, Dispatch, PayloadAction } from '@reduxjs/toolkit';
 import { sessionStorage } from '@/utils/storage';
 import { message } from 'antd';
+import { BackfgroundValType } from '@/components/BackGround';
+import { gradientList } from '@/components/BackGround/defaultGradient';
+export interface canvasInformationType extends whType {
+  background: BackfgroundValType;
+}
 /**
  * @description 全局配置中心
  */
@@ -8,7 +13,7 @@ export interface configInitialStateType {
   /**
    * @description 画布的版心
    */
-  canvasInformation: whType;
+  canvasInformation: canvasInformationType;
   /**
    * @description 画布的编辑配置项
    */
@@ -24,6 +29,10 @@ const initialState: configInitialStateType = {
   canvasInformation: {
     width: 1200,
     height: 750,
+    background: {
+      type: 'gradient',
+      value: gradientList[0],
+    },
   },
   canvasEditableEl: [
     {
@@ -38,6 +47,11 @@ const initialState: configInitialStateType = {
       key: 'height',
       col: 12,
     },
+    {
+      type: 'Background',
+      name: '背景色',
+      key: 'background',
+    },
   ],
 };
 
@@ -45,7 +59,7 @@ export const configSlice = createSlice({
   name: 'config',
   initialState,
   reducers: {
-    setCanvasInformationAction: (state, action: PayloadAction<whType>) => {
+    setCanvasInformationAction: (state, action: PayloadAction<canvasInformationType>) => {
       state.canvasInformation = action.payload;
     },
     zenModeAction: (state) => {

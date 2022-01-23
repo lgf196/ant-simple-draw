@@ -2,6 +2,7 @@ import React, { FC, memo, useEffect } from 'react';
 import { Form, InputNumber, Row, Col } from 'antd';
 import { Store } from 'antd/lib/form/interface';
 import AttrContainer from './AttrContainer';
+import BackGround from '@/components/BackGround';
 export interface FormRenderType {
   editType: FormType[];
   onSave: Function;
@@ -44,6 +45,13 @@ const FormRender: FC<FormRenderType> = memo(function FormRender({
                 {item.type === 'Number' && (
                   <Form.Item label={item.name} name={item.key}>
                     <InputNumber size="small" />
+                  </Form.Item>
+                )}
+              </Col>
+              <Col span={colFun(item.col)}>
+                {item.type === 'Background' && (
+                  <Form.Item label={item.name} name={item.key}>
+                    <BackGround />
                   </Form.Item>
                 )}
               </Col>
