@@ -137,6 +137,11 @@
       @include style(14px, #9da3ac);
     }
   }
+  .container {
+    border-radius: 4px;
+    padding: 6px;
+    margin-bottom: 16px;
+  }
 }
 .customizeInput {
   display: flex;

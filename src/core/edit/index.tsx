@@ -24,6 +24,7 @@ import {
 import useEdit from '@/core/edit/useEdit';
 import Scaleplate from './ScaleplateComponent';
 import styles from '../index.module.scss';
+import useBackground from '@/components/BackGround/useBackground';
 export interface areaDataType {
   style: MergeCSSProperties;
   components: templateDataType[];
@@ -53,6 +54,8 @@ const Edit = memo(function Edit(props) {
         [component.componentDataList, component.curComponent, config.canvasInformation] as const,
     ),
   );
+
+  const { backgroundStyle } = useBackground(canvasInformation.background);
   /**
    * @description 按键操作
    */
@@ -276,7 +279,11 @@ const Edit = memo(function Edit(props) {
   return (
     <div
       id="editor"
-      style={{ width: canvasInformation.width + 'px', height: canvasInformation.height + 'px' }}
+      style={{
+        width: canvasInformation.width + 'px',
+        height: canvasInformation.height + 'px',
+        ...backgroundStyle,
+      }}
       className={style.editor}
       onContextMenu={handleContextMenu}
       onMouseDown={handleMouseDown}
@@ -287,7 +294,8 @@ const Edit = memo(function Edit(props) {
       <div className={styles.scaleplateLeft}>
         <Scaleplate direction="right" id="scaleplateRight" ratio={ratioValue} />
       </div>
-      <Grid />
+      {canvasInformation.gridlines ? <Grid /> : null}
+
       {componentListData.length
         ? componentListData.map((item) => (
             <Shape
@@ -304,7 +312,6 @@ const Edit = memo(function Edit(props) {
             </Shape>
           ))
         : null}
-
       <ContextMenu />
       <MarkLine />
       {isShowArea && <AreaComponent {...areawh.current} {...areaPosition.current} />}

@@ -1,12 +1,13 @@
-import React, { memo, useEffect, useState, FC, useMemo, useCallback } from 'react';
+import React, { memo, useEffect, useState, FC, useCallback } from 'react';
 import { gradientList } from './defaultGradient';
 import style from './index.module.scss';
-import { Tabs } from 'antd';
+import { Tabs, Button } from 'antd';
 import { RgbaColorPicker, RgbaColor } from 'react-colorful';
 import { InputNumber } from 'antd';
 import { useSetState } from '@/hooks';
-import { CloseOutlined } from '@ant-design/icons';
-import { stringRgba } from '@/utils';
+import { CloseOutlined, BgColorsOutlined } from '@ant-design/icons';
+import useBackground from './useBackground';
+
 const { TabPane } = Tabs;
 
 export type module = 'gradient' | 'solidColor';
@@ -33,6 +34,8 @@ const BackGround: FC<parType> = memo(function BackGround(props) {
 
   const [visible, setVisible] = useState<boolean>(false);
 
+  const { backgroundStyle } = useBackground(val);
+
   const triggerChange = useCallback(
     (changedValue: BackfgroundValType) => {
       setVal(changedValue);
@@ -45,14 +48,6 @@ const BackGround: FC<parType> = memo(function BackGround(props) {
     },
     [color],
   );
-
-  const toggleBg = useMemo(() => {
-    if (!val.value) {
-      return undefined;
-    } else {
-      return { background: val.type === 'gradient' ? val.value : stringRgba(val.value) };
-    }
-  }, [val]);
 
   useEffect(() => {
     // 用于回显值的
@@ -73,7 +68,7 @@ const BackGround: FC<parType> = memo(function BackGround(props) {
         onClick={(e) => {
           setVisible((pre) => !pre);
         }}
-        style={toggleBg}
+        style={backgroundStyle}
       ></div>
       {visible ? (
         <div className={style.modal} id="bgContainerModal">
@@ -84,6 +79,20 @@ const BackGround: FC<parType> = memo(function BackGround(props) {
               left: (
                 <CloseOutlined style={{ cursor: 'pointer' }} onClick={() => setVisible(false)} />
               ),
+              right: val.value ? (
+                <Button
+                  type="primary"
+                  danger
+                  size="small"
+                  icon={<BgColorsOutlined />}
+                  onClick={() => [
+                    triggerChange(Object.assign({}, val, { value: null })),
+                    setColor(defaultColor),
+                  ]}
+                >
+                  清除
+                </Button>
+              ) : null,
             }}
             onChange={(v) => {
               setVal({ type: v as module });

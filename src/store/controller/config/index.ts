@@ -2,9 +2,12 @@ import { createSlice, Dispatch, PayloadAction } from '@reduxjs/toolkit';
 import { sessionStorage } from '@/utils/storage';
 import { message } from 'antd';
 import { BackfgroundValType } from '@/components/BackGround';
-import { gradientList } from '@/components/BackGround/defaultGradient';
 export interface canvasInformationType extends whType {
   background: BackfgroundValType;
+  /**
+   * @description 网格线
+   */
+  gridlines: boolean;
 }
 /**
  * @description 全局配置中心
@@ -33,6 +36,7 @@ const initialState: configInitialStateType = {
       type: 'gradient',
       value: undefined,
     },
+    gridlines: true,
   },
   canvasEditableEl: [
     {
@@ -51,6 +55,11 @@ const initialState: configInitialStateType = {
       type: 'Background',
       name: '背景色',
       key: 'background',
+    },
+    {
+      type: 'Switch',
+      name: '网格线',
+      key: 'gridlines',
     },
   ],
 };

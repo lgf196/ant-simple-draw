@@ -1,5 +1,5 @@
 import React, { FC, memo, useEffect } from 'react';
-import { Form, InputNumber, Row, Col } from 'antd';
+import { Form, InputNumber, Row, Col, Switch } from 'antd';
 import { Store } from 'antd/lib/form/interface';
 import AttrContainer from './AttrContainer';
 import BackGround from '@/components/BackGround';
@@ -37,23 +37,42 @@ const FormRender: FC<FormRenderType> = memo(function FormRender({
 
   return (
     <Form form={form} name={`form_editor`} onFinish={onFinish} onValuesChange={handlechange}>
-      <Row>
+      <Row gutter={[30, 0]}>
         {editType.map((item, index) => {
           return (
             <React.Fragment key={index}>
               {item.type === 'Number' && (
                 <Col span={colFun(item.col)}>
-                  <Form.Item label={item.name} name={item.key}>
-                    <InputNumber size="small" />
-                  </Form.Item>
+                  <AttrContainer border={false}>
+                    <Form.Item label={item.name} name={item.key} style={{ margin: '0' }}>
+                      <InputNumber size="small" />
+                    </Form.Item>
+                  </AttrContainer>
                 </Col>
               )}
-
               {item.type === 'Background' && (
                 <Col span={colFun(item.col)}>
-                  <Form.Item label={item.name} name={item.key}>
-                    <BackGround />
-                  </Form.Item>
+                  <AttrContainer>
+                    <Form.Item label={item.name} name={item.key} style={{ margin: '0' }}>
+                      <BackGround />
+                    </Form.Item>
+                  </AttrContainer>
+                </Col>
+              )}
+              {item.type === 'Switch' && (
+                <Col span={colFun(item.col)}>
+                  <AttrContainer>
+                    <Form.Item
+                      style={{ margin: '0' }}
+                      label={item.name}
+                      name={item.key}
+                      valuePropName="checked"
+                      labelAlign="left"
+                      labelCol={{ span: 19 }}
+                    >
+                      <Switch />
+                    </Form.Item>
+                  </AttrContainer>
                 </Col>
               )}
             </React.Fragment>
