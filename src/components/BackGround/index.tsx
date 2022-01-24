@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState, FC, useMemo } from 'react';
+import React, { memo, useEffect, useState, FC, useMemo, useCallback } from 'react';
 import { gradientList } from './defaultGradient';
 import style from './index.module.scss';
 import { Tabs } from 'antd';
@@ -19,35 +19,32 @@ export interface parType {
   value?: BackfgroundValType;
   onChange?: (val: BackfgroundValType) => void;
 }
-const BackGround: FC<parType> = memo(function BackGround({ value, onChange }) {
+export const defaultColor = { r: 255, g: 255, b: 255, a: 1 };
+
+const BackGround: FC<parType> = memo(function BackGround(props) {
+  const { value, onChange } = props;
+
   const [val, setVal] = useSetState<BackfgroundValType>({
     type: 'gradient',
     value: undefined,
   });
 
-  const [color, setColor] = useSetState<RgbaColor>({
-    r: 255,
-    g: 255,
-    b: 255,
-    a: 1,
-  });
+  const [color, setColor] = useSetState<RgbaColor>(defaultColor);
+
   const [visible, setVisible] = useState<boolean>(false);
 
-  const triggerChange = (changedValue: BackfgroundValType) => {
-    setVal(changedValue);
-    onChange &&
-      onChange({
-        ...val,
-        ...value,
-        ...changedValue,
-      });
-  };
-
-  useEffect(() => {
-    if (val.type === 'solidColor') {
-      triggerChange(Object.assign({}, val, { value: color }));
-    }
-  }, [color]);
+  const triggerChange = useCallback(
+    (changedValue: BackfgroundValType) => {
+      setVal(changedValue);
+      onChange &&
+        onChange({
+          ...val,
+          ...value,
+          ...changedValue,
+        });
+    },
+    [color],
+  );
 
   const toggleBg = useMemo(() => {
     if (!val.value) {
@@ -59,8 +56,15 @@ const BackGround: FC<parType> = memo(function BackGround({ value, onChange }) {
 
   useEffect(() => {
     // 用于回显值的
-    value && setVal(value);
+    if (value) {
+      setVal(value);
+      // 这样做的目的是付默认值和防止死循环loop
+      if (value.type === 'solidColor' && color === defaultColor) {
+        setColor(value.value);
+      }
+    }
   }, [value]);
+
   return (
     <>
       <div
@@ -100,9 +104,10 @@ const BackGround: FC<parType> = memo(function BackGround({ value, onChange }) {
               <div className={`custom-pointers ${style.pickColor}`}>
                 <RgbaColorPicker
                   color={color}
-                  onChange={(v) => {
-                    setColor(v);
-                  }}
+                  onChange={(v) => [
+                    setColor(v),
+                    triggerChange(Object.assign({}, val, { value: v })),
+                  ]}
                 />
                 <div className={style.pickColorController}>
                   {Object.keys(color).map((item) => (
@@ -112,9 +117,16 @@ const BackGround: FC<parType> = memo(function BackGround({ value, onChange }) {
                         min={0}
                         max={item === 'a' ? 1 : 255}
                         value={(color as any)[item]}
-                        onChange={(v) => [setColor({ [item]: v })]}
+                        onChange={(v) => [
+                          setColor({ [item]: v }),
+                          triggerChange(
+                            Object.assign({}, val, {
+                              value: Object.assign({}, color, { [item]: v }),
+                            }),
+                          ),
+                        ]}
                       />
-                      <p>{item}</p>
+                      <p>{item.toLocaleUpperCase()}</p>
                     </div>
                   ))}
                 </div>

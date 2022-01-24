@@ -31,7 +31,7 @@ const initialState: configInitialStateType = {
     height: 750,
     background: {
       type: 'gradient',
-      value: gradientList[0],
+      value: undefined,
     },
   },
   canvasEditableEl: [

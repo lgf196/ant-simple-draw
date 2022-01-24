@@ -41,20 +41,21 @@ const FormRender: FC<FormRenderType> = memo(function FormRender({
         {editType.map((item, index) => {
           return (
             <React.Fragment key={index}>
-              <Col span={colFun(item.col)}>
-                {item.type === 'Number' && (
+              {item.type === 'Number' && (
+                <Col span={colFun(item.col)}>
                   <Form.Item label={item.name} name={item.key}>
                     <InputNumber size="small" />
                   </Form.Item>
-                )}
-              </Col>
-              <Col span={colFun(item.col)}>
-                {item.type === 'Background' && (
+                </Col>
+              )}
+
+              {item.type === 'Background' && (
+                <Col span={colFun(item.col)}>
                   <Form.Item label={item.name} name={item.key}>
                     <BackGround />
                   </Form.Item>
-                )}
-              </Col>
+                </Col>
+              )}
             </React.Fragment>
           );
         })}

@@ -15,7 +15,6 @@ import { Store } from 'antd/lib/form/interface';
 import WhXy from '@/core/attr/WhXy';
 import { getRandomStr } from '@/utils';
 import { setCanvasInformationAction } from '@/store/controller/config';
-import BackGround from '@/components/BackGround';
 const { TabPane } = Tabs;
 const Attr = memo(function Attr(props) {
   const dispatch = useDispatch();
