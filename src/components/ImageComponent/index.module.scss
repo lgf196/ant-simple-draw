@@ -1,0 +1,13 @@
+.image {
+  width: 100%;
+  .main {
+    @include imageBg;
+    @include wh(100%, 100px);
+    @include flexContainer(center);
+    margin-bottom: 8px;
+  }
+  .btn {
+    @include flexContainer(space-between);
+    flex-wrap: nowrap;
+  }
+}

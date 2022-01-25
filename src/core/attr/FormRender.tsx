@@ -3,6 +3,7 @@ import { Form, InputNumber, Row, Col, Switch } from 'antd';
 import { Store } from 'antd/lib/form/interface';
 import AttrContainer from './AttrContainer';
 import BackGround from '@/components/BackGround';
+import ImgComponent from '@/components/ImageComponent';
 export interface FormRenderType {
   editType: FormType[];
   onSave: Function;
@@ -71,6 +72,15 @@ const FormRender: FC<FormRenderType> = memo(function FormRender({
                       labelCol={{ span: 19 }}
                     >
                       <Switch />
+                    </Form.Item>
+                  </AttrContainer>
+                </Col>
+              )}
+              {item.type === 'Image' && (
+                <Col span={colFun(item.col)}>
+                  <AttrContainer title={item.name}>
+                    <Form.Item label={null} name={item.key} style={{ margin: '0' }}>
+                      <ImgComponent />
                     </Form.Item>
                   </AttrContainer>
                 </Col>

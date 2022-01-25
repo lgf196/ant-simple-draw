@@ -8,6 +8,7 @@ export interface canvasInformationType extends whType {
    * @description 网格线
    */
   gridlines: boolean;
+  backgroungImage: string | undefined;
 }
 /**
  * @description 全局配置中心
@@ -37,6 +38,7 @@ const initialState: configInitialStateType = {
       value: undefined,
     },
     gridlines: true,
+    backgroungImage: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
   },
   canvasEditableEl: [
     {
@@ -60,6 +62,11 @@ const initialState: configInitialStateType = {
       type: 'Switch',
       name: '网格线',
       key: 'gridlines',
+    },
+    {
+      type: 'Image',
+      name: '背景图',
+      key: 'backgroungImage',
     },
   ],
 };
