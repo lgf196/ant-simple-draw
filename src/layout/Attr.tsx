@@ -5,7 +5,7 @@ import {
   RightOutlined,
   LeftOutlined,
 } from '@ant-design/icons';
-import { Tabs } from 'antd';
+import { Tabs, Divider } from 'antd';
 import styles from './layout.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { createSelector } from 'reselect';
@@ -89,6 +89,7 @@ const Attr = memo(function Attr(props) {
               <TabPane tab={'属性'} key="1">
                 <div className={styles.attrsContainer}>
                   <WhXy />
+                  <Divider />
                   <FormRender
                     editType={curComponent.editableEl}
                     onSave={(val: Store) => handleFormSave('shapeConfig', val)}

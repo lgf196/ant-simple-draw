@@ -1,5 +1,5 @@
 import React, { FC, memo, useEffect } from 'react';
-import { Form, InputNumber, Row, Col, Switch } from 'antd';
+import { Form, InputNumber, Row, Col, Switch, Input } from 'antd';
 import { Store } from 'antd/lib/form/interface';
 import AttrContainer from './AttrContainer';
 import BackGround from '@/components/BackGround';
@@ -10,6 +10,8 @@ export interface FormRenderType {
   id: string;
   showEditPropsData: any;
 }
+
+const { TextArea } = Input;
 
 const FormRender: FC<FormRenderType> = memo(function FormRender({
   editType,
@@ -81,6 +83,15 @@ const FormRender: FC<FormRenderType> = memo(function FormRender({
                   <AttrContainer title={item.name}>
                     <Form.Item label={null} name={item.key} style={{ margin: '0' }}>
                       <ImgComponent />
+                    </Form.Item>
+                  </AttrContainer>
+                </Col>
+              )}
+              {item.type === 'TextArea' && (
+                <Col span={colFun(item.col)}>
+                  <AttrContainer border={false} title={item.name}>
+                    <Form.Item label={null} name={item.key} style={{ margin: '0' }}>
+                      <TextArea autoSize={{ minRows: 2 }} showCount />
                     </Form.Item>
                   </AttrContainer>
                 </Col>

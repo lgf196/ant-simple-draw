@@ -19,5 +19,5 @@ export default {
     letterSpacing: 0,
     color: '',
   },
-  editableEl: [],
+  editableEl: [{ key: 'textVal', name: '内容', type: 'TextArea' }],
 } as templateDataType;

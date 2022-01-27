@@ -1,8 +1,9 @@
-import React, { memo } from 'react';
+import React, { FC, memo } from 'react';
 
-const Index = memo(function Index(props) {
+const Index: FC<templateDataType> = memo(function Index(props) {
+  const { propValue } = props;
   return (
-    <div style={{ background: 'blue' }}>
+    <div style={{ background: 'blue', width: propValue.w + 'px', height: propValue.h + 'px' }}>
       <p>文本qwdq</p>
     </div>
   );
