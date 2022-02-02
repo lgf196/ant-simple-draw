@@ -10,7 +10,7 @@ import styles from './layout.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { createSelector } from 'reselect';
 import FormRender from '@/core/attr/FormRender';
-import { setShapeStyleAction } from '@/store/controller/editor/component';
+import { setShapeStyleAction, updatePropsAction } from '@/store/controller/editor/component';
 import { Store } from 'antd/lib/form/interface';
 import WhXy from '@/core/attr/WhXy';
 import { getRandomStr } from '@/utils';
@@ -52,6 +52,8 @@ const Attr = memo(function Attr(props) {
       dispatch(setCanvasInformationAction(val));
       console.log('val', val);
     } else {
+      dispatch(updatePropsAction(val));
+      console.log('val', val);
     }
   };
   return (

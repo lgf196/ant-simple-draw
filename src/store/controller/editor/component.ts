@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction, Dispatch, createAction } from '@reduxjs/toolkit';
+import { updateComponentListValue, updateProps } from './props';
 export const getNotIncludedCurComponentHandle = createAction('getNotIncludedCurComponentHandle');
 export interface componentInitialStateType {
   componentDataList: templateDataType[];
@@ -63,14 +64,9 @@ export const componentSlice = createSlice({
         state.curComponent!.propValue.h = parseInt(height);
       }
       if (rotate) state.curComponent!.style!.rotate = rotate;
-      for (let index = 0; index < state.componentDataList.length; index++) {
-        const item = state.componentDataList[index];
-        if (item.componentId === state.curComponent?.componentId) {
-          state.componentDataList[index] = state.curComponent!;
-          break;
-        }
-      }
+      updateComponentListValue(state);
     },
+    updatePropsAction: updateProps,
     topComponentAction: (state) => {
       // 图层置顶
       state.componentDataList.push(state.curComponent!);
@@ -104,6 +100,7 @@ export const {
   deleteComponentAction,
   curComponentAction,
   setShapeStyleAction,
+  updatePropsAction,
   isClickComponentAction,
   setComponentDataListAction,
   topComponentAction,
