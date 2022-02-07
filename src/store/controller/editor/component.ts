@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction, Dispatch, createAction } from '@reduxjs/toolkit';
-import { updateComponentListValue, updateProps } from './props';
+import { updateComponentListItem, updateProps } from './props';
 export const getNotIncludedCurComponentHandle = createAction('getNotIncludedCurComponentHandle');
 export interface componentInitialStateType {
   componentDataList: templateDataType[];
@@ -64,7 +64,7 @@ export const componentSlice = createSlice({
         state.curComponent!.propValue.h = parseInt(height);
       }
       if (rotate) state.curComponent!.style!.rotate = rotate;
-      updateComponentListValue(state);
+      updateComponentListItem(state);
     },
     updatePropsAction: updateProps,
     topComponentAction: (state) => {

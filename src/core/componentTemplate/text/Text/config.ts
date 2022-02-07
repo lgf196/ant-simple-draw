@@ -20,5 +20,23 @@ export default {
     letterSpacing: 0,
     color: '',
   },
-  editableEl: [{ key: 'textVal', name: '内容', type: 'TextArea' }],
+  editableEl: [
+    { key: 'textVal', name: '内容', type: 'TextArea' },
+    {
+      title: '样式',
+      type: 'Color',
+      name: '颜色',
+      key: 'color',
+    },
+    {
+      type: 'Background',
+      name: '背景色',
+      key: 'background',
+    },
+    {
+      type: 'Border',
+      name: '边框',
+      key: 'border',
+    },
+  ],
 } as templateDataType;

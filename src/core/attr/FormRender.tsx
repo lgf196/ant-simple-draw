@@ -4,6 +4,7 @@ import { Store } from 'antd/lib/form/interface';
 import AttrContainer from './AttrContainer';
 import BackGround from '@/components/BackGround';
 import ImgComponent from '@/components/ImageComponent';
+import Border from '@/components/Border';
 export interface FormRenderType {
   editType: FormType[];
   onSave: Function;
@@ -92,6 +93,24 @@ const FormRender: FC<FormRenderType> = memo(function FormRender({
                   <AttrContainer border={false} title={item.name}>
                     <Form.Item label={null} name={item.key} style={{ margin: '0' }}>
                       <TextArea autoSize={{ minRows: 2 }} showCount />
+                    </Form.Item>
+                  </AttrContainer>
+                </Col>
+              )}
+              {item.type === 'Color' && (
+                <Col span={colFun(item.col)}>
+                  <AttrContainer title={item.title}>
+                    <Form.Item label={item.name} name={item.key} style={{ margin: '0' }}>
+                      <Input type={'color'} />
+                    </Form.Item>
+                  </AttrContainer>
+                </Col>
+              )}
+              {item.type === 'Border' && (
+                <Col span={colFun(item.col)}>
+                  <AttrContainer title={item.title}>
+                    <Form.Item label={item.name} name={item.key} style={{ margin: '0' }}>
+                      <Border />
                     </Form.Item>
                   </AttrContainer>
                 </Col>

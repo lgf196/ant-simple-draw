@@ -33,6 +33,10 @@ declare global {
      * @description 用来配置栅格布局的,最大24
      */
     col?: number;
+    /**
+     * @description 用来显示额外标题的
+     */
+    title?: string;
     [par: string]: any;
   }
   interface templateDateInterface<T = string, K = any> {

@@ -24,7 +24,7 @@ import {
 import useEdit from '@/core/edit/useEdit';
 import Scaleplate from './ScaleplateComponent';
 import styles from '../index.module.scss';
-import useBackground from '@/components/BackGround/useBackground';
+import useStyle from '@/core/attr/useStyle';
 export interface areaDataType {
   style: MergeCSSProperties;
   components: templateDataType[];
@@ -55,14 +55,13 @@ const Edit = memo(function Edit(props) {
     ),
   );
 
-  const { backgroundStyle } = useBackground(canvasInformation.background);
+  const { resultStyle } = useStyle(canvasInformation);
   /**
    * @description 按键操作
    */
   useHotkeys(
     allKeyValueCode,
     (event, handler) => {
-      console.log(`event`, event);
       editHandle(handler.key as keyCodeType);
     },
     [componentListData, curComponent],
@@ -282,7 +281,7 @@ const Edit = memo(function Edit(props) {
       style={{
         width: canvasInformation.width + 'px',
         height: canvasInformation.height + 'px',
-        ...backgroundStyle,
+        ...resultStyle,
       }}
       className={style.editor}
       onContextMenu={handleContextMenu}
