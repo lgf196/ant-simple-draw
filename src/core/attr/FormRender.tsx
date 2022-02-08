@@ -5,6 +5,7 @@ import AttrContainer from './AttrContainer';
 import BackGround from '@/components/BackGround';
 import ImgComponent from '@/components/ImageComponent';
 import Border from '@/components/Border';
+import FontStyle from '@/components/FontStyle';
 export interface FormRenderType {
   editType: FormType[];
   onSave: Function;
@@ -125,6 +126,15 @@ const FormRender: FC<FormRenderType> = memo(function FormRender({
                       initialValue={100}
                     >
                       <Slider tipFormatter={(val) => val + '%'} />
+                    </Form.Item>
+                  </AttrContainer>
+                </Col>
+              )}
+              {item.type === 'FontStyle' && (
+                <Col span={colFun(item.col)}>
+                  <AttrContainer title={item.title}>
+                    <Form.Item label={null} name={item.key} style={{ margin: '0' }}>
+                      <FontStyle />
                     </Form.Item>
                   </AttrContainer>
                 </Col>

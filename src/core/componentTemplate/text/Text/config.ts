@@ -52,5 +52,10 @@ export default {
       width: '100%',
       border: true,
     },
+    {
+      type: 'FontStyle',
+      name: '样式',
+      key: 'fontStyles',
+    },
   ],
 } as templateDataType;

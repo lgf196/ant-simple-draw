@@ -26,6 +26,16 @@ const useStyle = <T extends Object>(val: T) => {
             case 'fontSize':
               style.fontSize = `${item}px`;
               break;
+            case 'fontStyles': // 组合样式的处理
+              for (const key in item) {
+                if (Object.prototype.hasOwnProperty.call(item, key)) {
+                  const element = item[key];
+                  if (element) {
+                    style[key] = element;
+                  }
+                }
+              }
+              break;
             default:
               style = { ...style };
               break;
