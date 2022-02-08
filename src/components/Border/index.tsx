@@ -45,6 +45,7 @@ export const Border: FC<BorderType> = memo(function Border({ value, onChange }) 
         style={{ width: '100%' }}
         onChange={(val) => handle('w', val)}
         value={border.w}
+        title="宽度"
       />
       <Select
         data={lineList}
@@ -53,7 +54,7 @@ export const Border: FC<BorderType> = memo(function Border({ value, onChange }) 
         onChange={(val) => handle('s', val)}
         value={border.s}
       />
-      <Input type={'color'} onChange={(val) => handle('c', val)} value={border.c} />
+      <Input type={'color'} onChange={(val) => handle('c', val)} value={border.c} title="颜色" />
     </Space>
   );
 });

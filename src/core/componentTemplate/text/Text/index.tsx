@@ -5,7 +5,7 @@ const Index: FC<templateDataType> = memo(function Index(props) {
   const { resultStyle } = useStyle(props.propValue);
   return (
     <div style={{ width: '100%', height: '100%', ...resultStyle }}>
-      <div>{propValue.textVal}</div>
+      <span>{propValue.textVal}</span>
     </div>
   );
 });

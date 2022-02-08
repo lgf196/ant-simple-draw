@@ -9,6 +9,7 @@ export default {
   propValue: {
     ...defaultProps({ w: 200, h: 22 }),
     textVal: '文本',
+    fontSize: 14,
   },
   icon: 'https://cdn.gudsen.com/2021/09/30/af90bac80a9447f18156e251ecbc1dff.png',
   style: {
@@ -21,7 +22,7 @@ export default {
     color: '',
   },
   editableEl: [
-    { key: 'textVal', name: '内容', type: 'TextArea' },
+    { key: 'textVal', name: '内容', type: 'TextArea', title: '内容' },
     {
       title: '样式',
       type: 'Color',
@@ -37,6 +38,19 @@ export default {
       type: 'Border',
       name: '边框',
       key: 'border',
+    },
+    {
+      type: 'Slider',
+      name: '透明度',
+      key: 'opacity',
+    },
+    {
+      type: 'Number',
+      title: '文字选项',
+      name: '字号',
+      key: 'fontSize',
+      width: '100%',
+      border: true,
     },
   ],
 } as templateDataType;

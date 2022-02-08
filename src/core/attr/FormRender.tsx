@@ -1,5 +1,5 @@
 import React, { FC, memo, useEffect } from 'react';
-import { Form, InputNumber, Row, Col, Switch, Input } from 'antd';
+import { Form, InputNumber, Row, Col, Switch, Input, Slider } from 'antd';
 import { Store } from 'antd/lib/form/interface';
 import AttrContainer from './AttrContainer';
 import BackGround from '@/components/BackGround';
@@ -47,16 +47,16 @@ const FormRender: FC<FormRenderType> = memo(function FormRender({
             <React.Fragment key={index}>
               {item.type === 'Number' && (
                 <Col span={colFun(item.col)}>
-                  <AttrContainer border={false}>
+                  <AttrContainer border={item.border || false} title={item.title}>
                     <Form.Item label={item.name} name={item.key} style={{ margin: '0' }}>
-                      <InputNumber size="small" />
+                      <InputNumber style={{ width: item.width }} />
                     </Form.Item>
                   </AttrContainer>
                 </Col>
               )}
               {item.type === 'Background' && (
                 <Col span={colFun(item.col)}>
-                  <AttrContainer>
+                  <AttrContainer title={item.title}>
                     <Form.Item label={item.name} name={item.key} style={{ margin: '0' }}>
                       <BackGround />
                     </Form.Item>
@@ -65,7 +65,7 @@ const FormRender: FC<FormRenderType> = memo(function FormRender({
               )}
               {item.type === 'Switch' && (
                 <Col span={colFun(item.col)}>
-                  <AttrContainer>
+                  <AttrContainer title={item.title}>
                     <Form.Item
                       style={{ margin: '0' }}
                       label={item.name}
@@ -81,7 +81,7 @@ const FormRender: FC<FormRenderType> = memo(function FormRender({
               )}
               {item.type === 'Image' && (
                 <Col span={colFun(item.col)}>
-                  <AttrContainer title={item.name}>
+                  <AttrContainer title={item.title}>
                     <Form.Item label={null} name={item.key} style={{ margin: '0' }}>
                       <ImgComponent />
                     </Form.Item>
@@ -90,7 +90,7 @@ const FormRender: FC<FormRenderType> = memo(function FormRender({
               )}
               {item.type === 'TextArea' && (
                 <Col span={colFun(item.col)}>
-                  <AttrContainer border={false} title={item.name}>
+                  <AttrContainer border={false} title={item.title}>
                     <Form.Item label={null} name={item.key} style={{ margin: '0' }}>
                       <TextArea autoSize={{ minRows: 2 }} showCount />
                     </Form.Item>
@@ -111,6 +111,20 @@ const FormRender: FC<FormRenderType> = memo(function FormRender({
                   <AttrContainer title={item.title}>
                     <Form.Item label={item.name} name={item.key} style={{ margin: '0' }}>
                       <Border />
+                    </Form.Item>
+                  </AttrContainer>
+                </Col>
+              )}
+              {item.type === 'Slider' && (
+                <Col span={colFun(item.col)}>
+                  <AttrContainer title={item.title}>
+                    <Form.Item
+                      label={item.name}
+                      name={item.key}
+                      style={{ margin: '0' }}
+                      initialValue={100}
+                    >
+                      <Slider tipFormatter={(val) => val + '%'} />
                     </Form.Item>
                   </AttrContainer>
                 </Col>

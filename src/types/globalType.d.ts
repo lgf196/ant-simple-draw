@@ -37,6 +37,14 @@ declare global {
      * @description 用来显示额外标题的
      */
     title?: string;
+    /**
+     * @description 用来设置宽度的
+     */
+    width?: string;
+    /**
+     * @description 是否显示边框
+     */
+    border?: boolean;
     [par: string]: any;
   }
   interface templateDateInterface<T = string, K = any> {
