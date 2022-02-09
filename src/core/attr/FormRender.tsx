@@ -6,6 +6,7 @@ import BackGround from '@/components/BackGround';
 import ImgComponent from '@/components/ImageComponent';
 import Border from '@/components/Border';
 import FontStyle from '@/components/FontStyle';
+import Padding from '@/components/Padding';
 export interface FormRenderType {
   editType: FormType[];
   onSave: Function;
@@ -135,6 +136,19 @@ const FormRender: FC<FormRenderType> = memo(function FormRender({
                   <AttrContainer title={item.title}>
                     <Form.Item label={null} name={item.key} style={{ margin: '0' }}>
                       <FontStyle />
+                    </Form.Item>
+                  </AttrContainer>
+                </Col>
+              )}
+              {item.type === 'Padding' && (
+                <Col span={colFun(item.col)}>
+                  <AttrContainer title={item.title}>
+                    <Form.Item
+                      label={item.name}
+                      name={item.key}
+                      style={{ margin: '0', display: 'flex', alignItems: 'center' }}
+                    >
+                      <Padding />
                     </Form.Item>
                   </AttrContainer>
                 </Col>

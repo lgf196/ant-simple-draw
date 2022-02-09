@@ -57,5 +57,10 @@ export default {
       name: '样式',
       key: 'fontStyles',
     },
+    {
+      type: 'Padding',
+      name: '内边距',
+      key: 'padding',
+    },
   ],
 } as templateDataType;

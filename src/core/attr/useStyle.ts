@@ -36,6 +36,27 @@ const useStyle = <T extends Object>(val: T) => {
                 }
               }
               break;
+            case 'padding':
+              for (const key in item) {
+                if (Object.prototype.hasOwnProperty.call(item, key)) {
+                  const element = item[key];
+                  if (element) {
+                    if (key === 't') {
+                      style.paddingTop = element + 'px';
+                    }
+                    if (key === 'r') {
+                      style.paddingRight = element + 'px';
+                    }
+                    if (key === 'b') {
+                      style.paddingBottom = element + 'px';
+                    }
+                    if (key === 'l') {
+                      style.paddingLeft = element + 'px';
+                    }
+                  }
+                }
+              }
+              break;
             default:
               style = { ...style };
               break;
