@@ -35,6 +35,47 @@ export default {
       key: 'background',
     },
     {
+      type: 'FontStyle',
+      name: '样式',
+      title: '文字选项',
+      key: 'fontStyles',
+    },
+    {
+      type: 'Number',
+      name: '字号',
+      key: 'fontSize',
+      col: 12,
+    },
+    {
+      type: 'Number',
+      name: '字缩进',
+      key: 'textIndent',
+      col: 12,
+    },
+    {
+      type: 'Number',
+      name: '字间距',
+      key: 'letterSpacing',
+      col: 12,
+    },
+    {
+      type: 'Number',
+      name: '行高',
+      key: 'lineHeight',
+      col: 12,
+    },
+    {
+      type: 'Padding',
+      name: '内边距',
+      key: 'padding',
+    },
+    {
+      type: 'BorderRadius',
+      name: '圆角',
+      title: '高级样式',
+      key: 'borderRadius',
+    },
+    {
       type: 'Border',
       name: '边框',
       key: 'border',
@@ -43,24 +84,6 @@ export default {
       type: 'Slider',
       name: '透明度',
       key: 'opacity',
-    },
-    {
-      type: 'Number',
-      title: '文字选项',
-      name: '字号',
-      key: 'fontSize',
-      width: '100%',
-      border: true,
-    },
-    {
-      type: 'FontStyle',
-      name: '样式',
-      key: 'fontStyles',
-    },
-    {
-      type: 'Padding',
-      name: '内边距',
-      key: 'padding',
     },
   ],
 } as templateDataType;

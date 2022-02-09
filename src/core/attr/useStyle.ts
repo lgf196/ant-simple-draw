@@ -57,6 +57,36 @@ const useStyle = <T extends Object>(val: T) => {
                 }
               }
               break;
+            case 'letterSpacing':
+              style.letterSpacing = `${item || 0}px`;
+              break;
+            case 'textIndent':
+              style.textIndent = `${item || 0}px`;
+              break;
+            case 'lineHeight':
+              style.lineHeight = item ? `${item}px` : 'normal';
+              break;
+            case 'borderRadius':
+              for (const key in item) {
+                if (Object.prototype.hasOwnProperty.call(item, key)) {
+                  const element = item[key];
+                  if (element) {
+                    if (key === 'lt') {
+                      style.borderTopLeftRadius = element + 'px';
+                    }
+                    if (key === 'lb') {
+                      style.borderBottomLeftRadius = element + 'px';
+                    }
+                    if (key === 'rt') {
+                      style.borderTopRightRadius = element + 'px';
+                    }
+                    if (key === 'rb') {
+                      style.borderBottomRightRadius = element + 'px';
+                    }
+                  }
+                }
+              }
+              break;
             default:
               style = { ...style };
               break;

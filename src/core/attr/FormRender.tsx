@@ -1,5 +1,5 @@
 import React, { FC, memo, useEffect } from 'react';
-import { Form, InputNumber, Row, Col, Switch, Input, Slider } from 'antd';
+import { Form, InputNumber, Row, Col, Switch, Input, Slider, Tooltip } from 'antd';
 import { Store } from 'antd/lib/form/interface';
 import AttrContainer from './AttrContainer';
 import BackGround from '@/components/BackGround';
@@ -7,6 +7,8 @@ import ImgComponent from '@/components/ImageComponent';
 import Border from '@/components/Border';
 import FontStyle from '@/components/FontStyle';
 import Padding from '@/components/Padding';
+import BorderRadius from '@/components/BorderRadius';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 export interface FormRenderType {
   editType: FormType[];
   onSave: Function;
@@ -51,7 +53,7 @@ const FormRender: FC<FormRenderType> = memo(function FormRender({
                 <Col span={colFun(item.col)}>
                   <AttrContainer border={item.border || false} title={item.title}>
                     <Form.Item label={item.name} name={item.key} style={{ margin: '0' }}>
-                      <InputNumber style={{ width: item.width }} />
+                      <InputNumber style={{ width: item.width }} min={0} />
                     </Form.Item>
                   </AttrContainer>
                 </Col>
@@ -149,6 +151,29 @@ const FormRender: FC<FormRenderType> = memo(function FormRender({
                       style={{ margin: '0', display: 'flex', alignItems: 'center' }}
                     >
                       <Padding />
+                    </Form.Item>
+                  </AttrContainer>
+                </Col>
+              )}
+
+              {item.type === 'BorderRadius' && (
+                <Col span={colFun(item.col)}>
+                  <AttrContainer title={item.title}>
+                    <Form.Item
+                      label={
+                        <div>
+                          <span> {item.name}</span>
+                          <Tooltip title="只有在背景，边框等样式下有效果">
+                            <ExclamationCircleOutlined
+                              style={{ color: '#9da3ac', paddingLeft: '3px', fontSize: '17px' }}
+                            />
+                          </Tooltip>
+                        </div>
+                      }
+                      name={item.key}
+                      style={{ margin: '0', display: 'flex', alignItems: 'center' }}
+                    >
+                      <BorderRadius />
                     </Form.Item>
                   </AttrContainer>
                 </Col>
