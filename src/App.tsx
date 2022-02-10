@@ -9,12 +9,10 @@ import {
   addComponent,
   curComponentAction,
   isClickComponentAction,
-  setShapeStyleAction,
 } from '@/store/controller/editor/component';
 import { hideContextMenuAction } from '@/store/controller/editor/contextMenu';
 import { recordSnapshot } from '@/store/controller/editor/snapshot';
 import styles from './layout/layout.module.scss';
-import { Store } from 'antd/lib/form/interface';
 import Edit from '@/core/edit';
 import Attr from './layout/Attr';
 import useEdit from '@/core/edit/useEdit';
@@ -33,8 +31,6 @@ const App: FC = () => {
   const { decompose } = useEdit();
 
   const dispatch = useDispatch();
-
-  const [collapsed, setCollapsed] = useState<boolean>(true);
 
   const [isClickComponent, curComponent] = useSelector(
     createSelector([(state: storeType) => state.component], (component) => {
@@ -77,12 +73,6 @@ const App: FC = () => {
     if (e.button !== 2) {
       dispatch(hideContextMenuAction());
     }
-  };
-  const toggleCollapsed = () => {
-    setCollapsed((pre) => !pre);
-  };
-  const handleFormSave = (val: Store) => {
-    dispatch(setShapeStyleAction({ width: val.w, height: val.h, top: val.y, left: val.x }));
   };
   return (
     <>

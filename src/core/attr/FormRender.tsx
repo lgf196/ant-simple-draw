@@ -48,7 +48,7 @@ const FormRender: FC<FormRenderType> = memo(function FormRender({
       <Row gutter={[30, 0]}>
         {editType.map((item, index) => {
           return (
-            <React.Fragment key={index}>
+            <React.Fragment key={item.key}>
               {item.type === 'Number' && (
                 <Col span={colFun(item.col)}>
                   <AttrContainer border={item.border || false} title={item.title}>

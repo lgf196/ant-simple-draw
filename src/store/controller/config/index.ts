@@ -31,7 +31,7 @@ export interface configInitialStateType {
 const initialState: configInitialStateType = {
   zenMode: false,
   canvasInformation: {
-    width: 1200,
+    width: 700,
     height: 750,
     background: {
       type: 'gradient',
