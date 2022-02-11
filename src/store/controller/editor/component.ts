@@ -70,6 +70,7 @@ export const componentSlice = createSlice({
       if (left) {
         if (left >= 0) {
           if (state.canvasConfigInformation) {
+            // 可移动的最大的距离
             const leftMaxRange = state.canvasConfigInformation.canvasInformation.width - width;
             if (left > leftMaxRange) {
               state.curComponent!.style!.left = leftMaxRange;
