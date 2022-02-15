@@ -8,6 +8,7 @@ import Border from '@/components/Border';
 import FontStyle from '@/components/FontStyle';
 import Padding from '@/components/Padding';
 import BorderRadius from '@/components/BorderRadius';
+import TextShadow from '@/components/TextShadow';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 export interface FormRenderType {
   editType: FormType[];
@@ -170,6 +171,20 @@ const FormRender: FC<FormRenderType> = memo(
                         style={{ margin: '0', display: 'flex', alignItems: 'center' }}
                       >
                         <BorderRadius />
+                      </Form.Item>
+                    </AttrContainer>
+                  </Col>
+                )}
+
+                {item.type === 'TextShadow' && (
+                  <Col span={colFun(item.col)}>
+                    <AttrContainer title={item.title}>
+                      <Form.Item
+                        label={item.name}
+                        name={item.key}
+                        style={{ margin: '0', display: 'flex', alignItems: 'center' }}
+                      >
+                        <TextShadow />
                       </Form.Item>
                     </AttrContainer>
                   </Col>

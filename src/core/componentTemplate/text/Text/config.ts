@@ -85,5 +85,10 @@ export default {
       name: '透明度',
       key: 'opacity',
     },
+    {
+      type: 'TextShadow',
+      name: '投影',
+      key: 'textShadow',
+    },
   ],
 } as templateDataType;

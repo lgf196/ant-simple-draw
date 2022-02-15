@@ -87,6 +87,9 @@ const useStyle = <T extends Object>(val: T) => {
                 }
               }
               break;
+            case 'textShadow':
+              style.textShadow = `${item.h / 10}px ${item.v / 10}px ${item.s / 20}px ${item.c}`;
+              break;
             default:
               style = { ...style };
               break;
