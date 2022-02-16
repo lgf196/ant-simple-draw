@@ -72,16 +72,16 @@ const useStyle = <T extends Object>(val: T) => {
                   const element = item[key];
                   if (element) {
                     if (key === 'lt') {
-                      style.borderTopLeftRadius = element + 'px';
+                      style.borderTopLeftRadius = element + '%';
                     }
                     if (key === 'lb') {
-                      style.borderBottomLeftRadius = element + 'px';
+                      style.borderBottomLeftRadius = element + '%';
                     }
                     if (key === 'rt') {
-                      style.borderTopRightRadius = element + 'px';
+                      style.borderTopRightRadius = element + '%';
                     }
                     if (key === 'rb') {
-                      style.borderBottomRightRadius = element + 'px';
+                      style.borderBottomRightRadius = element + '%';
                     }
                   }
                 }
@@ -89,6 +89,11 @@ const useStyle = <T extends Object>(val: T) => {
               break;
             case 'textShadow':
               style.textShadow = `${item.h / 10}px ${item.v / 10}px ${item.s / 20}px ${item.c}`;
+              break;
+            case 'boxShadow':
+              style.boxShadow = `${item.h / 5}px ${item.v / 5}px ${item.bs / 2}px ${
+                item.ss / 5
+              }px ${item.c}`;
               break;
             default:
               style = { ...style };

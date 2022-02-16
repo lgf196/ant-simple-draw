@@ -5,19 +5,21 @@ import { useSetState } from '@/hooks';
 export interface valueType {
   h: number;
   v: number;
-  s: number;
+  bs: number;
+  ss: number;
   c: undefined | string;
 }
-export interface TextShadowType {
+export interface BoxShadowType {
   value?: valueType;
   onChange?: (val: Partial<valueType>) => void;
 }
 
-const TextShadow: FC<TextShadowType> = memo(({ value, onChange }) => {
+const BoxShadow: FC<BoxShadowType> = memo(({ value, onChange }) => {
   const [val, setVal] = useSetState<valueType>({
     h: 0,
     v: 0,
-    s: 0,
+    bs: 0,
+    ss: 0,
     c: undefined,
   });
   const marks = {
@@ -65,8 +67,17 @@ const TextShadow: FC<TextShadowType> = memo(({ value, onChange }) => {
       />
       <Slider
         tipFormatter={(val) => <span>模糊的距离&nbsp;&nbsp;{val}%</span>}
-        value={val.s}
-        onChange={(val) => triggerChange({ s: val })}
+        value={val.bs}
+        onChange={(val) => triggerChange({ bs: val })}
+        marks={{
+          0: '0',
+          100: '100',
+        }}
+      />
+      <Slider
+        tipFormatter={(val) => <span>阴影的大小&nbsp;&nbsp;{val}%</span>}
+        value={val.ss}
+        onChange={(val) => triggerChange({ ss: val })}
         marks={{
           0: '0',
           100: '100',
@@ -76,4 +87,4 @@ const TextShadow: FC<TextShadowType> = memo(({ value, onChange }) => {
   );
 });
 
-export default TextShadow;
+export default BoxShadow;

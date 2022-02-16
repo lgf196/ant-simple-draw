@@ -9,6 +9,7 @@ import FontStyle from '@/components/FontStyle';
 import Padding from '@/components/Padding';
 import BorderRadius from '@/components/BorderRadius';
 import TextShadow from '@/components/TextShadow';
+import BoxShadow from '@/components/BoxShadow';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 export interface FormRenderType {
   editType: FormType[];
@@ -185,6 +186,29 @@ const FormRender: FC<FormRenderType> = memo(
                         style={{ margin: '0', display: 'flex', alignItems: 'center' }}
                       >
                         <TextShadow />
+                      </Form.Item>
+                    </AttrContainer>
+                  </Col>
+                )}
+
+                {item.type === 'BoxShadow' && (
+                  <Col span={colFun(item.col)}>
+                    <AttrContainer title={item.title}>
+                      <Form.Item
+                        label={
+                          <div>
+                            <span> {item.name}</span>
+                            <Tooltip title="只有在背景下有效果">
+                              <ExclamationCircleOutlined
+                                style={{ color: '#9da3ac', paddingLeft: '3px', fontSize: '17px' }}
+                              />
+                            </Tooltip>
+                          </div>
+                        }
+                        name={item.key}
+                        style={{ margin: '0', display: 'flex', alignItems: 'center' }}
+                      >
+                        <BoxShadow />
                       </Form.Item>
                     </AttrContainer>
                   </Col>

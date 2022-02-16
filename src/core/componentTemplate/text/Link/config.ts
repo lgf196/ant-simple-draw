@@ -1,20 +1,20 @@
 import { defaultProps } from '@/core/config/common';
 
 export default {
-  id: 'textText',
+  id: 'textLink',
   category: 'text',
-  type: 'Text',
-  component: 'Text',
-  label: '文本',
+  type: 'Link',
+  component: 'Link',
+  label: '链接',
   propValue: {
-    ...defaultProps({ w: 200, h: 22 }),
+    ...defaultProps({ w: 100, h: 50 }),
     textVal: '文本',
     fontSize: 14,
   },
   icon: 'https://cdn.gudsen.com/2021/09/30/af90bac80a9447f18156e251ecbc1dff.png',
   style: {
-    width: 200,
-    height: 22,
+    width: 100,
+    height: 50,
   },
   editableEl: [
     { key: 'textVal', name: '内容', type: 'TextArea', title: '内容' },
