@@ -26,10 +26,15 @@ export interface configInitialStateType {
    *  @description 是否开启禅模式
    */
   zenMode: boolean;
+  /**
+   * @description 模式，默认是edit模式
+   */
+  model: 'editor' | 'preview' | 'publish';
 }
 
 const initialState: configInitialStateType = {
   zenMode: false,
+  model: 'editor',
   canvasInformation: {
     width: 700,
     height: 750,
@@ -82,10 +87,13 @@ export const configSlice = createSlice({
       state.zenMode = !state.zenMode;
       message.success(state.zenMode ? '禅模式开启' : '禅模式关闭');
     },
+    setModelAction: (state, action: PayloadAction<configInitialStateType['model']>) => {
+      state.model = action.payload;
+    },
   },
 });
 
-export const { setCanvasInformationAction, zenModeAction } = configSlice.actions;
+export const { setCanvasInformationAction, zenModeAction, setModelAction } = configSlice.actions;
 
 export const saveLocally = () => (dispatch: Dispatch, getState: () => storeType) =>
   Promise.resolve().then(() => {
@@ -94,5 +102,6 @@ export const saveLocally = () => (dispatch: Dispatch, getState: () => storeType)
     }
     sessionStorage.setItem('componentDataList', getState().component.componentDataList);
     sessionStorage.setItem('canvasInformation', getState().config.canvasInformation);
+    sessionStorage.setItem('config', getState().config);
   });
 export default configSlice.reducer;

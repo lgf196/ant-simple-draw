@@ -14,7 +14,7 @@ import useEdit from '@/core/edit/useEdit';
 import { useDispatch, useSelector } from 'react-redux';
 import { createSelector } from 'reselect';
 import { useNavigate, Link } from 'react-router-dom';
-import { saveLocally } from '@/store/controller/config';
+import { saveLocally, setModelAction } from '@/store/controller/config';
 export interface HeadType {
   /**
    * @description 类型，更具不同的类型显示，不同的模块
@@ -36,8 +36,9 @@ const Head: FC<HeadType> = memo(function Head({ type = 'edit' }) {
     if (!componentDataList.length) {
       return;
     }
+    dispatch(setModelAction('preview'));
     dispatch(saveLocally()).then(() => {
-      window.open('/preview');
+      window.open('/preview?a=1');
     });
   };
 
