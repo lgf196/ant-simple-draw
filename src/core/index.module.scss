@@ -184,11 +184,23 @@
     flex: 1;
   }
 }
+.scaleplate {
+  // width: calc(200% - 50px);
+  height: 100%;
+  position: relative;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  :global(.scaleplateNumber) {
+    font-size: 12px;
+    color: #888;
+  }
+}
 .scaleplateTop {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
+  width: calc(100% - 50px);
   height: 50px;
 }
 

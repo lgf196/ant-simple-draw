@@ -285,7 +285,7 @@ const Edit = memo(function Edit(props) {
         <Scaleplate direction="up" id="scaleplateUp" ratio={ratioValue} />
       </div>
       <div className={styles.scaleplateLeft}>
-        <Scaleplate direction="right" id="scaleplateRight" ratio={ratioValue} />
+        <Scaleplate direction="left" id="scaleplateLeft" ratio={ratioValue} />
       </div>
       <Grid />
       {componentListData.length
