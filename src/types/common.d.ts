@@ -29,3 +29,7 @@ interface MergeCSSProperties extends React.CSSProperties {
   left?: any;
   bottom?: any;
 }
+interface optionsItemType {
+  label: string;
+  value: any;
+}

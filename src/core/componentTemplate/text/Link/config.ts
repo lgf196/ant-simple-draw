@@ -18,6 +18,16 @@ export default {
   },
   editableEl: [
     { key: 'textVal', name: '内容', type: 'TextArea', title: '内容' },
+    { key: 'href', name: '跳转地址', type: 'Input' },
+    {
+      key: 'target',
+      name: '打开方式',
+      type: 'Radio',
+      options: [
+        { label: '当前页面打开', value: '_self' },
+        { label: '新标签页打开', value: '_blank' },
+      ],
+    },
     {
       title: '样式',
       type: 'Color',

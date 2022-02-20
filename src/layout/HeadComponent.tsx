@@ -36,9 +36,8 @@ const Head: FC<HeadType> = memo(function Head({ type = 'edit' }) {
     if (!componentDataList.length) {
       return;
     }
-    dispatch(setModelAction('preview'));
     dispatch(saveLocally()).then(() => {
-      window.open('/preview?a=1');
+      window.open('/preview?model=preview');
     });
   };
 

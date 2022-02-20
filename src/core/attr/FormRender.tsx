@@ -1,5 +1,5 @@
 import React, { FC, memo, useEffect } from 'react';
-import { Form, InputNumber, Row, Col, Switch, Input, Slider, Tooltip } from 'antd';
+import { Form, InputNumber, Row, Col, Switch, Input, Slider, Tooltip, Radio } from 'antd';
 import { Store } from 'antd/lib/form/interface';
 import AttrContainer from './AttrContainer';
 import BackGround from '@/components/BackGround';
@@ -86,6 +86,30 @@ const FormRender: FC<FormRenderType> = memo(
                     <AttrContainer title={item.title}>
                       <Form.Item label={null} name={item.key} style={{ margin: '0' }}>
                         <ImgComponent />
+                      </Form.Item>
+                    </AttrContainer>
+                  </Col>
+                )}
+                {item.type === 'Input' && (
+                  <Col span={colFun(item.col)}>
+                    <AttrContainer border={true} title={item.title}>
+                      <Form.Item label={item.name} name={item.key} style={{ margin: '0' }}>
+                        <Input />
+                      </Form.Item>
+                    </AttrContainer>
+                  </Col>
+                )}
+                {item.type === 'Radio' && (
+                  <Col span={colFun(item.col)}>
+                    <AttrContainer border={true} title={item.title}>
+                      <Form.Item label={item.name} name={item.key} style={{ margin: '0' }}>
+                        <Radio.Group>
+                          {item.options!.map((items, index) => (
+                            <Radio value={items.value} key={index}>
+                              {items.label}
+                            </Radio>
+                          ))}
+                        </Radio.Group>
                       </Form.Item>
                     </AttrContainer>
                   </Col>

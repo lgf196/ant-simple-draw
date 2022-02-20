@@ -16,7 +16,7 @@ declare global {
   interface uncertainProps {
     [par: string]: any;
   }
-  interface FormType<T = string> {
+  interface FormType<T = string, K = optionsItemType> {
     /**
      * @description 表单的key值
      */
@@ -45,6 +45,10 @@ declare global {
      * @description 是否显示边框
      */
     border?: boolean;
+    /**
+     * @description 配置形式设置子元素
+     */
+    options?: K[];
     [par: string]: any;
   }
   interface templateDateInterface<T = string, K = any> {
