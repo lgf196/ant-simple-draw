@@ -10,6 +10,7 @@ export default {
     ...defaultProps({ w: 100, h: 50 }),
     textVal: '文本',
     fontSize: 14,
+    target: '_blank',
   },
   icon: 'https://cdn.gudsen.com/2021/09/30/af90bac80a9447f18156e251ecbc1dff.png',
   style: {
