@@ -29,7 +29,7 @@ export interface configInitialStateType {
   /**
    * @description 模式，默认是edit模式
    */
-  model: 'editor' | 'preview' | 'publish';
+  model: 'editor' | 'preview' | 'publish'; // m
 }
 
 const initialState: configInitialStateType = {
