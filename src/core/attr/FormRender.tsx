@@ -10,6 +10,7 @@ import Padding from '@/components/Padding';
 import BorderRadius from '@/components/BorderRadius';
 import TextShadow from '@/components/TextShadow';
 import BoxShadow from '@/components/BoxShadow';
+import WangEditor from '@/components/WangEditor';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 export interface FormRenderType {
   editType: FormType[];
@@ -95,6 +96,15 @@ const FormRender: FC<FormRenderType> = memo(
                     <AttrContainer border={true} title={item.title}>
                       <Form.Item label={item.name} name={item.key} style={{ margin: '0' }}>
                         <Input />
+                      </Form.Item>
+                    </AttrContainer>
+                  </Col>
+                )}
+                {item.type === 'RichText' && (
+                  <Col span={colFun(item.col)}>
+                    <AttrContainer border={true} title={item.title}>
+                      <Form.Item label={item.name} name={item.key} style={{ margin: '0' }}>
+                        <WangEditor />
                       </Form.Item>
                     </AttrContainer>
                   </Col>
