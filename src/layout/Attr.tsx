@@ -13,7 +13,7 @@ import FormRender from '@/core/attr/FormRender';
 import { setShapeStyleAction, updatePropsAction } from '@/store/controller/editor/component';
 import { Store } from 'antd/lib/form/interface';
 import WhXy from '@/core/attr/WhXy';
-import { getRandomStr } from '@/utils';
+import { getCssProperty, getRandomStr } from '@/utils';
 import { setCanvasInformationAction } from '@/store/controller/config';
 const { TabPane } = Tabs;
 const Attr = memo(function Attr(props) {
@@ -68,7 +68,7 @@ const Attr = memo(function Attr(props) {
       <div
         className={styles.editContainer}
         style={{
-          width: collapsed ? '270px' : '0px',
+          width: collapsed ? getCssProperty('--mjy-attr-editor-width') : '0px',
           opacity: collapsed ? 1 : 0,
         }}
       >

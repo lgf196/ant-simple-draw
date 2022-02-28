@@ -67,3 +67,20 @@ export const $ = (selector: string) => {
 export const stringRgba = (rgba: RgbaColor) => {
   return `rgba(${rgba.r},${rgba.g},${rgba.b},${rgba.a})`;
 };
+
+/**
+ * @description 获取全局css变量
+ * @param property css全局变量属性名
+ */
+export const getCssProperty = (property: string) => {
+  return getComputedStyle(document.documentElement).getPropertyValue(property);
+};
+
+/**
+ * @description 修改全局css变量
+ * @param property css全局变量属性名
+ * @param value 要修改的属性值
+ */
+export const setCssProperty = (property: string, value: string) => {
+  return document.documentElement.style.setProperty(property, value);
+};

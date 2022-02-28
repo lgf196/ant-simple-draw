@@ -14,5 +14,12 @@ export default {
     width: 100,
     height: 50,
   },
-  editableEl: [{ key: 'textVal', name: '内容', type: 'RichText' }],
+  editableEl: [
+    { key: 'textVal', name: '内容', type: 'RichText', title: '内容' },
+    {
+      type: 'Padding',
+      name: '内边距',
+      key: 'padding',
+    },
+  ],
 } as templateDataType;

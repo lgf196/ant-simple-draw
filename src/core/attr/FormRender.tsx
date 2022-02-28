@@ -102,8 +102,12 @@ const FormRender: FC<FormRenderType> = memo(
                 )}
                 {item.type === 'RichText' && (
                   <Col span={colFun(item.col)}>
-                    <AttrContainer border={true} title={item.title}>
-                      <Form.Item label={item.name} name={item.key} style={{ margin: '0' }}>
+                    <AttrContainer
+                      border={false}
+                      title={item.title}
+                      containerStyle={{ padding: '0' }}
+                    >
+                      <Form.Item label={null} name={item.key} style={{ margin: '0' }}>
                         <WangEditor />
                       </Form.Item>
                     </AttrContainer>
@@ -126,7 +130,11 @@ const FormRender: FC<FormRenderType> = memo(
                 )}
                 {item.type === 'TextArea' && (
                   <Col span={colFun(item.col)}>
-                    <AttrContainer border={false} title={item.title}>
+                    <AttrContainer
+                      border={false}
+                      title={item.title}
+                      containerStyle={{ padding: '0' }}
+                    >
                       <Form.Item label={null} name={item.key} style={{ margin: '0' }}>
                         <TextArea autoSize={{ minRows: 2 }} showCount />
                       </Form.Item>
