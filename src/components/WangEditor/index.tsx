@@ -12,6 +12,7 @@ const WangEditor = memo((props) => {
       'bold',
       'fontName',
       'italic',
+      'link',
       'underline',
       'strikeThrough',
       'lineHeight',
@@ -25,8 +26,15 @@ const WangEditor = memo((props) => {
       'undo',
       'redo',
     ];
+    editor.config.onchange = changeHandle;
     editor.create();
-  });
+    () => {
+      return editor.destroy();
+    };
+  }, []);
+  const changeHandle = (val: any) => {
+    console.log('val', val);
+  };
   return (
     <div id="richText">
       <p>
