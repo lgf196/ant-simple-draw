@@ -53,7 +53,7 @@ const Attr = memo(function Attr(props) {
       console.log('val', val);
     } else {
       dispatch(updatePropsAction(val));
-      console.log('val', val);
+      console.log('2222val', val);
     }
   };
   return (

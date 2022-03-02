@@ -1,11 +1,14 @@
-import React, { memo, useEffect } from 'react';
+import React, { FC, memo, useEffect, useRef } from 'react';
 import E from 'wangeditor';
-const WangEditor = memo((props) => {
+export interface WangEditorType {
+  value?: string;
+  onChange?: (val: Partial<string>) => void;
+}
+const WangEditor: FC<WangEditorType> = memo(({ value, onChange }) => {
+  const editor = useRef<E>();
   useEffect(() => {
-    const editor = new E('#richText');
-    // 或者 const editor = new E( document.getElementById('div1') )
-    editor.config.menus = [
-      'head',
+    editor.current = new E('#richText');
+    editor.current.config.menus = [
       'foreColor',
       'backColor',
       'fontSize',
@@ -26,22 +29,25 @@ const WangEditor = memo((props) => {
       'undo',
       'redo',
     ];
-    editor.config.onchange = changeHandle;
-    editor.create();
+    editor.current.config.onchange = triggerChange;
+    editor.current.create();
     () => {
-      return editor.destroy();
+      return editor.current && editor.current.destroy();
     };
   }, []);
-  const changeHandle = (val: any) => {
-    console.log('val', val);
+
+  const triggerChange = (changedValue: string) => {
+    onChange && onChange(changedValue);
   };
-  return (
-    <div id="richText">
-      <p>
-        欢迎使用 <b>wangEditor</b> 富文本编辑器
-      </p>
-    </div>
-  );
+
+  useEffect(() => {
+    if (value) {
+      if (editor.current) {
+        editor.current.txt.html(value);
+      }
+    }
+  }, [value]);
+  return <div id="richText"></div>;
 });
 
 export default WangEditor;
