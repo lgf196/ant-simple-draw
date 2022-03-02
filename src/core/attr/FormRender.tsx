@@ -11,6 +11,7 @@ import BorderRadius from '@/components/BorderRadius';
 import TextShadow from '@/components/TextShadow';
 import BoxShadow from '@/components/BoxShadow';
 import WangEditor from '@/components/WangEditor';
+import Selects from '@/components/Select';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 export interface FormRenderType {
   editType: FormType[];
@@ -124,6 +125,15 @@ const FormRender: FC<FormRenderType> = memo(
                             </Radio>
                           ))}
                         </Radio.Group>
+                      </Form.Item>
+                    </AttrContainer>
+                  </Col>
+                )}
+                {item.type === 'Select' && (
+                  <Col span={colFun(item.col)}>
+                    <AttrContainer border={true} title={item.title}>
+                      <Form.Item label={item.name} name={item.key} style={{ margin: '0' }}>
+                        <Selects data={item.options!} valKey={'value'} valName={'label'} />
                       </Form.Item>
                     </AttrContainer>
                   </Col>
