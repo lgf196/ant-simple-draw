@@ -9,12 +9,8 @@ export interface valueType {
   ss: number;
   c: undefined | string;
 }
-export interface BoxShadowType {
-  value?: valueType;
-  onChange?: (val: Partial<valueType>) => void;
-}
 
-const BoxShadow: FC<BoxShadowType> = memo(({ value, onChange }) => {
+const BoxShadow: FC<FormProps<valueType>> = memo(({ value, onChange }) => {
   const [val, setVal] = useSetState<valueType>({
     h: 0,
     v: 0,

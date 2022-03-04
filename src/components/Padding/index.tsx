@@ -6,12 +6,7 @@ export type coordinate = 't' | 'r' | 'b' | 'l';
 
 export type valueType = Record<coordinate, number | undefined>;
 
-export interface PaddingType {
-  value?: valueType;
-  onChange?: (val: Partial<valueType>) => void;
-}
-
-const Padding: FC<PaddingType> = memo(function Padding({ value, onChange }) {
+const Padding: FC<FormProps<valueType>> = memo(function Padding({ value, onChange }) {
   const [position, setPosition] = useSetState<valueType>({
     t: undefined,
     r: undefined,

@@ -5,6 +5,7 @@ const Index: FC<templateDataType> = memo(function Index(props) {
   const { resultStyle } = useStyle(props.propValue);
   return (
     <div
+      id="wangeditorStyle"
       style={{ width: '100%', height: '100%', ...resultStyle }}
       dangerouslySetInnerHTML={{ __html: propValue.richTextValue || '' }}
     ></div>

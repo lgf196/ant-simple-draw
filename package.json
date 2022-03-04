@@ -16,6 +16,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.7.1",
     "@types/react-redux": "^7.1.20",
+    "@wangeditor/editor": "^0.15.11",
     "antd": "^4.18.1",
     "query-string": "^7.1.1",
     "react": "^17.0.0",
@@ -26,8 +27,7 @@
     "react-router-dom": "^6.2.1",
     "react-transition-group": "^4.4.2",
     "redux": "^4.1.2",
-    "reselect": "^4.1.2",
-    "wangeditor": "^4.7.11"
+    "reselect": "^4.1.2"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.14.1",

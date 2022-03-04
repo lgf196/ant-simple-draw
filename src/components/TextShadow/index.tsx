@@ -8,12 +8,8 @@ export interface valueType {
   s: number;
   c: undefined | string;
 }
-export interface TextShadowType {
-  value?: valueType;
-  onChange?: (val: Partial<valueType>) => void;
-}
 
-const TextShadow: FC<TextShadowType> = memo(({ value, onChange }) => {
+const TextShadow: FC<FormProps<valueType>> = memo(({ value, onChange }) => {
   const [val, setVal] = useSetState<valueType>({
     h: 0,
     v: 0,

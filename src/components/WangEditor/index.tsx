@@ -1,53 +1,65 @@
-import React, { FC, memo, useEffect, useRef } from 'react';
-import E from 'wangeditor';
-export interface WangEditorType {
-  value?: string;
-  onChange?: (val: Partial<string>) => void;
-}
-const WangEditor: FC<WangEditorType> = memo(({ value, onChange }) => {
-  const editor = useRef<E>();
-  useEffect(() => {
-    editor.current = new E('#richText');
-    editor.current.config.menus = [
-      'foreColor',
-      'backColor',
-      'fontSize',
-      'bold',
-      'fontName',
-      'italic',
-      'link',
-      'underline',
-      'strikeThrough',
-      'lineHeight',
-      'list',
-      'todo',
-      'justify',
-      'quote',
-      'emoticon',
-      'code',
-      'splitLine',
-      'undo',
-      'redo',
-    ];
-    editor.current.config.onchange = triggerChange;
-    editor.current.create();
-    () => {
-      return editor.current && editor.current.destroy();
-    };
-  }, []);
+import React, { FC, memo, useEffect, useState } from 'react';
+import '@wangeditor/editor/dist/css/style.css';
+import { IEditorConfig, IDomEditor } from '@wangeditor/editor';
+import EditorComponent from './Editor';
+import ToolbarComponent from './Toolbar';
+
+const WangEditor: FC<FormProps<string>> = memo(({ value, onChange }) => {
+  const [editor, setEditor] = useState<IDomEditor | null>(null);
+  const [val, setVal] = useState<string | undefined>(value);
+
+  const toolbarConfig = {
+    excludeKeys: ['group-image', 'insertTable', 'bulletedList', 'numberedList', 'group-video'],
+  };
+
+  const editorConfig: Partial<IEditorConfig> = {};
+  editorConfig.placeholder = '请输入内容...';
+  editorConfig.hoverbarKeys = {
+    text: {
+      menuKeys: ['insertLink', 'bold', 'through', 'clearStyle'],
+    },
+  };
+
+  editorConfig.onCreated = (editor: IDomEditor) => {
+    setEditor(editor);
+  };
+  editorConfig.onChange = (editor: IDomEditor) => {
+    !editor.isEmpty() && triggerChange(editor.getHtml());
+  };
 
   const triggerChange = (changedValue: string) => {
     onChange && onChange(changedValue);
   };
-
   useEffect(() => {
     if (value) {
-      if (editor.current) {
-        editor.current.txt.html(value);
-      }
+      setVal(value);
     }
   }, [value]);
-  return <div id="richText"></div>;
+
+  useEffect(() => {
+    // 组件销毁时，销毁 editor
+    return () => {
+      if (editor === null) return;
+      editor.destroy();
+      setEditor(null);
+    };
+  }, [editor]);
+
+  return (
+    <div style={{ zIndex: 1000 }}>
+      <ToolbarComponent
+        editor={editor}
+        defaultConfig={toolbarConfig}
+        style={{ border: '1px solid #d9d9d9' }}
+      />
+      <EditorComponent
+        defaultConfig={editorConfig}
+        defaultHtml={val}
+        mode="default"
+        style={{ border: '1px solid #d9d9d9', marginTop: '10px' }}
+      />
+    </div>
+  );
 });
 
 export default WangEditor;

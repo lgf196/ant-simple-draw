@@ -11,11 +11,7 @@ export interface valueType {
   s: string;
   c: string;
 }
-export interface BorderType {
-  value?: valueType;
-  onChange?: (val: Partial<valueType>) => void;
-}
-export const Border: FC<BorderType> = memo(function Border({ value, onChange }) {
+export const Border: FC<FormProps<valueType>> = memo(function Border({ value, onChange }) {
   const [border, setBorder] = useSetState<Partial<valueType>>({
     w: undefined,
     s: undefined,

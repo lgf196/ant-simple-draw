@@ -7,7 +7,7 @@ export default {
   label: '富文本',
   propValue: {
     ...defaultProps({ w: 100, h: 50 }),
-    richTextValue: '我是富文本编辑器',
+    richTextValue: '<p>我是富文本编辑器</p>',
   },
   icon: 'https://cdn.gudsen.com/2021/09/30/af90bac80a9447f18156e251ecbc1dff.png',
   style: {

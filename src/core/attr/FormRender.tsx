@@ -25,7 +25,6 @@ const { TextArea } = Input;
 const FormRender: FC<FormRenderType> = memo(
   function FormRender({ editType, onSave, showEditPropsData, id }) {
     const [form] = Form.useForm();
-
     useEffect(() => {
       form.setFieldsValue(showEditPropsData);
       return () => {

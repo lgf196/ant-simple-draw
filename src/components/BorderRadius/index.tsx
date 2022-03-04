@@ -6,12 +6,7 @@ export type coordinate = 'lt' | 'lb' | 'rt' | 'rb';
 
 export type valueType = Record<coordinate, number | undefined>;
 
-export interface BorderRadiusType {
-  value?: valueType;
-  onChange?: (val: Partial<valueType>) => void;
-}
-
-const BorderRadius: FC<BorderRadiusType> = memo(function BorderRadius({ value, onChange }) {
+const BorderRadius: FC<FormProps<valueType>> = memo(function BorderRadius({ value, onChange }) {
   const [positipon, setPosition] = useSetState({
     lt: 0,
     lb: 0,

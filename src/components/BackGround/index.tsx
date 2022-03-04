@@ -15,14 +15,9 @@ export interface BackfgroundValType<T = any> {
   type: module;
   value: T;
 }
-
-export interface parType {
-  value?: BackfgroundValType;
-  onChange?: (val: BackfgroundValType) => void;
-}
 export const defaultColor = { r: 255, g: 255, b: 255, a: 1 };
 
-const BackGround: FC<parType> = memo(function BackGround(props) {
+const BackGround: FC<FormProps<BackfgroundValType>> = memo(function BackGround(props) {
   const { value, onChange } = props;
 
   const [val, setVal] = useSetState<BackfgroundValType>({

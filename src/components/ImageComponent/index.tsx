@@ -3,11 +3,7 @@ import { Image, Button } from 'antd';
 import style from './index.module.scss';
 import ImageGallery from '@/ImageGallery';
 
-export interface ImgType {
-  value?: string;
-  onChange?: (val: string | null) => void;
-}
-const Img: FC<ImgType> = memo(function Img({ value, onChange }) {
+const Img: FC<FormProps<string | null>> = memo(function Img({ value, onChange }) {
   const [visible, setVisible] = useState<boolean>(false);
 
   const [url, setUrl] = useState<string | null>(null);

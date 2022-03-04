@@ -1,8 +1,9 @@
 import 'virtual:svg-icons-register';
 import './assets/scss/reset.css';
-import './assets/scss/update.antd.css';
+import './assets/scss/update.antd.scss';
 import './assets/scss/animate.scss';
 import './assets/scss/global.variable.scss';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';

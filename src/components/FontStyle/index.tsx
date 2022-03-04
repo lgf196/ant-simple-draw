@@ -17,12 +17,7 @@ export type valueType = Pick<
   'fontWeight' | 'fontStyle' | 'textDecoration' | 'textAlign'
 >;
 
-export interface FontStyleType {
-  value?: valueType;
-  onChange?: (val: valueType) => void;
-}
-
-const FontStyle: FC<FontStyleType> = memo(function FontStyle({ value, onChange }) {
+const FontStyle: FC<FormProps<valueType>> = memo(function FontStyle({ value, onChange }) {
   const [val, setVal] = useSetState<valueType>({
     fontWeight: undefined,
     fontStyle: undefined,
