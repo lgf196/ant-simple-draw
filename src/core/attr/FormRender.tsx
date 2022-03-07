@@ -12,6 +12,7 @@ import TextShadow from '@/components/TextShadow';
 import BoxShadow from '@/components/BoxShadow';
 import WangEditor from '@/components/WangEditor';
 import Selects from '@/components/Select';
+import OlUl from '@/components/OlUl';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 export interface FormRenderType {
   editType: FormType[];
@@ -260,6 +261,19 @@ const FormRender: FC<FormRenderType> = memo(
                         style={{ margin: '0', display: 'flex', alignItems: 'center' }}
                       >
                         <BoxShadow />
+                      </Form.Item>
+                    </AttrContainer>
+                  </Col>
+                )}
+                {item.type === 'OlUl' && (
+                  <Col span={colFun(item.col)}>
+                    <AttrContainer title={item.title}>
+                      <Form.Item style={{ margin: '0' }}>
+                        <OlUl
+                          keyName={item.key}
+                          form={form}
+                          showEditPropsData={showEditPropsData}
+                        />
                       </Form.Item>
                     </AttrContainer>
                   </Col>

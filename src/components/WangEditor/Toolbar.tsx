@@ -16,12 +16,13 @@ function ToolbarComponent(props: IProps) {
     if (ref.current === null) return;
     if (editor === null) return;
 
-    wangEditor.createToolbar({
+    const toolbar = wangEditor.createToolbar({
       editor,
       selector: ref.current,
       config: defaultConfig,
       mode,
     });
+    // console.log('first', toolbar.getConfig().toolbarKeys);
   }, [editor]);
 
   return <div style={style} ref={ref}></div>;
