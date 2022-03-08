@@ -81,7 +81,11 @@ const BackGround: FC<FormProps<BackfgroundValType>> = memo(function BackGround(p
                   size="small"
                   icon={<BgColorsOutlined />}
                   onClick={() => [
-                    triggerChange(Object.assign({}, val, { value: null })),
+                    triggerChange(
+                      Object.assign({}, val, {
+                        value: val.type === 'gradient' ? null : defaultColor,
+                      }),
+                    ),
                     setColor(defaultColor),
                   ]}
                 >

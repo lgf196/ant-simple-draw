@@ -9,6 +9,11 @@ export default {
   propValue: {
     ...defaultProps({ w: 100, h: 50 }),
     fontSize: 14,
+    textVal: {
+      attrType: '1',
+      list: [{ text: '今天的天气真好呀' }],
+      type: 'ol',
+    },
   },
   icon: 'https://cdn.gudsen.com/2021/09/30/af90bac80a9447f18156e251ecbc1dff.png',
   style: {

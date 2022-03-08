@@ -38,6 +38,7 @@ const FormRender: FC<FormRenderType> = memo(
     };
 
     const handlechange = () => {
+      console.log('gaibian');
       onFinish(form.getFieldsValue());
     };
 
