@@ -6,7 +6,7 @@
 /**
  * @description 开发端口
  */
-export const VITE_APP_PORT = 3000;
+export const VITE_APP_PORT = 3001;
 /**
  * @description 公共基础路径
  */

@@ -1,0 +1,63 @@
+.ant-tabs-left
+  > .ant-tabs-content-holder
+  > .ant-tabs-content
+  > .ant-tabs-tabpane,
+.ant-tabs-left
+  > div
+  > .ant-tabs-content-holder
+  > .ant-tabs-content
+  > .ant-tabs-tabpane {
+  padding-left: 15px !important;
+}
+.custom-pointers .react-colorful {
+  width: auto !important;
+}
+.custom-pointers .react-colorful__saturation-pointer {
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+}
+.custom-pointers .react-colorful__hue-pointer,
+.custom-pointers .react-colorful__alpha-pointer {
+  width: 16px;
+  border-radius: 3px;
+}
+/* wangeditor编辑器全局样式 */
+#wangeditorStyle {
+  p,
+  li,
+  td,
+  th,
+  blockquote {
+    white-space: pre-wrap; /* 显示空格 */
+  }
+
+  /* 代码块 */
+  pre > code {
+    display: block;
+    border: 1px solid hsl(0, 0%, 91%);
+    border-radius: 4px 4px;
+    text-indent: 0;
+    background-color: #fafafa;
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  /* 引用 */
+  blockquote {
+    display: block;
+    border-left: 8px solid #d0e5f2;
+    padding: 10px 10px;
+    margin: 10px 0;
+    background-color: #f1f1f1;
+  }
+  /* 分割线 */
+  hr {
+    display: block;
+    width: 90%;
+    margin: 20px auto;
+    border: 0;
+    height: 1px;
+    background-color: #ccc;
+  }
+}

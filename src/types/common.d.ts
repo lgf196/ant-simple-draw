@@ -29,3 +29,12 @@ interface MergeCSSProperties extends React.CSSProperties {
   left?: any;
   bottom?: any;
 }
+interface optionsItemType {
+  label: string;
+  value: any;
+}
+
+interface FormProps<T> {
+  value?: T;
+  onChange?: (val: Partial<T>) => void;
+}

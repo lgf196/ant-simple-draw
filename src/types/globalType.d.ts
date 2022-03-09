@@ -16,7 +16,7 @@ declare global {
   interface uncertainProps {
     [par: string]: any;
   }
-  interface FormType<T = string> {
+  interface FormType<T = string, K = optionsItemType> {
     /**
      * @description 表单的key值
      */
@@ -29,6 +29,26 @@ declare global {
      * @description 表单的类型，如，input，select等..
      */
     type: T;
+    /**
+     * @description 用来配置栅格布局的,最大24
+     */
+    col?: number;
+    /**
+     * @description 用来显示额外标题的
+     */
+    title?: string;
+    /**
+     * @description 用来设置宽度的
+     */
+    width?: string;
+    /**
+     * @description 是否显示边框
+     */
+    border?: boolean;
+    /**
+     * @description 配置形式设置子元素
+     */
+    options?: K[];
     [par: string]: any;
   }
   interface templateDateInterface<T = string, K = any> {

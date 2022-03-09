@@ -34,7 +34,7 @@ export const getComponentRotatedStyle = (style: MergeCSSProperties) => {
   style = { ...style };
   if (style.rotate !== 0) {
     const newWidth = style.width * cos(style.rotate) + style.height * sin(style.rotate);
-    const diffX = style.width - newWidth / 2; // 旋转后范围变小是正值，变大是负值
+    const diffX = (style.width - newWidth) / 2; // 旋转后范围变小是正值，变大是负值
     style.left += diffX;
     style.right = style.left + newWidth;
 

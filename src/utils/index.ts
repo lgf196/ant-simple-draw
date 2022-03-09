@@ -2,6 +2,8 @@
  * @description node运行环境
  * @return "dev" | "alpha" | "preprod" | "prod"
  */
+import { CSSProperties } from 'react';
+import { RgbaColor } from 'react-colorful';
 export const environmentVariable = () => {
   const env = import.meta.env.VITE_APP_ANT;
   let parps = null;
@@ -61,4 +63,55 @@ export const getRandomStr = (): string => {
  */
 export const $ = (selector: string) => {
   return document.querySelector<HTMLDivElement>(selector)!;
+};
+
+export const stringRgba = (rgba: RgbaColor) => {
+  return `rgba(${rgba.r},${rgba.g},${rgba.b},${rgba.a})`;
+};
+
+/**
+ * @description 获取全局css变量
+ * @param property css全局变量属性名
+ */
+export const getCssProperty = (property: string) => {
+  return getComputedStyle(document.documentElement).getPropertyValue(property);
+};
+
+/**
+ * @description 修改全局css变量
+ * @param property css全局变量属性名
+ * @param value 要修改的属性值
+ */
+export const setCssProperty = (property: string, value: string) => {
+  return document.documentElement.style.setProperty(property, value);
+};
+
+/**
+ * @description 动态创建dom
+ * @param tagName 创建的标签
+ * @param tagValue 创建的标签的文本值
+ * @param insertNode 创建标签插入的节点位置
+ */
+export interface createElementProps {
+  tagName: string;
+  tagValue: string;
+  style?: CSSProperties;
+  className?: string;
+  class?: string;
+}
+export const createElements = (createNode: createElementProps, insertNode: string) => {
+  const { tagName, tagValue, style, className } = createNode;
+  const createEle = document.createElement(tagName);
+  const createEleTextNode = document.createTextNode(tagValue);
+  if (style) {
+    for (const key in style) {
+      if (Object.prototype.hasOwnProperty.call(style, key)) {
+        const item = style[key as keyof typeof style];
+        (createEle.style as dynamicTyping)[key] = item;
+      }
+    }
+  }
+  className && createEle.setAttribute('className', className);
+  createEle.appendChild(createEleTextNode);
+  $(insertNode).appendChild(createEle);
 };

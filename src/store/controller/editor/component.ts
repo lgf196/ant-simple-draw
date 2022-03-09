@@ -1,10 +1,13 @@
 import { createSlice, PayloadAction, Dispatch, createAction } from '@reduxjs/toolkit';
+import { configInitialStateType } from '../config';
+import { updateComponentListItem, updateProps } from './props';
 export const getNotIncludedCurComponentHandle = createAction('getNotIncludedCurComponentHandle');
 export interface componentInitialStateType {
   componentDataList: templateDataType[];
   curComponent: templateDataType | null;
   isClickComponent: boolean;
   curComponentIndex: number;
+  canvasConfigInformation?: configInitialStateType;
 }
 
 const initialState: componentInitialStateType = {
@@ -12,6 +15,7 @@ const initialState: componentInitialStateType = {
   curComponent: null,
   isClickComponent: false,
   curComponentIndex: 0,
+  canvasConfigInformation: undefined,
 };
 
 export const componentSlice = createSlice({
@@ -44,15 +48,42 @@ export const componentSlice = createSlice({
     isClickComponentAction: (state, action: PayloadAction<boolean>) => {
       state.isClickComponent = action.payload;
     },
-    setShapeStyleAction: (state, action: PayloadAction<MergeCSSProperties>) => {
+    setShapeStyle: (state, action: PayloadAction<MergeCSSProperties>) => {
       const { width, height, top, left, rotate } = action.payload;
       if (top) {
-        state.curComponent!.style!.top = parseInt(top);
-        state.curComponent!.propValue.y = parseInt(top);
+        if (top >= 0) {
+          if (state.canvasConfigInformation) {
+            const topMaxRange = state.canvasConfigInformation.canvasInformation.height - height;
+            if (top > topMaxRange) {
+              state.curComponent!.style!.top = topMaxRange;
+              state.curComponent!.propValue.y = topMaxRange;
+            } else {
+              state.curComponent!.style!.top = parseInt(top);
+              state.curComponent!.propValue.y = parseInt(top);
+            }
+          }
+        } else {
+          state.curComponent!.style!.top = 0;
+          state.curComponent!.propValue.y = 0;
+        }
       }
       if (left) {
-        state.curComponent!.style!.left = parseInt(left);
-        state.curComponent!.propValue.x = parseInt(left);
+        if (left >= 0) {
+          if (state.canvasConfigInformation) {
+            // 可移动的最大的距离
+            const leftMaxRange = state.canvasConfigInformation.canvasInformation.width - width;
+            if (left > leftMaxRange) {
+              state.curComponent!.style!.left = leftMaxRange;
+              state.curComponent!.propValue.x = leftMaxRange;
+            } else {
+              state.curComponent!.style!.left = parseInt(left);
+              state.curComponent!.propValue.x = parseInt(left);
+            }
+          }
+        } else {
+          state.curComponent!.style!.left = 0;
+          state.curComponent!.propValue.x = 0;
+        }
       }
       if (width) {
         state.curComponent!.style!.width = parseInt(width);
@@ -63,13 +94,14 @@ export const componentSlice = createSlice({
         state.curComponent!.propValue.h = parseInt(height);
       }
       if (rotate) state.curComponent!.style!.rotate = rotate;
-      for (let index = 0; index < state.componentDataList.length; index++) {
-        const item = state.componentDataList[index];
-        if (item.componentId === state.curComponent?.componentId) {
-          state.componentDataList[index] = state.curComponent!;
-          break;
-        }
-      }
+      updateComponentListItem(state);
+    },
+    updatePropsAction: updateProps,
+    getCanvasConfigInformationAction: (state, action: PayloadAction<configInitialStateType>) => {
+      /**
+       * @description 用来获取画布配置信息的
+       */
+      state.canvasConfigInformation = action.payload;
     },
     topComponentAction: (state) => {
       // 图层置顶
@@ -103,12 +135,14 @@ export const {
   addComponent,
   deleteComponentAction,
   curComponentAction,
-  setShapeStyleAction,
+  setShapeStyle,
+  updatePropsAction,
   isClickComponentAction,
   setComponentDataListAction,
   topComponentAction,
   bottomComponentAction,
   upDownHandle,
+  getCanvasConfigInformationAction,
 } = componentSlice.actions;
 
 export const upComponentAction = () => (dispatch: Dispatch, getState: () => storeType) => {
@@ -135,4 +169,11 @@ export const downComponentAction = () => (dispatch: Dispatch, getState: () => st
     );
   }
 };
+
+export const setShapeStyleAction =
+  (val: MergeCSSProperties) => (dispatch: Dispatch, getState: () => storeType) => {
+    dispatch(setShapeStyle(val));
+    dispatch(getCanvasConfigInformationAction(getState().config));
+  };
+
 export default componentSlice.reducer;

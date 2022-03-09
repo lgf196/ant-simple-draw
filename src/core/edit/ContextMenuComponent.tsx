@@ -30,15 +30,16 @@ const ContextMenu = memo(function ContextMenu(props) {
 
   const { editHandle } = useEdit();
 
-  const [curComponent, left, top, menuShow, componentDataList, copyData] = useSelector(
+  const [curComponent, left, top, menuShow, componentDataList, copyData, zenMode] = useSelector(
     createSelector(
       [
         (state: storeType) => state.component,
         (state: storeType) => state.contextMenu,
         (state: storeType) => state.copys,
+        (state: storeType) => state.config,
       ],
-      ({ componentDataList, curComponent }, { left, top, menuShow }, { copyData }) =>
-        [curComponent, left, top, menuShow, componentDataList, copyData] as const,
+      ({ componentDataList, curComponent }, { left, top, menuShow }, { copyData }, { zenMode }) =>
+        [curComponent, left, top, menuShow, componentDataList, copyData, zenMode] as const,
     ),
   );
   const renderList = useMemo(() => {
@@ -69,30 +70,36 @@ const ContextMenu = memo(function ContextMenu(props) {
         isClick,
       },
       {
+        title: `禅模式${zenMode ? '(关闭)' : '(开启)'}`,
+        keyText: 'Alt+Z',
+        icon: <DeleteOutlined />,
+        isClick: true,
+      },
+      {
         title: '图层层级',
-        keyText: 'Delete',
+        keyText: 'Combination' as any,
         icon: <SvgIcon iconClass="layer" />,
         isClick,
         childrenIcon: <CaretRightOutlined />,
         children: [
           {
             title: '移到顶层',
-            keyText: 'Ctrl+Shift+↑',
+            keyText: 'Ctrl+Shift+Up',
             isClick,
           },
           {
             title: '上移一层',
-            keyText: 'Ctrl+↑',
+            keyText: 'Ctrl+Up',
             isClick,
           },
           {
             title: '下移一层',
-            keyText: 'Ctrl+↓',
+            keyText: 'Ctrl+Down',
             isClick,
           },
           {
             title: '移到底层',
-            keyText: 'Ctrl+Shift+↓',
+            keyText: 'Ctrl+Shift+Down',
             isClick,
           },
         ],
@@ -106,7 +113,7 @@ const ContextMenu = memo(function ContextMenu(props) {
     ];
 
     return contextMenuList;
-  }, [componentDataList, curComponent, copyData]);
+  }, [componentDataList, curComponent, copyData, zenMode]);
 
   const menu = (e: React.MouseEvent, item: contextMenuListType) => {
     const { keyText, isClick } = item;
@@ -120,11 +127,11 @@ const ContextMenu = memo(function ContextMenu(props) {
   };
 
   const ContextMenuItem = (data: contextMenuListType[]) => {
-    return data.map((item, index) => {
+    return data.map((item) => {
       return (
         <li
           onClick={(e) => menu(e, item)}
-          key={index}
+          key={item.keyText}
           style={{
             borderTop: item.keyText === 'Shift+A' ? '1px solid #0000000f' : 'none',
             cursor: item.isClick === true ? 'pointer' : 'not-allowed',

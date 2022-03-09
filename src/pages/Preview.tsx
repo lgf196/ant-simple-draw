@@ -37,7 +37,7 @@ const Preview = memo(function Preview(props) {
             ? componentListData.map((item, index) => (
                 <RenderTemplate
                   {...item}
-                  key={index}
+                  key={item.componentId}
                   style={{ position: 'absolute', ...getStyle(item.style) }}
                   propValue={item.propValue!}
                 />

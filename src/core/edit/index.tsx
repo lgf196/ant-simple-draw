@@ -24,6 +24,7 @@ import {
 import useEdit from '@/core/edit/useEdit';
 import Scaleplate from './ScaleplateComponent';
 import styles from '../index.module.scss';
+import useStyle from '@/core/attr/useStyle';
 export interface areaDataType {
   style: MergeCSSProperties;
   components: templateDataType[];
@@ -42,7 +43,7 @@ const Edit = memo(function Edit(props) {
 
   const [isShowArea, setIsShowArea] = useState<boolean>(false);
 
-  const [ratioValue, setRatioValue] = useState(1)
+  const [ratioValue, setRatioValue] = useState(1);
 
   const dispatch = useDispatch();
 
@@ -53,13 +54,14 @@ const Edit = memo(function Edit(props) {
         [component.componentDataList, component.curComponent, config.canvasInformation] as const,
     ),
   );
+
+  const { resultStyle } = useStyle(canvasInformation);
   /**
    * @description 按键操作
    */
   useHotkeys(
     allKeyValueCode,
     (event, handler) => {
-      console.log(`event`, event);
       editHandle(handler.key as keyCodeType);
     },
     [componentListData, curComponent],
@@ -276,7 +278,11 @@ const Edit = memo(function Edit(props) {
   return (
     <div
       id="editor"
-      style={{ width: canvasInformation.width + 'px', height: canvasInformation.height + 'px' }}
+      style={{
+        width: canvasInformation.width + 'px',
+        height: canvasInformation.height + 'px',
+        ...resultStyle,
+      }}
       className={style.editor}
       onContextMenu={handleContextMenu}
       onMouseDown={handleMouseDown}
@@ -287,11 +293,12 @@ const Edit = memo(function Edit(props) {
       <div className={styles.scaleplateLeft}>
         <Scaleplate direction="left" id="scaleplateLeft" ratio={ratioValue} />
       </div>
-      <Grid />
+      {canvasInformation.gridlines ? <Grid /> : null}
+
       {componentListData.length
-        ? componentListData.map((item, index) => (
+        ? componentListData.map((item) => (
             <Shape
-              key={index}
+              key={item.componentId}
               style={getShapeStyle(item.style!)}
               element={item}
               defaultStyle={item.style!}
@@ -304,7 +311,6 @@ const Edit = memo(function Edit(props) {
             </Shape>
           ))
         : null}
-
       <ContextMenu />
       <MarkLine />
       {isShowArea && <AreaComponent {...areawh.current} {...areaPosition.current} />}

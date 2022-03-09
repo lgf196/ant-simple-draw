@@ -14,6 +14,7 @@ import {
 } from '@/store/controller/editor/component';
 import decomposeComponent from '@/utils/decomposeComponent';
 import { $ } from '@/utils';
+import { zenModeAction } from '@/store/controller/config';
 const useEdit = () => {
   const [curComponent, componentDataList] = useSelector(
     createSelector(
@@ -64,10 +65,15 @@ const useEdit = () => {
 
   const downLayerHandle = () => dispatch(downComponentAction());
 
-  const editHandle = (key: keyCodeType, otherParameters?: { isContextMenuMouse: boolean }) => {
+  const zenModeActionHandle = () => dispatch(zenModeAction());
+
+  const editHandle = (key: keyCodeType, otherParameters?: { isContextMenuMouse?: boolean }) => {
     let isContextMenuMouse = false;
+
     if (otherParameters) {
-      isContextMenuMouse = otherParameters.isContextMenuMouse;
+      isContextMenuMouse = otherParameters.isContextMenuMouse
+        ? otherParameters.isContextMenuMouse
+        : false;
     }
     switch (key) {
       case 'Ctrl+X':
@@ -91,17 +97,20 @@ const useEdit = () => {
       case 'Shift+A':
         deleteHandle('clearAll');
         break;
-      case 'Ctrl+Shift+↑':
+      case 'Ctrl+Shift+Up':
         layerTopHandle();
         break;
-      case 'Ctrl+↑':
+      case 'Ctrl+Up':
         upLayerHandle();
         break;
-      case 'Ctrl+↓':
+      case 'Ctrl+Down':
         downLayerHandle();
         break;
-      case 'Ctrl+Shift+↓':
+      case 'Ctrl+Shift+Down':
         bottomLayerHandle();
+        break;
+      case 'Alt+Z':
+        zenModeActionHandle();
         break;
       default:
         break;
