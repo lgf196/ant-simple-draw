@@ -60,7 +60,7 @@ const OlUl: FC<{ keyName: string; form: FormInstance<Store>; showEditPropsData: 
                   <Form.Item {...restField} name={[name, 'text']} style={{ marginBottom: '16px' }}>
                     <Input />
                   </Form.Item>
-                  <MinusCircleOutlined onClick={() => remove(name)} />
+                  <MinusCircleOutlined onClick={() => remove(name)} title="移除" />
                 </Space>
               ))}
               <Form.Item style={{ marginBottom: '16px' }}>

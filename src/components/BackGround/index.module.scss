@@ -25,6 +25,7 @@
   background: #fff;
   padding: 10px;
   .gradient {
+    list-style: none;
     @include flexContainer(space-between);
     li {
       cursor: pointer;

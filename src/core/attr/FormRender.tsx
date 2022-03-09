@@ -13,6 +13,7 @@ import BoxShadow from '@/components/BoxShadow';
 import WangEditor from '@/components/WangEditor';
 import Selects from '@/components/Select';
 import OlUl from '@/components/OlUl';
+import TaskList from '@/components/TaskList';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 export interface FormRenderType {
   editType: FormType[];
@@ -38,7 +39,6 @@ const FormRender: FC<FormRenderType> = memo(
     };
 
     const handlechange = () => {
-      console.log('gaibian');
       onFinish(form.getFieldsValue());
     };
 
@@ -275,6 +275,15 @@ const FormRender: FC<FormRenderType> = memo(
                           form={form}
                           showEditPropsData={showEditPropsData}
                         />
+                      </Form.Item>
+                    </AttrContainer>
+                  </Col>
+                )}
+                {item.type === 'TaskList' && (
+                  <Col span={colFun(item.col)}>
+                    <AttrContainer title={item.title}>
+                      <Form.Item style={{ margin: '0' }}>
+                        <TaskList keyName={item.key} />
                       </Form.Item>
                     </AttrContainer>
                   </Col>
