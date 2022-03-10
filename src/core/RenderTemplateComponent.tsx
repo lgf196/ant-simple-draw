@@ -10,7 +10,9 @@ export type RenderTemplateType = {
 
 const DynamicFunc = (category: string, type: string) => {
   let Component: FC<templateDataType>;
+
   Component = lazyComponent(category, type);
+
   return (props: templateDataType) => (
     <Suspense fallback={<Spin />}>
       <div
