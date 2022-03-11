@@ -5,7 +5,10 @@ export interface datasetType {
     id: string;
   };
 }
-const DragTarget: FC<{ list: templateDataType[] }> = memo(function DragTarget({ list }) {
+const DragTarget: FC<{ list: templateDataType[]; category: string }> = memo(function DragTarget({
+  list,
+  category,
+}) {
   const handleDragStart: React.DragEventHandler<HTMLDivElement> = (e) => {
     e.dataTransfer.setData('id', (e.target as unknown as datasetType).dataset.id);
   };

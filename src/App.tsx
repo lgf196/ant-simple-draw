@@ -16,7 +16,7 @@ import styles from './layout/layout.module.scss';
 import Edit from '@/core/edit';
 import Attr from './layout/Attr';
 import useEdit from '@/core/edit/useEdit';
-import { getAllConfigListType, useGetCopentConfigList } from './core/componentTemplate/config';
+import { getAllConfigListType, useGetCompentConfigList } from './core/componentTemplate/config';
 export interface oneModuleAllType {
   isShow: boolean;
   componentInfo: Partial<getAllConfigListType>;
@@ -26,7 +26,7 @@ export interface EditType {
 }
 
 const App: FC = () => {
-  const { allModuleConfigList } = useGetCopentConfigList();
+  const { allModuleConfigList } = useGetCompentConfigList();
 
   const { decompose } = useEdit();
 

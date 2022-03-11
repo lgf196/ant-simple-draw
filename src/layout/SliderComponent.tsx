@@ -13,7 +13,7 @@ import styles from './layout.module.scss';
 import Drag from '@/core/DragTargetComponent';
 import { useSetState } from '@/hooks';
 import { RightOutlined, LeftOutlined } from '@ant-design/icons';
-import { getAllConfigListType, useGetCopentConfigList } from '@/core/componentTemplate/config';
+import { getAllConfigListType, useGetCompentConfigList } from '@/core/componentTemplate/config';
 import { createSelector } from 'reselect';
 export interface oneModuleAllType {
   isShow: boolean;
@@ -31,7 +31,8 @@ const Slider = memo(function Slider() {
     createSelector([(state: storeType) => state.config], ({ zenMode }) => [zenMode] as const),
   );
 
-  const { baseConfigList, getAllBaseModuleConfigList, textConfigList } = useGetCopentConfigList();
+  const { baseConfigList, getAllBaseModuleConfigList, textConfigList, pictureConfigList } =
+    useGetCompentConfigList();
 
   const [isShowLeftComponents, setIsShowLeftComponents] = useState<boolean>(true);
 
@@ -60,6 +61,11 @@ const Slider = memo(function Slider() {
         category: 'text',
         title: '文本',
         componentList: textConfigList,
+      },
+      {
+        category: 'picture',
+        title: '图片',
+        componentList: pictureConfigList,
       },
       {
         category: 'base',
@@ -108,7 +114,7 @@ const Slider = memo(function Slider() {
                               <RightOutlined />
                             </button>
                           </div>
-                          <Drag list={child.componentList} />
+                          <Drag list={child.componentList} category={item.category} />
                         </>
                       </React.Fragment>
                     ))}
@@ -128,10 +134,23 @@ const Slider = memo(function Slider() {
                         <LeftOutlined />
                         <span>{oneModuleAll.componentInfo.title}</span>
                       </button>
-                      <Drag list={oneModuleAll.componentInfo.componentList!} />
+                      <Drag
+                        list={oneModuleAll.componentInfo.componentList!}
+                        category={item.category}
+                      />
                     </div>
                   </div>
                 </>
+              ) : null}
+              {item.category === 'picture' ? (
+                <div
+                  className={styles.contentContainer}
+                  style={{
+                    visibility: isShowLeftComponents ? 'visible' : 'hidden',
+                  }}
+                >
+                  <Drag list={item.componentList as templateDataType[]} category={item.category} />
+                </div>
               ) : null}
               {item.category === 'text' ? (
                 <div
@@ -140,7 +159,7 @@ const Slider = memo(function Slider() {
                     visibility: isShowLeftComponents ? 'visible' : 'hidden',
                   }}
                 >
-                  <Drag list={item.componentList as templateDataType[]} />
+                  <Drag list={item.componentList as templateDataType[]} category={item.category} />
                 </div>
               ) : null}
             </div>

@@ -8,9 +8,11 @@ export interface getAllConfigListType {
   title: string;
   componentList: templateDataType[];
 }
-export const useGetCopentConfigList = () => {
+export const useGetCompentConfigList = () => {
   const [baseConfigList, setBaseConfigList] = useState<templateDataType[]>([]);
   const [textConfigList, setTextConfigList] = useState<templateDataType[]>([]);
+  const [pictureConfigList, setPictureConfigList] = useState<templateDataType[]>([]);
+
   useEffect(() => {
     /**
      * @description base模块
@@ -25,14 +27,24 @@ export const useGetCopentConfigList = () => {
      * @description text模块
      */
     const getTextModuleConfigData = async () => {
-      const lists = await componentConfigList(
+      const list = await componentConfigList(
         import.meta.glob('../componentTemplate/text/*/config.ts'),
       );
-      console.log(`lists`, lists);
-      setTextConfigList(lists);
+      setTextConfigList(list);
     };
+    /**
+     * @description picture模块
+     */
+    const getPictureModuleConfigData = async () => {
+      const lists = await componentConfigList(
+        import.meta.glob('../componentTemplate/picture/*/config.ts'),
+      );
+      setPictureConfigList(lists);
+    };
+    // --------------调用--------
     getBaseModuleConfigData();
     getTextModuleConfigData();
+    getPictureModuleConfigData();
   }, []);
   /**
    * @description 二级base模块，多个
@@ -85,8 +97,14 @@ export const useGetCopentConfigList = () => {
    * @description 得到所有的组件的配置文件值
    */
   const allModuleConfigList = useMemo(
-    () => [...textConfigList, ...baseConfigList],
-    [textConfigList, baseConfigList],
+    () => [...textConfigList, ...baseConfigList, ...pictureConfigList],
+    [textConfigList, baseConfigList, pictureConfigList],
   );
-  return { baseConfigList, getAllBaseModuleConfigList, textConfigList, allModuleConfigList };
+  return {
+    baseConfigList,
+    getAllBaseModuleConfigList,
+    textConfigList,
+    allModuleConfigList,
+    pictureConfigList,
+  };
 };
