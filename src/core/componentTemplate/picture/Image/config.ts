@@ -1,4 +1,4 @@
-import { defaultProps } from '@/core/config/common';
+import { commonAttr, defaultProps, commonStyle } from '@/core/config/common';
 export default {
   id: 'pictureImage',
   category: 'picture',
@@ -16,3 +16,35 @@ export default {
   },
   editableEl: [],
 } as templateDataType;
+
+/**
+ *@param key 唯一值
+ * @param url 图片地址
+ * @param props 图片控件的属性
+ */
+export const ImageConfig = (
+  key: string,
+  url: string,
+  props: Partial<mustExistProps & uncertainProps>,
+): templateDataType => {
+  const { w, h } = props;
+  return {
+    ...commonAttr,
+    id: 'pictureImage' + key,
+    category: 'picture',
+    type: 'Image',
+    component: 'Image',
+    label: '图片',
+    propValue: {
+      ...defaultProps(),
+      ...props,
+    },
+    icon: url,
+    style: {
+      ...commonStyle,
+      width: w,
+      height: h,
+    },
+    editableEl: [],
+  };
+};

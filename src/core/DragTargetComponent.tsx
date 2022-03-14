@@ -12,6 +12,7 @@ const DragTarget: FC<{ list: templateDataType[]; category: string }> = memo(func
   const handleDragStart: React.DragEventHandler<HTMLDivElement> = (e) => {
     e.dataTransfer.setData('id', (e.target as unknown as datasetType).dataset.id);
   };
+  console.log('list', list);
   return (
     <div className={style.tabContent} onDragStart={handleDragStart}>
       {list &&

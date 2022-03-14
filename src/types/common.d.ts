@@ -21,9 +21,9 @@ interface whType<T = number> {
 }
 interface MergeCSSProperties extends React.CSSProperties {
   // 重置CSSProperties接口以下属性
-  rotate?: any;
   width?: any;
   height?: any;
+  rotate?: any;
   top?: any;
   right?: any;
   left?: any;
