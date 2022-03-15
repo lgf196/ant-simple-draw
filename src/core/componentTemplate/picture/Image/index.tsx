@@ -9,7 +9,7 @@ const Index: FC<templateDataType> = memo(function Index(props) {
         src={props.icon}
         alt=""
         // pointerEvents: 'none' 阻止默认行为
-        style={{ width: '100%', height: '100%', pointerEvents: 'none' }}
+        style={{ width: '100%', height: '100%', pointerEvents: 'none', ...resultStyle }}
         onClick={(e) => e.preventDefault()}
       />
     </div>

@@ -45,6 +45,23 @@ export const ImageConfig = (
       width: w,
       height: h,
     },
-    editableEl: [],
+    editableEl: [
+      {
+        type: 'BorderRadius',
+        name: '圆角',
+        title: '高级样式',
+        key: 'borderRadius',
+      },
+      {
+        type: 'BoxShadow',
+        name: '阴影',
+        key: 'boxShadow',
+      },
+      {
+        type: 'Slider',
+        name: '透明度',
+        key: 'opacity',
+      },
+    ],
   };
 };
