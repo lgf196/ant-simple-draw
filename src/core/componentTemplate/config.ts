@@ -47,6 +47,16 @@ export const useGetCompentConfigList = () => {
       'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.jj20.com%2Fup%2Fallimg%2F1113%2F032120114622%2F200321114622-4-1200.jpg&refer=http%3A%2F%2Fimg.jj20.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1649841337&t=5dca3cfcfad8e855aaf7571bd3c999db',
       { w: 150, h: 150 },
     ),
+    ImageConfig(
+      '8',
+      'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwww.sj520.cn%2Fsc%2Fima%2F1%2Fb_rw_10635.jpg&refer=http%3A%2F%2Fwww.sj520.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1650011795&t=432b0895c6d6beebb54eda708e19840e',
+      { w: 150, h: 150 },
+    ),
+    ImageConfig(
+      '9',
+      'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Finews.gtimg.com%2Fnewsapp_match%2F0%2F11602223822%2F0.jpg&refer=http%3A%2F%2Finews.gtimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1650011795&t=a2065445355c89faf6165c5cc0728440',
+      { w: 150, h: 150 },
+    ),
   ]);
 
   useEffect(() => {
