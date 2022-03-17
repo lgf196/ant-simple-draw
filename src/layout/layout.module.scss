@@ -75,12 +75,12 @@
       }
     }
     .contentContainer {
-      width: 220px;
+      // width: 220px;
       height: calc(100vh - 140px);
       overflow-y: scroll;
       overflow-x: hidden;
       @include scroll(8px, 8px);
-      padding: 0 15px 0 0;
+      padding: 0 2px 0 0;
     }
     .moreList {
       button {

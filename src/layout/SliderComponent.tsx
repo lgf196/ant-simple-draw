@@ -12,9 +12,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import styles from './layout.module.scss';
 import Drag from '@/core/DragTargetComponent';
 import { useSetState } from '@/hooks';
-import { RightOutlined, LeftOutlined } from '@ant-design/icons';
-import { getAllConfigListType, useGetCompentConfigList } from '@/core/componentTemplate/config';
+import { useGetCompentConfigList } from '@/core/componentTemplate/config';
 import { createSelector } from 'reselect';
+import SecondaryList from './SecondaryList';
 export interface oneModuleAllType {
   isShow: boolean;
   componentInfo: Partial<getAllConfigListType>;
@@ -22,17 +22,13 @@ export interface oneModuleAllType {
 const Slider = memo(function Slider() {
   const dispatch = useDispatch();
 
-  const [oneModuleAll, setOneModuleAll] = useSetState<oneModuleAllType>({
-    isShow: false,
-    componentInfo: {},
-  });
+  const [tabKey, setTabKey] = useState<string>('1');
 
   const [zenMode] = useSelector(
     createSelector([(state: storeType) => state.config], ({ zenMode }) => [zenMode] as const),
   );
 
-  const { baseConfigList, getAllBaseModuleConfigList, textConfigList, pictureConfigList } =
-    useGetCompentConfigList();
+  const { getAllBaseModuleConfigList, textConfigList, pictureGather } = useGetCompentConfigList();
 
   const [isShowLeftComponents, setIsShowLeftComponents] = useState<boolean>(true);
 
@@ -65,7 +61,7 @@ const Slider = memo(function Slider() {
       {
         category: 'picture',
         title: '图片',
-        componentList: pictureConfigList,
+        componentList: pictureGather,
       },
       {
         category: 'base',
@@ -82,7 +78,7 @@ const Slider = memo(function Slider() {
           <div
             className={styles.leftMoveAnimate}
             style={{
-              width: isShowLeftComponents ? '220px' : '0px',
+              width: isShowLeftComponents ? '300px' : '0px',
               opacity: isShowLeftComponents ? '1' : '0',
             }}
           >
@@ -90,67 +86,11 @@ const Slider = memo(function Slider() {
               <div className={styles.search}>
                 <Input placeholder="请选择" prefix={<SearchOutlined />} allowClear />
               </div>
-              {item.category === 'base' ? (
-                <>
-                  <div
-                    className={styles.contentContainer}
-                    style={{
-                      display: !oneModuleAll.isShow ? 'block' : 'none',
-                      visibility: isShowLeftComponents ? 'visible' : 'hidden',
-                    }}
-                  >
-                    {item.componentList.map((child, k) => (
-                      <React.Fragment key={k}>
-                        <>
-                          <div className={styles.head}>
-                            <h2 className={styles.title}>{child.title}</h2>
-                            <button
-                              className={styles.more}
-                              onClick={() =>
-                                setOneModuleAll({ isShow: true, componentInfo: child })
-                              }
-                            >
-                              <span>全部</span>
-                              <RightOutlined />
-                            </button>
-                          </div>
-                          <Drag list={child.componentList} category={item.category} />
-                        </>
-                      </React.Fragment>
-                    ))}
-                  </div>
-                  <div
-                    className={styles.contentContainer}
-                    style={{
-                      display: oneModuleAll.isShow ? 'block' : 'none',
-                      visibility: isShowLeftComponents ? 'visible' : 'hidden',
-                    }}
-                  >
-                    <div className={styles.moreList}>
-                      <button
-                        className={styles.more}
-                        onClick={() => setOneModuleAll({ isShow: false })}
-                      >
-                        <LeftOutlined />
-                        <span>{oneModuleAll.componentInfo.title}</span>
-                      </button>
-                      <Drag
-                        list={oneModuleAll.componentInfo.componentList!}
-                        category={item.category}
-                      />
-                    </div>
-                  </div>
-                </>
-              ) : null}
-              {item.category === 'picture' ? (
-                <div
-                  className={styles.contentContainer}
-                  style={{
-                    visibility: isShowLeftComponents ? 'visible' : 'hidden',
-                  }}
-                >
-                  <Drag list={item.componentList as templateDataType[]} category={item.category} />
-                </div>
+              {['picture', 'base'].includes(item.category) ? (
+                <SecondaryList
+                  data={item.componentList as getAllConfigListType[]}
+                  fatherData={item as getAllConfigListType}
+                />
               ) : null}
               {item.category === 'text' ? (
                 <div
@@ -167,11 +107,15 @@ const Slider = memo(function Slider() {
         </TabPane>
       </React.Fragment>
     ));
-  }, [getAllBaseModuleConfigList, textConfigList, isShowLeftComponents, oneModuleAll]);
+  }, [getAllBaseModuleConfigList, textConfigList, pictureGather, isShowLeftComponents]);
 
   return (
     <>
-      <Tabs tabPosition="left" tabBarExtraContent={tabBarExtraContent}>
+      <Tabs
+        tabPosition="left"
+        tabBarExtraContent={tabBarExtraContent}
+        onChange={(val) => setTabKey(val)}
+      >
         {Render}
       </Tabs>
     </>

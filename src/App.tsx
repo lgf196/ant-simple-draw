@@ -16,7 +16,7 @@ import styles from './layout/layout.module.scss';
 import Edit from '@/core/edit';
 import Attr from './layout/Attr';
 import useEdit from '@/core/edit/useEdit';
-import { getAllConfigListType, useGetCompentConfigList } from './core/componentTemplate/config';
+import { useGetCompentConfigList } from './core/componentTemplate/config';
 export interface oneModuleAllType {
   isShow: boolean;
   componentInfo: Partial<getAllConfigListType>;

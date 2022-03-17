@@ -38,3 +38,8 @@ interface FormProps<T> {
   value?: T;
   onChange?: (val: Partial<T>) => void;
 }
+interface getAllConfigListType {
+  category: string;
+  title: string;
+  componentList: templateDataType[];
+}

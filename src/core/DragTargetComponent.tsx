@@ -1,3 +1,4 @@
+import { Divider } from 'antd';
 import React, { memo, FC } from 'react';
 import style from './index.module.scss';
 export interface datasetType {
@@ -12,17 +13,30 @@ const DragTarget: FC<{ list: templateDataType[]; category: string }> = memo(func
   const handleDragStart: React.DragEventHandler<HTMLDivElement> = (e) => {
     e.dataTransfer.setData('id', (e.target as unknown as datasetType).dataset.id);
   };
-  console.log('list', list);
+  console.log('category', category);
   return (
-    <div className={style.tabContent} onDragStart={handleDragStart}>
-      {list &&
-        list.map((item, index) => (
-          <div className={style.list} key={index} data-id={item.id} draggable>
-            <img src={item.icon} alt={item.label} data-id={item.id} />
-            <p data-id={item.id}>{item.label}</p>
-          </div>
-        ))}
-    </div>
+    <>
+      {['picture'].includes(category) ? (
+        <div className={style.secondaryList} onDragStart={handleDragStart}>
+          {list &&
+            list.map((item, index) => (
+              <div className={style.list} key={index} data-id={item.id} draggable>
+                <img src={item.icon} alt={item.label} data-id={item.id} />
+              </div>
+            ))}
+        </div>
+      ) : (
+        <div className={style.tabContent} onDragStart={handleDragStart}>
+          {list &&
+            list.map((item, index) => (
+              <div className={style.list} key={index} data-id={item.id} draggable>
+                <img src={item.icon} alt={item.label} data-id={item.id} />
+                <p data-id={item.id}>{item.label}</p>
+              </div>
+            ))}
+        </div>
+      )}
+    </>
   );
 });
 
