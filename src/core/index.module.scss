@@ -27,8 +27,8 @@
   }
 }
 .secondaryList {
-  column-count: 2; //多列的列数
-  column-gap: 0.5em; //列间距
+ column-count: 2; //多列的列数
+ column-gap: 0.5em; //列间距
   .list {
     break-inside: avoid;
     position: relative;

@@ -15,6 +15,7 @@ import { useSetState } from '@/hooks';
 import { useGetCompentConfigList } from '@/core/componentTemplate/config';
 import { createSelector } from 'reselect';
 import SecondaryList from './SecondaryList';
+
 export interface oneModuleAllType {
   isShow: boolean;
   componentInfo: Partial<getAllConfigListType>;
@@ -87,10 +88,12 @@ const Slider = memo(function Slider() {
                 <Input placeholder="请选择" prefix={<SearchOutlined />} allowClear />
               </div>
               {['picture', 'base'].includes(item.category) ? (
-                <SecondaryList
-                  data={item.componentList as getAllConfigListType[]}
-                  fatherData={item as getAllConfigListType}
-                />
+                <>
+                  <SecondaryList
+                    data={item.componentList as getAllConfigListType[]}
+                    fatherData={item as getAllConfigListType}
+                  />
+                </>
               ) : null}
               {item.category === 'text' ? (
                 <div

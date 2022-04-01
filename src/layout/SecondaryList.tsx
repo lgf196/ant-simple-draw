@@ -1,8 +1,9 @@
-import React, { FC, memo } from 'react';
+import React, { FC, memo, useEffect } from 'react';
 import styles from './layout.module.scss';
 import { useSetState } from '@/hooks';
 import Drag from '@/core/DragTargetComponent';
 import { RightOutlined, LeftOutlined } from '@ant-design/icons';
+
 export interface oneModuleAllType {
   isShow: boolean;
   componentInfo: Partial<getAllConfigListType>;

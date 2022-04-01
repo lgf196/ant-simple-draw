@@ -1,6 +1,7 @@
 import { Divider } from 'antd';
-import React, { memo, FC } from 'react';
+import React, { memo, FC, useEffect } from 'react';
 import style from './index.module.scss';
+
 export interface datasetType {
   dataset: {
     id: string;
@@ -13,14 +14,14 @@ const DragTarget: FC<{ list: templateDataType[]; category: string }> = memo(func
   const handleDragStart: React.DragEventHandler<HTMLDivElement> = (e) => {
     e.dataTransfer.setData('id', (e.target as unknown as datasetType).dataset.id);
   };
-  console.log('category', category);
+
   return (
     <>
       {['picture'].includes(category) ? (
-        <div className={style.secondaryList} onDragStart={handleDragStart}>
+        <div className={`${style.secondaryList} img-container`} onDragStart={handleDragStart}>
           {list &&
             list.map((item, index) => (
-              <div className={style.list} key={index} data-id={item.id} draggable>
+              <div className={style.list} key={item.id} data-id={item.id} draggable>
                 <img src={item.icon} alt={item.label} data-id={item.id} />
               </div>
             ))}
