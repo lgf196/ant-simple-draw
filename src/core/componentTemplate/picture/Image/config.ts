@@ -47,6 +47,16 @@ export const ImageConfig = (
     },
     editableEl: [
       {
+        type: 'Switch',
+        name: '水平翻转',
+        key: 'horizontalFlip',
+      },
+      {
+        type: 'Switch',
+        name: '垂直翻转',
+        key: 'flipVertically',
+      },
+      {
         type: 'BorderRadius',
         name: '圆角',
         title: '高级样式',
