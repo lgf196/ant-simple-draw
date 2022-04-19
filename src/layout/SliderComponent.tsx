@@ -29,7 +29,8 @@ const Slider = memo(function Slider() {
     createSelector([(state: storeType) => state.config], ({ zenMode }) => [zenMode] as const),
   );
 
-  const { getAllBaseModuleConfigList, textConfigList, pictureGather } = useGetCompentConfigList();
+  const { getAllBaseModuleConfigList, textConfigList, pictureGather, graphicsData } =
+    useGetCompentConfigList();
 
   const [isShowLeftComponents, setIsShowLeftComponents] = useState<boolean>(true);
 
@@ -65,6 +66,11 @@ const Slider = memo(function Slider() {
         componentList: pictureGather,
       },
       {
+        category: 'graphics',
+        title: '图形',
+        componentList: graphicsData,
+      },
+      {
         category: 'base',
         title: '基础',
         componentList: getAllBaseModuleConfigList,
@@ -87,7 +93,7 @@ const Slider = memo(function Slider() {
               <div className={styles.search}>
                 <Input placeholder="请选择" prefix={<SearchOutlined />} allowClear />
               </div>
-              {['picture', 'base'].includes(item.category) ? (
+              {['picture', 'base', 'graphics'].includes(item.category) ? (
                 <>
                   <SecondaryList
                     data={item.componentList as getAllConfigListType[]}
@@ -110,7 +116,13 @@ const Slider = memo(function Slider() {
         </TabPane>
       </React.Fragment>
     ));
-  }, [getAllBaseModuleConfigList, textConfigList, pictureGather, isShowLeftComponents]);
+  }, [
+    getAllBaseModuleConfigList,
+    textConfigList,
+    pictureGather,
+    graphicsData,
+    isShowLeftComponents,
+  ]);
 
   return (
     <>
