@@ -110,6 +110,10 @@ declare global {
      * @description 是否锁定组件
      */
     isLock?: boolean;
+    /**
+     * @description svg的相关信息
+     */
+    svg?: null | svgInfoType;
     [par: string]: any;
   }
   /**

@@ -43,3 +43,7 @@ interface getAllConfigListType {
   title: string;
   componentList: templateDataType[];
 }
+interface svgInfoType<T = string> {
+  category: T;
+  name: T;
+}
