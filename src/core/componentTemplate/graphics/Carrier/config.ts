@@ -22,6 +22,8 @@ export const graphicsConfigItem = (
     label: name,
     propValue: {
       ...defaultProps(),
+      fontSize: 13,
+      position: 'center',
       ...props,
     },
     icon: 'https://cdn.gudsen.com/2021/09/30/af90bac80a9447f18156e251ecbc1dff.png',
@@ -31,6 +33,46 @@ export const graphicsConfigItem = (
       width: w,
       height: h,
     },
-    editableEl: [],
+    editableEl: [
+      {
+        title: '图形',
+        type: 'Color',
+        name: '填充色',
+        key: 'fillColor',
+      },
+      {
+        title: '文本',
+        type: 'Input',
+        name: '内容',
+        key: 'text',
+      },
+      {
+        key: 'position',
+        name: '位置',
+        type: 'Radio',
+        options: [
+          { label: '上', value: 'top' },
+          { label: '居中', value: 'center' },
+          { label: '下', value: 'bottom' },
+        ],
+      },
+      {
+        type: 'Color',
+        name: '颜色',
+        key: 'color',
+      },
+      {
+        type: 'Number',
+        name: '字号',
+        key: 'fontSize',
+        col: 12,
+      },
+      {
+        type: 'Number',
+        name: '字间距',
+        key: 'letterSpacing',
+        col: 12,
+      },
+    ],
   };
 };

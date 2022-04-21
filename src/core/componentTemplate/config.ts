@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo } from 'react';
 import { componentConfigList } from '../config/common';
 import pictureGather, { workplace, medical } from '@/assets/data/picture';
-import graphicsData, { universal } from '@/assets/data/graphics';
+import graphicsData, { universal, arrow } from '@/assets/data/graphics';
 /**
  * @description 自动获取componentTemplate文件下的config文件，且取出值
  */
@@ -83,8 +83,8 @@ export const useGetCompentConfigList = () => {
    * @description 得到所有的组件的配置文件值
    */
   const allModuleConfigList = useMemo(
-    () => [...textConfigList, ...baseConfigList, ...workplace, ...medical, ...universal],
-    [textConfigList, baseConfigList, workplace, medical, universal],
+    () => [...textConfigList, ...baseConfigList, ...workplace, ...medical, ...universal, ...arrow],
+    [textConfigList, baseConfigList, workplace, medical, universal, arrow],
   );
   return {
     baseConfigList,

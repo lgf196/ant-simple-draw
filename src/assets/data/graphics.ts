@@ -147,12 +147,103 @@ export const universal = [
     },
     { w: 70, h: 70 },
   ),
+  graphicsConfigItem(
+    'universal_up-arrow',
+    '箭头',
+    {
+      category: 'universal',
+      name: 'up-arrow',
+    },
+    { w: 70, h: 70 },
+  ),
 ];
 
+/**
+ * @description 箭头图形
+ */
+export const arrow = [
+  graphicsConfigItem(
+    'arrow_down',
+    '下箭头',
+    {
+      category: 'arrow',
+      name: 'down',
+    },
+    { w: 70, h: 70 },
+  ),
+  graphicsConfigItem(
+    'arrow_Ld',
+    '左下箭头',
+    {
+      category: 'arrow',
+      name: 'Ld',
+    },
+    { w: 70, h: 70 },
+  ),
+  graphicsConfigItem(
+    'arrow_Left',
+    '左箭头',
+    {
+      category: 'arrow',
+      name: 'Left',
+    },
+    { w: 70, h: 70 },
+  ),
+  graphicsConfigItem(
+    'arrow_Lu',
+    '左上箭头',
+    {
+      category: 'arrow',
+      name: 'Lu',
+    },
+    { w: 70, h: 70 },
+  ),
+  graphicsConfigItem(
+    'arrow_Right',
+    '右箭头',
+    {
+      category: 'arrow',
+      name: 'Right',
+    },
+    { w: 70, h: 70 },
+  ),
+  graphicsConfigItem(
+    'arrow_Rd',
+    '右下箭头',
+    {
+      category: 'arrow',
+      name: 'Rd',
+    },
+    { w: 70, h: 70 },
+  ),
+  graphicsConfigItem(
+    'arrow_Ru',
+    '右上箭头',
+    {
+      category: 'arrow',
+      name: 'Ru',
+    },
+    { w: 70, h: 70 },
+  ),
+  graphicsConfigItem(
+    'arrow_Up',
+    '上箭头',
+    {
+      category: 'arrow',
+      name: 'Up',
+    },
+    { w: 70, h: 70 },
+  ),
+];
 export default [
   {
     category: 'graphics',
-    title: '通用图形',
+    title: '通用',
     componentList: universal,
+  },
+  {
+    category: 'graphics',
+    title: '箭头',
+    componentList: arrow,
   },
 ];
