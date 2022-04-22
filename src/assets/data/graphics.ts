@@ -10,7 +10,7 @@ export const universal = [
       category: 'universal',
       name: 'square',
     },
-    { w: 70, h: 70 },
+    { w: 65, h: 65 },
   ),
   graphicsConfigItem(
     'universal_diamond',
@@ -169,7 +169,7 @@ export const arrow = [
       category: 'arrow',
       name: 'down',
     },
-    { w: 70, h: 70 },
+    { w: 60, h: 60 },
   ),
   graphicsConfigItem(
     'arrow_Ld',
@@ -178,7 +178,7 @@ export const arrow = [
       category: 'arrow',
       name: 'Ld',
     },
-    { w: 70, h: 70 },
+    { w: 60, h: 60 },
   ),
   graphicsConfigItem(
     'arrow_Left',
@@ -187,7 +187,7 @@ export const arrow = [
       category: 'arrow',
       name: 'Left',
     },
-    { w: 70, h: 70 },
+    { w: 60, h: 60 },
   ),
   graphicsConfigItem(
     'arrow_Lu',
@@ -196,7 +196,7 @@ export const arrow = [
       category: 'arrow',
       name: 'Lu',
     },
-    { w: 70, h: 70 },
+    { w: 60, h: 60 },
   ),
   graphicsConfigItem(
     'arrow_Right',
@@ -205,7 +205,7 @@ export const arrow = [
       category: 'arrow',
       name: 'Right',
     },
-    { w: 70, h: 70 },
+    { w: 60, h: 60 },
   ),
   graphicsConfigItem(
     'arrow_Rd',
@@ -214,7 +214,7 @@ export const arrow = [
       category: 'arrow',
       name: 'Rd',
     },
-    { w: 70, h: 70 },
+    { w: 60, h: 60 },
   ),
   graphicsConfigItem(
     'arrow_Ru',
@@ -223,7 +223,7 @@ export const arrow = [
       category: 'arrow',
       name: 'Ru',
     },
-    { w: 70, h: 70 },
+    { w: 60, h: 60 },
   ),
   graphicsConfigItem(
     'arrow_Up',
@@ -232,7 +232,16 @@ export const arrow = [
       category: 'arrow',
       name: 'Up',
     },
-    { w: 70, h: 70 },
+    { w: 60, h: 60 },
+  ),
+  graphicsConfigItem(
+    'arrow-merge2',
+    '合并箭头2',
+    {
+      category: 'arrow',
+      name: 'merge2',
+    },
+    { w: 60, h: 60 },
   ),
 ];
 export default [
